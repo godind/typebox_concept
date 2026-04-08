@@ -1,40 +1,65 @@
-import { Type, type Static, type TSchema } from '@sinclair/typebox'
-import type { Context, Path, SourceRef, Timestamp } from './types.js'
+import { Type, type TSchema } from '@sinclair/typebox'
+
+// Construct basic TypeBox schemas
+export const NormalizedBaseDeltaSchema = Type.Object({
+    context: Type.String(),
+    $source: Type.String(),
+    source: Type.Optional(Type.Unknown()),
+    path: Type.String(),
+    timestamp: Type.Optional(Type.String())
+})
 
 export const PositionSchema = Type.Object({
-    latitude: Type.Number(),
-    longitude: Type.Number(),
-    altitude: Type.Optional(Type.Number())
+    latitude: Type.Number({
+        minimum: -90,
+        maximum: 90
+    }),
+    longitude: Type.Number({
+        minimum: -180,
+        maximum: 180
+    }),
+    altitude: Type.Optional(Type.Number({
+        minimum: -11000,
+        maximum: 100000
+    }))
+}, {
+    additionalProperties: false
 })
-export const NormalizedBaseDeltaSchema = Type.Object({
-    context: Type.Unsafe<Context>(Type.String()),
-    $source: Type.Unsafe<SourceRef>(Type.String()),
-    source: Type.Optional(Type.Unknown()),
-    path: Type.Unsafe<Path>(Type.String()),
-    timestamp: Type.Optional(Type.Unsafe<Timestamp>(Type.String()))
-})
-export type NormalizedBaseDelta = Static<typeof NormalizedBaseDeltaSchema>
-export const NumericDeltaValueSchema = Type.Intersect([
-    NormalizedBaseDeltaSchema,
-    Type.Object({
-        value: Type.Union([Type.Number(), Type.Null()])
-    })
-])
-export type NumericDeltaValue = Static<typeof NumericDeltaValueSchema>
-export const PositionDeltaValueSchema = Type.Intersect([
-    NormalizedBaseDeltaSchema,
-    Type.Object({
-        value: Type.Union([PositionSchema, Type.Null()])
-    })
-])
 
-export type Position = Static<typeof PositionDeltaValueSchema>
-export const KnownSchemaRegistry = {
-    NumericDeltaValue: NumericDeltaValueSchema,
-    Position: PositionDeltaValueSchema
+// Single source of truth for known delta-value schemas.
+// Add new known schemas here and the registry/type-map update automatically.
+const DeclaredKnownDeltaValueSchemas = {
+    Numeric: Type.Intersect([
+        NormalizedBaseDeltaSchema,
+        Type.Object({
+            value: Type.Union([Type.Number(), Type.Null()])
+        })
+    ]),
+    Position: Type.Intersect([
+        NormalizedBaseDeltaSchema,
+        Type.Object({
+            value: Type.Union([PositionSchema, Type.Null()])
+        })
+    ])
 } as const satisfies Record<string, TSchema>
+
+// Keep explicit exports for readability and direct imports at call sites.
+export const NumericDeltaValueSchema = DeclaredKnownDeltaValueSchemas.Numeric
+export const PositionDeltaValueSchema = DeclaredKnownDeltaValueSchemas.Position
+
+// Export TS types directly from TypeBox schemas for
+// zero-drift safety in parser/router
+export type NormalizedBaseDelta = typeof NormalizedBaseDeltaSchema.static
+export type Numeric = typeof NumericDeltaValueSchema.static
+export type Position = typeof PositionDeltaValueSchema.static
+
+// Registry is derived from the declared schema source so we cannot forget to sync it.
+export const KnownSchemaRegistry = DeclaredKnownDeltaValueSchemas
+
 export type KnownSchemaName = keyof typeof KnownSchemaRegistry
+
+// Auto-derive schema-name -> static type from the registry so adding a new
+// known schema updates parser/router typing without extra manual mapping.
 export type KnownSchemaTypeMap = {
-    NumericDeltaValue: NumericDeltaValue
-    Position: Position
+    [K in KnownSchemaName]: (typeof KnownSchemaRegistry)[K]['static']
 }

@@ -1,3 +1,5 @@
+// Lightweight transport-layer guards
+// Intentionally kept out of TypeBox for concept clarity
 export type Context = string
 export type Path = string
 export type SourceRef = string

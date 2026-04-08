@@ -1,18 +1,11 @@
-import { Value } from '@sinclair/typebox/value'
-
+import { asSkMetaArray, asSkUpdateArray, asSkValueArray, isObject, type SkDelta } from './types.js'
+import type { KnownSchemaValidators } from './validators.js'
 import {
   KnownSchemaRegistry,
   type KnownSchemaName,
   type KnownSchemaTypeMap,
   type NormalizedBaseDelta
 } from './schemas.js'
-import {
-  asSkMetaArray,
-  asSkUpdateArray,
-  asSkValueArray,
-  isObject,
-  type SkDelta
-} from './types.js'
 
 export type ValidationStatus = 'validated' | 'accepted-unvalidated'
 
@@ -54,13 +47,13 @@ export class MetaTypeMap {
     if (raw in KnownSchemaRegistry) return raw as KnownSchemaName
     return undefined
   }
-
-  getMetaType(path: string): string | undefined {
-    return this.pathToMetaType.get(path)
-  }
 }
 
-export function toAcceptedDeltaValues(delta: SkDelta, map: MetaTypeMap): AcceptedDeltaValue[] {
+export function toAcceptedDeltaValues(
+  delta: SkDelta,
+  map: MetaTypeMap,
+  validators: KnownSchemaValidators
+): AcceptedDeltaValue[] {
   const accepted: AcceptedDeltaValue[] = []
   const context = typeof delta.context === 'string' ? delta.context : 'vessels.self'
 
@@ -89,9 +82,9 @@ export function toAcceptedDeltaValues(delta: SkDelta, map: MetaTypeMap): Accepte
         continue
       }
 
-      const schema = KnownSchemaRegistry[schemaName]
+      const validator = validators[schemaName]
       const candidate = { ...base, value: valueEntry.value }
-      if (Value.Check(schema, candidate)) {
+      if (validator.Check(candidate)) {
         accepted.push({
           ...candidate,
           schemaName,
