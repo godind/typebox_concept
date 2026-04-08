@@ -3,7 +3,7 @@
 Signal K TypeBox validation library with an internal smoke-test client for manual runtime verification.
 
 ## Project layout
-- `src/lib/`: publishable library modules (schemas, parser, validators, router, types)
+- `src/lib/`: publishable library modules (schemas, parser, validators, types)
 - `smoke-test-client/`: internal runnable client harness (not published)
 - `test/`: library test scaffolding only (no test files authored yet)
 

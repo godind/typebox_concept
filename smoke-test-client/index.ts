@@ -1,7 +1,7 @@
 import WebSocket from 'ws'
 
 import { MetaTypeMap, toAcceptedDeltaValues } from '../src/lib/parser.js'
-import { TypesafeSkRouter } from '../src/lib/router.js'
+import { TypesafeSkRouter } from './router.js'
 import { isObject, type SkDelta } from '../src/lib/types.js'
 import { createKnownSchemaValidators } from '../src/lib/validators.js'
 
