@@ -1,3 +1,8 @@
+/**
+ * Purpose: Define Signal K TypeBox runtime schemas and derive static TS types.
+ * Guidance: Add new validated delta shapes here first, then rely on the
+ * registry/type-map auto-derivation for parser and validator wiring.
+ */
 import { Type, type TSchema } from 'typebox'
 
 // Construct basic TypeBox schemas

@@ -1,3 +1,9 @@
+/**
+ * Purpose: Convert Signal K deltas into accepted values with optional
+ * schema-based validation, driven by meta.type path mappings.
+ * Guidance: Preserve fail-open behavior for unknown schema names and keep path
+ * as the canonical schema key across contexts unless product rules change.
+ */
 import { asSkMetaArray, asSkUpdateArray, asSkValueArray, isObject, type SkDelta } from './types.js'
 import type { KnownSchemaValidators } from './validators.js'
 import {

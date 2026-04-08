@@ -1,4 +1,10 @@
-import type { AcceptedDeltaValue } from './parser.js'
+/**
+ * Purpose: Dispatch accepted delta values to path-based callbacks for the
+ * smoke-test client runtime.
+ * Guidance: Keep routing concerns in smoke-test-client unless a stable,
+ * reusable routing API is intentionally promoted into src/lib.
+ */
+import type { AcceptedDeltaValue } from '../src/lib/parser.js'
 
 type AnyCallback = (value: AcceptedDeltaValue) => void
 

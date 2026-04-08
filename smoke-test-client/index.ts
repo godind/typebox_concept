@@ -1,9 +1,13 @@
+/**
+ * Purpose: Manual smoke-test harness that exercises the published library
+ * against a live Signal K websocket stream.
+ * Guidance: Keep this runtime-specific; avoid moving app wiring concerns into
+ * src/lib so the package remains library-first.
+ */
 import WebSocket from 'ws'
-
-import { MetaTypeMap, toAcceptedDeltaValues } from '../src/lib/parser.js'
 import { TypesafeSkRouter } from './router.js'
-import { isObject, type SkDelta } from '../src/lib/types.js'
-import { createKnownSchemaValidators } from '../src/lib/validators.js'
+import { isObject, parseDelta } from './transport.js'
+import { MetaTypeMap, toAcceptedDeltaValues, createKnownSchemaValidators } from '../src/lib/index.js'
 
 const WS_URL = 'ws://localhost:3000/signalk/v1/stream?subscribe=none&sendMeta=all'
 const TARGET_PATHS = ['navigation.position', 'environment.wind.speedOverGround'] as const
@@ -23,17 +27,6 @@ function sendSubscriptions(ws: WebSocket): void {
             subscribe: TARGET_PATHS.map((path) => ({ path }))
         })
     )
-}
-
-function parseDelta(raw: WebSocket.RawData): SkDelta | null {
-    const text = raw.toString('utf8')
-    try {
-        const parsed = JSON.parse(text) as unknown
-        return isObject(parsed) ? (parsed as SkDelta) : null
-    } catch (error) {
-        console.error('[json-error] unable to parse message', error)
-        return null
-    }
 }
 
 const metaTypeMap = new MetaTypeMap()

@@ -1,3 +1,8 @@
+/**
+ * Purpose: Compile and expose runtime validators for all known schemas.
+ * Guidance: Keep compilation centralized and one-time so callers reuse
+ * compiled validators instead of recompiling in hot paths.
+ */
 import { Compile } from 'typebox/schema'
 import { KnownSchemaRegistry, type KnownSchemaName } from './schemas.js'
 

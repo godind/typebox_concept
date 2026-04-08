@@ -1,5 +1,8 @@
-// Lightweight transport-layer guards
-// Intentionally kept out of TypeBox for concept clarity
+/**
+ * Purpose: Provide lightweight transport-layer types and narrowing helpers.
+ * Guidance: Keep this file tolerant of partial or malformed inbound payloads;
+ * strict contract validation belongs in TypeBox schemas.
+ */
 export type Context = string
 export type Path = string
 export type SourceRef = string
