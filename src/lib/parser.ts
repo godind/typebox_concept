@@ -99,11 +99,32 @@ function process(
 }
 
 export type ParserRuntime = {
+  /**
+   * Update internal path -> schema-type mappings from meta.type entries in a delta.
+   * Call this when you want explicit control over indexing and validation order.
+   */
   indexSchemaTypes: (delta: SkDelta) => void
+
+  /**
+   * Validate values shape and content against the current schema index
+   * without indexing new metadata meta.type entries from the same delta.
+   * Call this when you want to preserve existing schema-type mappings and
+   * only validate against previously indexed types.
+   * 
+   * Useful in staged flows where metadata indexing is handled separately.
+   */
   validateDeltaValues: (delta: SkDelta) => AcceptedDeltaValue[]
+
+  /**
+   * One-step pipeline: index schema types from delta metadata, then validate values shape and content.
+   */
   processDelta: (delta: SkDelta) => AcceptedDeltaValue[]
 }
 
+/**
+ * Create a Signal K parser runtime that validates messages against
+ * predefined schemas using an internal path-to-schema-type index.
+ */
 export function createParserRuntime(validators: KnownSchemaValidators = createDeltaValidators()): ParserRuntime {
   const schemaTypeIndex = new SchemaTypeIndex()
 
