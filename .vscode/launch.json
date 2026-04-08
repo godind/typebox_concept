@@ -7,22 +7,12 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch App (tsx)",
+            "name": "Launch Smoke Client (tsx)",
             "runtimeExecutable": "npx",
             "runtimeArgs": ["tsx"],
-            "args": ["src/index.ts"],
+            "args": ["smoke-test-client/index.ts"],
             "cwd": "${workspaceFolder}",
             "skipFiles": ["<node_internals>/**"],
-            "console": "integratedTerminal"
-        },
-        {
-            "type": "node",
-            "request": "launch",
-            "name": "Launch App (compiled)",
-            "program": "${workspaceFolder}/dist/index.js",
-            "preLaunchTask": "tsc: build - tsconfig.json",
-            "skipFiles": ["<node_internals>/**"],
-            "outFiles": ["${workspaceFolder}/dist/**/*.js"],
             "console": "integratedTerminal"
         },
         {

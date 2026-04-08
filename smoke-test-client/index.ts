@@ -1,9 +1,9 @@
 import WebSocket from 'ws'
 
-import { MetaTypeMap, toAcceptedDeltaValues } from './parser.js'
-import { TypesafeSkRouter } from './router.js'
-import { isObject, type SkDelta } from './types.js'
-import { createKnownSchemaValidators } from './validators.js'
+import { MetaTypeMap, toAcceptedDeltaValues } from '../src/lib/parser.js'
+import { TypesafeSkRouter } from '../src/lib/router.js'
+import { isObject, type SkDelta } from '../src/lib/types.js'
+import { createKnownSchemaValidators } from '../src/lib/validators.js'
 
 const WS_URL = 'ws://localhost:3000/signalk/v1/stream?subscribe=none&sendMeta=all'
 const TARGET_PATHS = ['navigation.position', 'environment.wind.speedOverGround'] as const

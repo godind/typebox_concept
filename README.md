@@ -1,20 +1,17 @@
 # typebox_concept
 
-Signal K WebSocket concept client for testing TypeBox-first schema validation with meta.type-driven schema selection.
+Signal K TypeBox validation library with an internal smoke-test client for manual runtime verification.
 
-## What it does
-- Connects to `ws://192.168.10.100:3000/signalk/v1/stream?subscribe=none`
-- Unsubscribes from defaults
-- Subscribes to context `vessels.self` paths:
-  - `navigation.position`
-  - `environment.wind.speedOverGround`
+## Project layout
+- `src/lib/`: publishable library modules (schemas, parser, validators, router, types)
+- `smoke-test-client/`: internal runnable client harness (not published)
+- `test/`: library test scaffolding only (no test files authored yet)
+
+## Library behavior
 - Processes both `updates[].values[]` and `updates[].meta[]`
 - Builds `path -> meta.type` mapping from meta updates
-- Resolves `meta.type` to known TypeBox schema names:
-  - `PositionDeltaValue`
-  - `NumericDeltaValue`
-- Applies validation only for known schema names
-- If `meta.type` is missing or unknown, accepts message without validation
+- Resolves `meta.type` to known TypeBox schema names
+- Validates known schemas and accepts unknown schemas as unvalidated
 
 ## Validation mode logs
 Console output includes validation mode markers:
@@ -26,10 +23,15 @@ Console output includes validation mode markers:
 npm install
 npm run typecheck
 npm run build
-npm run start
+npm run smoke
+npm run test
+npm run test:watch
+npm run test:typecheck
 ```
 
 ## Notes
-- This is a concept app, not a production-grade client.
+- This package publishes only the library output under `dist/lib`.
+- `smoke-test-client` is for manual verification and is not part of the public API.
+- Test infrastructure is prepared for library-only tests; actual tests are intentionally not added in this phase.
 - Missing/unknown `meta.type` intentionally uses fail-open behavior.
-- Validation uses local TypeBox schemas and runtime checks via `Value.Check`.
+- Validation uses local TypeBox schemas and compiled runtime validators.

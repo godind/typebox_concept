@@ -1,28 +1,28 @@
 {
   "name": "typebox_concept",
   "version": "1.0.0",
-  "description": "Signal K TypeBox validation concept app",
+  "description": "Signal K TypeBox validation library with smoke-test client",
   "type": "module",
-  "main": "dist/lib.js",
-  "types": "dist/lib.d.ts",
+  "main": "dist/lib/index.js",
+  "types": "dist/lib/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/lib.d.ts",
-      "import": "./dist/lib.js"
-    },
-    "./app": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+      "types": "./dist/lib/index.d.ts",
+      "import": "./dist/lib/index.js"
     }
   },
   "files": [
-    "dist"
+    "dist/lib"
   ],
   "sideEffects": false,
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "clean": "rm -rf dist",
+    "build": "npm run clean && tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "start": "tsx src/index.ts"
+    "smoke": "tsx smoke-test-client/index.ts",
+    "test": "node --test",
+    "test:watch": "node --test --watch",
+    "test:typecheck": "tsc -p tsconfig.test.json --noEmit"
   },
   "keywords": [],
   "author": "",
