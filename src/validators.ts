@@ -1,17 +1,14 @@
-import { TypeCompiler } from '@sinclair/typebox/compiler'
+import { Compile } from 'typebox/schema'
 import { KnownSchemaRegistry, type KnownSchemaName } from './schemas.js'
 
-export type KnownSchemaValidators = Record<
-  KnownSchemaName,
-  ReturnType<typeof TypeCompiler.Compile>
->
+export type KnownSchemaValidators = Record<KnownSchemaName, ReturnType<typeof Compile>>
 
 // Compile all known schemas once so parser logic can consume ready-to-use
 // validators without rebuilding them for each incoming delta message.
 export function createKnownSchemaValidators(): KnownSchemaValidators {
   const compiled = {} as KnownSchemaValidators
   for (const schemaName of Object.keys(KnownSchemaRegistry) as KnownSchemaName[]) {
-    compiled[schemaName] = TypeCompiler.Compile(KnownSchemaRegistry[schemaName])
+      compiled[schemaName] = Compile(KnownSchemaRegistry[schemaName])
   }
   return compiled
 }

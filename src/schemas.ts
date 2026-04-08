@@ -1,4 +1,4 @@
-import { Type, type TSchema } from '@sinclair/typebox'
+import { Type, type TSchema } from 'typebox'
 
 // Construct basic TypeBox schemas
 export const NormalizedBaseDeltaSchema = Type.Object({
@@ -49,9 +49,9 @@ export const PositionDeltaValueSchema = DeclaredKnownDeltaValueSchemas.Position
 
 // Export TS types directly from TypeBox schemas for
 // zero-drift safety in parser/router
-export type NormalizedBaseDelta = typeof NormalizedBaseDeltaSchema.static
-export type Numeric = typeof NumericDeltaValueSchema.static
-export type Position = typeof PositionDeltaValueSchema.static
+export type NormalizedBaseDelta = Type.Static<typeof NormalizedBaseDeltaSchema>
+export type Numeric = Type.Static<typeof NumericDeltaValueSchema>
+export type Position = Type.Static<typeof PositionDeltaValueSchema>
 
 // Registry is derived from the declared schema source so we cannot forget to sync it.
 export const KnownSchemaRegistry = DeclaredKnownDeltaValueSchemas
@@ -61,5 +61,5 @@ export type KnownSchemaName = keyof typeof KnownSchemaRegistry
 // Auto-derive schema-name -> static type from the registry so adding a new
 // known schema updates parser/router typing without extra manual mapping.
 export type KnownSchemaTypeMap = {
-    [K in KnownSchemaName]: (typeof KnownSchemaRegistry)[K]['static']
+    [K in KnownSchemaName]: Type.Static<(typeof KnownSchemaRegistry)[K]>
 }
