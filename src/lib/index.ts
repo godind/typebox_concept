@@ -12,7 +12,7 @@ export {
     type KnownSchemaName
 } from './schemas.js'
 
-export { createKnownSchemaValidators } from './validators.js'
+export { createDeltaValidators } from './validators.js'
 
 export {
     createParserRuntime,

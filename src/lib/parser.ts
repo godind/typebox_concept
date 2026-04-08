@@ -5,16 +5,8 @@
  * as the canonical schema key across contexts unless product rules change.
  */
 import { asSkMetaArray, asSkUpdateArray, asSkValueArray, isObject, type SkDelta } from './types.js'
-import {
-  createKnownSchemaValidators,
-  type KnownSchemaValidators
-} from './validators.js'
-import {
-  KnownSchemaRegistry,
-  type KnownSchemaName,
-  type KnownSchemaTypeMap,
-  type NormalizedBaseDelta
-} from './schemas.js'
+import { createDeltaValidators, type KnownSchemaValidators } from './validators.js'
+import { KnownSchemaRegistry, type KnownSchemaName, type KnownSchemaTypeMap, type NormalizedBaseDelta } from './schemas.js'
 
 export type ValidationStatus = 'validated' | 'accepted-unvalidated'
 
@@ -112,7 +104,7 @@ export type ParserRuntime = {
   processDelta: (delta: SkDelta) => AcceptedDeltaValue[]
 }
 
-export function createParserRuntime(validators: KnownSchemaValidators = createKnownSchemaValidators()): ParserRuntime {
+export function createParserRuntime(validators: KnownSchemaValidators = createDeltaValidators()): ParserRuntime {
   const schemaTypeIndex = new SchemaTypeIndex()
 
   return {
