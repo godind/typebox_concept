@@ -4,11 +4,9 @@
  * of this file to avoid expanding the supported package surface.
  */
 export {
-    NormalizedBaseDeltaSchema,
     PositionSchema,
     NumericDeltaValueSchema,
     PositionDeltaValueSchema,
-    type NormalizedBaseDelta,
     type Numeric,
     type Position,
     type KnownSchemaName
@@ -17,8 +15,8 @@ export {
 export { createKnownSchemaValidators } from './validators.js'
 
 export {
-    MetaTypeMap,
-    toAcceptedDeltaValues,
+    createParserRuntime,
+    type ParserRuntime,
     type ValidationStatus,
     type AcceptedDeltaValue,
     type KnownValidatedDelta,

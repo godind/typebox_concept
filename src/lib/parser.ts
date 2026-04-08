@@ -5,7 +5,10 @@
  * as the canonical schema key across contexts unless product rules change.
  */
 import { asSkMetaArray, asSkUpdateArray, asSkValueArray, isObject, type SkDelta } from './types.js'
-import type { KnownSchemaValidators } from './validators.js'
+import {
+  createKnownSchemaValidators,
+  type KnownSchemaValidators
+} from './validators.js'
 import {
   KnownSchemaRegistry,
   type KnownSchemaName,
@@ -30,10 +33,10 @@ export type UnvalidatedDelta = NormalizedBaseDelta & {
 
 export type AcceptedDeltaValue = KnownValidatedDelta | UnvalidatedDelta
 
-export class MetaTypeMap {
+class SchemaTypeIndex {
   private readonly pathToMetaType = new Map<string, string>()
 
-  ingest(delta: SkDelta): void {
+  index(delta: SkDelta): void {
     for (const update of asSkUpdateArray(delta.updates)) {
       for (const meta of asSkMetaArray(update.meta)) {
         const path = typeof meta.path === 'string' ? meta.path : null
@@ -47,7 +50,7 @@ export class MetaTypeMap {
     }
   }
 
-  getSchemaName(path: string): KnownSchemaName | undefined {
+  lookupSchemaName(path: string): KnownSchemaName | undefined {
     const raw = this.pathToMetaType.get(path)
     if (!raw) return undefined
     if (raw in KnownSchemaRegistry) return raw as KnownSchemaName
@@ -55,9 +58,9 @@ export class MetaTypeMap {
   }
 }
 
-export function toAcceptedDeltaValues(
+function process(
   delta: SkDelta,
-  map: MetaTypeMap,
+  map: SchemaTypeIndex,
   validators: KnownSchemaValidators
 ): AcceptedDeltaValue[] {
   const accepted: AcceptedDeltaValue[] = []
@@ -78,7 +81,7 @@ export function toAcceptedDeltaValues(
         ...(timestamp ? { timestamp } : {})
       }
 
-      const schemaName = map.getSchemaName(path)
+      const schemaName = map.lookupSchemaName(path)
       if (!schemaName) {
         accepted.push({
           ...base,
@@ -101,4 +104,27 @@ export function toAcceptedDeltaValues(
   }
 
   return accepted
+}
+
+export type ParserRuntime = {
+  indexSchemaTypes: (delta: SkDelta) => void
+  validateDeltaValues: (delta: SkDelta) => AcceptedDeltaValue[]
+  processDelta: (delta: SkDelta) => AcceptedDeltaValue[]
+}
+
+export function createParserRuntime(validators: KnownSchemaValidators = createKnownSchemaValidators()): ParserRuntime {
+  const schemaTypeIndex = new SchemaTypeIndex()
+
+  return {
+    indexSchemaTypes(delta: SkDelta): void {
+      schemaTypeIndex.index(delta)
+    },
+    validateDeltaValues(delta: SkDelta): AcceptedDeltaValue[] {
+      return process(delta, schemaTypeIndex, validators)
+    },
+    processDelta(delta: SkDelta): AcceptedDeltaValue[] {
+      schemaTypeIndex.index(delta)
+      return process(delta, schemaTypeIndex, validators)
+    }
+  }
 }

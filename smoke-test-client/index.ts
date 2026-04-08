@@ -7,7 +7,7 @@
 import WebSocket from 'ws'
 import { TypesafeSkRouter } from './router.js'
 import { isObject, parseDelta } from './transport.js'
-import { MetaTypeMap, toAcceptedDeltaValues, createKnownSchemaValidators } from '../src/lib/index.js'
+import { createParserRuntime } from '../src/lib/index.js'
 
 const WS_URL = 'ws://localhost:3000/signalk/v1/stream?subscribe=none&sendMeta=all'
 const TARGET_PATHS = ['navigation.position', 'environment.wind.speedOverGround'] as const
@@ -29,9 +29,8 @@ function sendSubscriptions(ws: WebSocket): void {
     )
 }
 
-const metaTypeMap = new MetaTypeMap()
 const router = new TypesafeSkRouter()
-const validators = createKnownSchemaValidators()
+const parser = createParserRuntime()
 
 router.onPath('navigation.position', (v) => {
     const prefix = v.validationStatus === 'validated'
@@ -65,8 +64,7 @@ ws.on('message', (raw) => {
     const delta = parseDelta(raw)
     if (!delta) return
 
-    metaTypeMap.ingest(delta)
-    const accepted = toAcceptedDeltaValues(delta, metaTypeMap, validators)
+    const accepted = parser.processDelta(delta)
     router.emit(accepted)
 })
 
