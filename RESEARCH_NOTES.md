@@ -59,3 +59,6 @@ The same validation library can serve all three roles:
 6. Consumer-side use case: protect client apps from server or plugin regressions and schema drift.
 
 This creates a shared contract across producer, server, and consumer code while still allowing each side to enforce policies appropriate to its role.
+
+## What still need refinement
+- Handling of malformed payloads: skipping is better because this layer should be resilient, incremental, and fail-open. Throwing would make one malformed fragment capable of invalidating an otherwise useful message, which is the wrong behavior for a streaming transport parser. See if we optionally count or report them through logging, metrics, or a side-channel later so that they can be monitored without disrupting the main processing flow.
