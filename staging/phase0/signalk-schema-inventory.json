@@ -1,0 +1,2493 @@
+{
+  "generatedAt": "2026-04-09T06:15:18.811Z",
+  "source": {
+    "owner": "SignalK",
+    "repo": "specification",
+    "ref": "master",
+    "treeApi": "https://api.github.com/repos/SignalK/specification/git/trees/master?recursive=1",
+    "rawBase": "https://raw.githubusercontent.com/SignalK/specification/master"
+  },
+  "summary": {
+    "totalSchemas": 32,
+    "byKind": {
+      "root": 9,
+      "group": 14,
+      "message": 5,
+      "external": 4
+    },
+    "schemasWithRefs": 25,
+    "totalRefs": 425
+  },
+  "schemas": [
+    {
+      "path": "schemas/aircraft.json",
+      "sha": "006bae91f2020fce361a646b4437c88e4d5b464f",
+      "size": 5460,
+      "kind": "root",
+      "id": "https://signalk.org/specification/1.5.1/schemas/aircraft.json#",
+      "title": "aircraft",
+      "description": "An object describing an individual aircraft. It should be an object in aircraft, named using MMSI or a UUID",
+      "refs": [
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/url"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/aircraftMmsi"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/uuid"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/groups/communication.json",
+          "targetPointer": ""
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/groups/environment.json",
+          "targetPointer": ""
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/groups/navigation.json",
+          "targetPointer": ""
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/groups/notifications.json",
+          "targetPointer": "#/definitions/notificationBranch"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/groups/notifications.json",
+          "targetPointer": "#/definitions/notification"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/groups/design.json",
+          "targetPointer": ""
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/groups/sensors.json",
+          "targetPointer": ""
+        }
+      ]
+    },
+    {
+      "path": "schemas/aton.json",
+      "sha": "bc447c3509b1e03ca3ea933c81c9a201adbe99ae",
+      "size": 8331,
+      "kind": "root",
+      "id": "https://signalk.org/specification/1.5.1/schemas/aton.json#",
+      "title": "aid to navigation",
+      "description": "An object describing an individual aid to navigation. It should be an object in aton, named using MMSI or a UUID",
+      "refs": [
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/url"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/atonMmsi"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/uuid"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/commonValueFields"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/groups/communication.json",
+          "targetPointer": ""
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/groups/environment.json",
+          "targetPointer": ""
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/groups/navigation.json",
+          "targetPointer": ""
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/groups/notifications.json",
+          "targetPointer": "#/definitions/notificationBranch"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/groups/notifications.json",
+          "targetPointer": "#/definitions/notification"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/groups/design.json",
+          "targetPointer": ""
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/groups/sensors.json",
+          "targetPointer": ""
+        }
+      ]
+    },
+    {
+      "path": "schemas/definitions.json",
+      "sha": "e328991c64a60d5a9f583ded13be5eef3ac598cf",
+      "size": 28716,
+      "kind": "root",
+      "id": "https://signalk.org/specification/1.5.1/schemas/definitions.json#",
+      "title": "definitions",
+      "description": "Reusable definitions of core object types",
+      "refs": [
+        {
+          "kind": "internal",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/timestamp"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/sourceRef"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/_attr"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/meta"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/commonValueFields"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/valuesNumberValue"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/timestamp"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/commonValueFields"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/valuesStringValue"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/timestamp"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/commonValueFields"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/valuesDatetimeValue"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/timestamp"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/timestamp"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/source"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/_attr"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/meta"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/alarmMethodEnum"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/alarmMethodEnum"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/alarmMethodEnum"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/alarmMethodEnum"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/alarmState"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/commonValueFields"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/timestamp"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/position"
+        }
+      ]
+    },
+    {
+      "path": "schemas/delta.json",
+      "sha": "c4b056e7d946cbf881075532e04ef502bf9f8900",
+      "size": 3238,
+      "kind": "root",
+      "id": "https://signalk.org/specification/1.5.1/schemas/delta.json#",
+      "title": "SignalK Delta message schema",
+      "description": "Schema for defining updates and subscriptions to parts of a SignalK data model, for example for communicating updates of data",
+      "refs": [
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/sourceRef"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/source"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/timestamp"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/meta"
+        }
+      ]
+    },
+    {
+      "path": "schemas/discovery.json",
+      "sha": "78b2ddc95f4fbf5dc0d0e88a2876365d792eaab2",
+      "size": 1984,
+      "kind": "root",
+      "id": "https://signalk.org/specification/1.5.1/schemas/discovery.json#",
+      "title": "SignalK Discovery",
+      "description": "Schema for SignalK discovery resources used to locate server endpoints.",
+      "refs": [
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/version"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/url"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/url"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/url"
+        }
+      ]
+    },
+    {
+      "path": "schemas/external/geojson/bbox.json",
+      "sha": "f73282cf8ab7449f1cea1915784283f275f3b804",
+      "size": 305,
+      "kind": "external",
+      "id": "http://json-schema.org/geojson/bbox.json#",
+      "title": null,
+      "description": "A bounding box as defined by GeoJSON",
+      "refs": []
+    },
+    {
+      "path": "schemas/external/geojson/crs.json",
+      "sha": "2bbadc3f659fdb383bb1be5bcb5975f3659bb553",
+      "size": 1703,
+      "kind": "external",
+      "id": null,
+      "title": "crs",
+      "description": "a Coordinate Reference System object",
+      "refs": [
+        {
+          "kind": "internal",
+          "targetFile": "schemas/external/geojson/crs.json",
+          "targetPointer": "#/definitions/namedCrs"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/external/geojson/crs.json",
+          "targetPointer": "#/definitions/linkedCrs"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/external/geojson/crs.json",
+          "targetPointer": "#/definitions/linkedObject"
+        }
+      ]
+    },
+    {
+      "path": "schemas/external/geojson/geojson.json",
+      "sha": "fe0877653e8938c64ba3ff466d7ef2bbcc445682",
+      "size": 2249,
+      "kind": "external",
+      "id": "http://json-schema.org/geojson/geojson.json#",
+      "title": "Geo JSON object",
+      "description": "Schema for a Geo JSON object",
+      "refs": [
+        {
+          "kind": "external-url-or-other",
+          "targetFile": "http://json-schema.org/geojson/crs.json",
+          "targetPointer": ""
+        },
+        {
+          "kind": "external-url-or-other",
+          "targetFile": "http://json-schema.org/geojson/bbox.json",
+          "targetPointer": ""
+        },
+        {
+          "kind": "external-url-or-other",
+          "targetFile": "http://json-schema.org/geojson/geometry.json",
+          "targetPointer": ""
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/external/geojson/geojson.json",
+          "targetPointer": "#/definitions/geometryCollection"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/external/geojson/geojson.json",
+          "targetPointer": "#/definitions/feature"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/external/geojson/geojson.json",
+          "targetPointer": "#/definitions/featureCollection"
+        },
+        {
+          "kind": "external-url-or-other",
+          "targetFile": "http://json-schema.org/geojson/geometry.json",
+          "targetPointer": ""
+        },
+        {
+          "kind": "external-url-or-other",
+          "targetFile": "http://json-schema.org/geojson/geometry.json",
+          "targetPointer": ""
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/external/geojson/geojson.json",
+          "targetPointer": "#/definitions/feature"
+        }
+      ]
+    },
+    {
+      "path": "schemas/external/geojson/geometry.json",
+      "sha": "ca3bea03f9787a52168441ff1354a357ffc9a56d",
+      "size": 2890,
+      "kind": "external",
+      "id": "http://json-schema.org/geojson/geometry.json#",
+      "title": "geometry",
+      "description": "One geometry as defined by GeoJSON",
+      "refs": [
+        {
+          "kind": "internal",
+          "targetFile": "schemas/external/geojson/geometry.json",
+          "targetPointer": "#/definitions/position"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/external/geojson/geometry.json",
+          "targetPointer": "#/definitions/positionArray"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/external/geojson/geometry.json",
+          "targetPointer": "#/definitions/lineString"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/external/geojson/geometry.json",
+          "targetPointer": "#/definitions/lineString"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/external/geojson/geometry.json",
+          "targetPointer": "#/definitions/polygon"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/external/geojson/geometry.json",
+          "targetPointer": "#/definitions/polygon"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/external/geojson/geometry.json",
+          "targetPointer": "#/definitions/position"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/external/geojson/geometry.json",
+          "targetPointer": "#/definitions/positionArray"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/external/geojson/geometry.json",
+          "targetPointer": "#/definitions/positionArray"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/external/geojson/geometry.json",
+          "targetPointer": "#/definitions/linearRing"
+        }
+      ]
+    },
+    {
+      "path": "schemas/groups/communication.json",
+      "sha": "3bf7c66c16d044ed373c67357cefc62280da5937",
+      "size": 1578,
+      "kind": "group",
+      "id": "https://signalk.org/specification/1.5.1/schemas/groups/communication.json#",
+      "title": "communication",
+      "description": "Schema describing the communication child-object of a Vessel.",
+      "refs": []
+    },
+    {
+      "path": "schemas/groups/design.json",
+      "sha": "9b41ecbc354bafcd2bd130c0f0b00de6e9125be8",
+      "size": 17659,
+      "kind": "group",
+      "id": "https://signalk.org/specification/1.5.1/schemas/groups/design.json#",
+      "title": "design",
+      "description": "An object describing the vessels primary dimensions and statistics.",
+      "refs": [
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/commonValueFields"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/commonValueFields"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/timestamp"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/commonValueFields"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/timestamp"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/commonValueFields"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/commonValueFields"
+        }
+      ]
+    },
+    {
+      "path": "schemas/groups/electrical.json",
+      "sha": "0fa0bf337bd7d8049eaa3316c2a47526b4082237",
+      "size": 22055,
+      "kind": "group",
+      "id": "https://signalk.org/specification/1.5.1/schemas/groups/electrical.json#",
+      "title": "Electrical Properties",
+      "description": "Schema describing the electrical child-object of a Vessel.",
+      "refs": [
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/timestamp"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/commonValueFields"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/commonValueFields"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/commonValueFields"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/groups/electrical.json",
+          "targetPointer": "#/definitions/identity"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/groups/electrical.json",
+          "targetPointer": "#/definitions/dcQualities"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/groups/electrical.json",
+          "targetPointer": "#/definitions/identity"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/groups/electrical.json",
+          "targetPointer": "#/definitions/dcQualities"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/groups/electrical.json",
+          "targetPointer": "#/definitions/acQualities"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/commonValueFields"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/groups/electrical.json",
+          "targetPointer": "#/definitions/identity"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/groups/electrical.json",
+          "targetPointer": "#/definitions/dcQualities"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/groups/electrical.json",
+          "targetPointer": "#/definitions/chargerQualities"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/groups/electrical.json",
+          "targetPointer": "#/definitions/identity"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/groups/electrical.json",
+          "targetPointer": "#/definitions/dcQualities"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/groups/electrical.json",
+          "targetPointer": "#/definitions/chargerQualities"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/groups/electrical.json",
+          "targetPointer": "#/definitions/identity"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/groups/electrical.json",
+          "targetPointer": "#/definitions/dcQualities"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/groups/electrical.json",
+          "targetPointer": "#/definitions/chargerQualities"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/commonValueFields"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/commonValueFields"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/groups/electrical.json",
+          "targetPointer": "#/definitions/identity"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/groups/electrical.json",
+          "targetPointer": "#/definitions/acQualities"
+        }
+      ]
+    },
+    {
+      "path": "schemas/groups/environment.json",
+      "sha": "70fb38e99ce708efff375060160f88168d8ce647",
+      "size": 14576,
+      "kind": "group",
+      "id": "https://signalk.org/specification/1.5.1/schemas/groups/environment.json#",
+      "title": "environment",
+      "description": "Schema describing the environmental child-object of a Vessel.",
+      "refs": [
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/groups/environment.json",
+          "targetPointer": "#/definitions/zoneObject"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/groups/environment.json",
+          "targetPointer": "#/definitions/zoneObject"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/commonValueFields"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/timestamp"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/timestamp"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/timestamp"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/timestamp"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/source"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/timestamp"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/source"
+        }
+      ]
+    },
+    {
+      "path": "schemas/groups/navigation.json",
+      "sha": "9e4d6200044111f4d4c49baf6e127668084ce035",
+      "size": 27447,
+      "kind": "group",
+      "id": "https://signalk.org/specification/1.5.1/schemas/groups/navigation.json#",
+      "title": "navigation",
+      "description": "Schema describing the navigation child-object of a Vessel.",
+      "refs": [
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/datetimeValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/datetimeValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/commonValueFields"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/position"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/datetimeValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/commonValueFields"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/position"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/source"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/timestamp"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/groups/navigation.json",
+          "targetPointer": "#/definitions/course"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/groups/navigation.json",
+          "targetPointer": "#/definitions/course"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/commonValueFields"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/timestamp"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/position"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/position"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/stringValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/datetimeValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/stringValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/commonValueFields"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/commonValueFields"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/commonValueFields"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/position"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/commonValueFields"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/timestamp"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/commonValueFields"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/datetimeValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/commonValueFields"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/source"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/timestamp"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/position"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/commonValueFields"
+        }
+      ]
+    },
+    {
+      "path": "schemas/groups/notifications.json",
+      "sha": "8aee24dfbf2d6c0365ee0c0c5171cbea42027cad",
+      "size": 1873,
+      "kind": "group",
+      "id": "https://signalk.org/specification/1.5.1/schemas/groups/notifications.json#",
+      "title": "notifications",
+      "description": null,
+      "refs": [
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/commonValueFields"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/alarmMethodEnum"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/alarmState"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/groups/notifications.json",
+          "targetPointer": "#/definitions/notificationBranch"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/groups/notifications.json",
+          "targetPointer": "#/definitions/notification"
+        }
+      ]
+    },
+    {
+      "path": "schemas/groups/performance.json",
+      "sha": "bd36689f420e85d707c396f9968fe7d92d3394e0",
+      "size": 8795,
+      "kind": "group",
+      "id": "https://signalk.org/specification/1.5.1/schemas/groups/performance.json#",
+      "title": "performance",
+      "description": "Schema describing the performance child-object of a Vessel.",
+      "refs": [
+        {
+          "kind": "internal",
+          "targetFile": "schemas/groups/performance.json",
+          "targetPointer": "#/definitions/polarUuid"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/groups/performance.json",
+          "targetPointer": "#/definitions/polar"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/groups/performance.json",
+          "targetPointer": "#/definitions/polar"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/source"
+        }
+      ]
+    },
+    {
+      "path": "schemas/groups/propulsion.json",
+      "sha": "b0770ad40b9e270249ea0bc0bf216b9a47cafa68",
+      "size": 8111,
+      "kind": "group",
+      "id": "https://signalk.org/specification/1.5.1/schemas/groups/propulsion.json#",
+      "title": "propulsion",
+      "description": "An engine, named by a unique name within this vessel",
+      "refs": [
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/commonValueFields"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/commonValueFields"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        }
+      ]
+    },
+    {
+      "path": "schemas/groups/resources.json",
+      "sha": "2fce0397b3fa283e29403fb3fee9253de5901e43",
+      "size": 11907,
+      "kind": "group",
+      "id": "https://signalk.org/specification/1.5.1/schemas/groups/resources.json#",
+      "title": "resources",
+      "description": "Resources to aid in navigation and operation of the vessel",
+      "refs": [
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/geohash"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/position"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/timestamp"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/source"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/external/geojson/geometry.json",
+          "targetPointer": "#/definitions/lineString"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/timestamp"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/source"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/position"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/geohash"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/timestamp"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/source"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/external/geojson/geometry.json",
+          "targetPointer": "#/definitions/polygon"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/external/geojson/geometry.json",
+          "targetPointer": "#/definitions/polygon"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/timestamp"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/source"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/waypoint"
+        }
+      ]
+    },
+    {
+      "path": "schemas/groups/sails.json",
+      "sha": "4cf91dc3fba2787720c8af8ceede0d8b6d9c8cb5",
+      "size": 3943,
+      "kind": "group",
+      "id": "https://signalk.org/specification/1.5.1/schemas/groups/sails.json#",
+      "title": "sails",
+      "description": "An object describing the vessels sails if the vessel is a sailboat.",
+      "refs": [
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/timestamp"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/source"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/_attr"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/meta"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        }
+      ]
+    },
+    {
+      "path": "schemas/groups/sensors.json",
+      "sha": "43f552e0121ef5b238a3b5852ea9cef33d99031a",
+      "size": 1322,
+      "kind": "group",
+      "id": "https://signalk.org/specification/1.5.1/schemas/groups/sensors.json#",
+      "title": "sensor",
+      "description": "An object describing an individual sensor. It should be an object in vessel, named using a unique name or UUID",
+      "refs": [
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/stringValue"
+        }
+      ]
+    },
+    {
+      "path": "schemas/groups/sources.json",
+      "sha": "a9b3aa031adedb31dd712bc9a97f4ebe7a0fe752",
+      "size": 5309,
+      "kind": "group",
+      "id": "https://signalk.org/specification/1.5.1/schemas/groups/sources.json#",
+      "title": "sources",
+      "description": "Metadata about the sources, eg. buses and connected sensors",
+      "refs": [
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/timestamp"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/timestamp"
+        }
+      ]
+    },
+    {
+      "path": "schemas/groups/steering.json",
+      "sha": "c88c6edbf1fabdb9fed291c26e64bf12b9896e98",
+      "size": 4510,
+      "kind": "group",
+      "id": "https://signalk.org/specification/1.5.1/schemas/groups/steering.json#",
+      "title": "steering",
+      "description": "Schema describing the steering child-object of a vessel.",
+      "refs": [
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/commonValueFields"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/commonValueFields"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        }
+      ]
+    },
+    {
+      "path": "schemas/groups/tanks.json",
+      "sha": "328700b5f00b846e1e64cedcfc411ebe3dd5b0f1",
+      "size": 3634,
+      "kind": "group",
+      "id": "https://signalk.org/specification/1.5.1/schemas/groups/tanks.json#",
+      "title": null,
+      "description": "A tank, named by a unique identifier",
+      "refs": [
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/numberValue"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/stringValue"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/groups/tanks.json",
+          "targetPointer": "#/definitions/tankCollection"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/groups/tanks.json",
+          "targetPointer": "#/definitions/tankCollection"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/groups/tanks.json",
+          "targetPointer": "#/definitions/tankCollection"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/groups/tanks.json",
+          "targetPointer": "#/definitions/tankCollection"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/groups/tanks.json",
+          "targetPointer": "#/definitions/tankCollection"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/groups/tanks.json",
+          "targetPointer": "#/definitions/tankCollection"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/groups/tanks.json",
+          "targetPointer": "#/definitions/tankCollection"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/groups/tanks.json",
+          "targetPointer": "#/definitions/tankCollection"
+        },
+        {
+          "kind": "internal",
+          "targetFile": "schemas/groups/tanks.json",
+          "targetPointer": "#/definitions/tankCollection"
+        }
+      ]
+    },
+    {
+      "path": "schemas/hello.json",
+      "sha": "2b10c867f6133b36fecc90023ecd69fbc4254ede",
+      "size": 2765,
+      "kind": "root",
+      "id": "https://signalk.org/specification/1.5.1/schemas/hello.json#",
+      "title": "SignalK Websockets Hello message schema",
+      "description": "Schema for defining the hello message passed from the server to a client following succesful websocket connection",
+      "refs": [
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/version"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/timestamp"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/timestamp"
+        }
+      ]
+    },
+    {
+      "path": "schemas/messages/auth.json",
+      "sha": "6cec534ce5f709958c8cc3b1f4e3d4062a38d0ee",
+      "size": 2653,
+      "kind": "message",
+      "id": "https://signalk.org/specification/1.5.1/schemas/messages/auth.json#",
+      "title": "SignalK Auth message schema",
+      "description": "Schema for authentication messages",
+      "refs": []
+    },
+    {
+      "path": "schemas/messages/get.json",
+      "sha": "0f0e839809afc2eac2c56a813cf5eba44058a0c9",
+      "size": 1678,
+      "kind": "message",
+      "id": "https://signalk.org/specification/1.5.1/schemas/messages/get.json#",
+      "title": "SignalK GET message schema",
+      "description": "Schema for getting values of parts of a SignalK data model, for example the state of the anchor watch",
+      "refs": []
+    },
+    {
+      "path": "schemas/messages/put.json",
+      "sha": "092f075d6591331bd9f08ab5e5e549bbe1eac389",
+      "size": 2368,
+      "kind": "message",
+      "id": "https://signalk.org/specification/1.5.1/schemas/messages/put.json#",
+      "title": "SignalK PUT message schema",
+      "description": "Schema for request/response updates to parts of a SignalK data model, for example turning on anchor watch",
+      "refs": []
+    },
+    {
+      "path": "schemas/messages/subscribe.json",
+      "sha": "c911e0e4c15d0c7f55ef7ab90e4706bcfa2bcd87",
+      "size": 3309,
+      "kind": "message",
+      "id": "https://signalk.org/specification/1.5.1/schemas/messages/subscribe.json#",
+      "title": "SignalK SUBSCRIBE message schema",
+      "description": "A message to allow a client to subscribe for data updates from a signalk server",
+      "refs": []
+    },
+    {
+      "path": "schemas/messages/unsubscribe.json",
+      "sha": "697232e9258a6d45f5968969a945b47d0eda117d",
+      "size": 3343,
+      "kind": "message",
+      "id": "https://signalk.org/specification/1.5.1/schemas/messages/unsubscribe.json#",
+      "title": "SignalK UNSUBSCRIBE message schema",
+      "description": "A message to allow a client to unsubscribe from data updates from a signalk server",
+      "refs": []
+    },
+    {
+      "path": "schemas/sar.json",
+      "sha": "32848514d7c318dfe6197ce9aaf405448fd6e8a6",
+      "size": 3825,
+      "kind": "root",
+      "id": "https://signalk.org/specification/1.5.1/schemas/aton.json#",
+      "title": "Search and rescue beacons",
+      "description": "An object describing an individual SAR beacon, eg EPIRB or transponser. It should be an object in sar, named using MMSI or a UUID",
+      "refs": [
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/url"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/sarMmsi"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/uuid"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/groups/communication.json",
+          "targetPointer": ""
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/groups/navigation.json",
+          "targetPointer": ""
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/groups/notifications.json",
+          "targetPointer": "#/definitions/notification"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/groups/notifications.json",
+          "targetPointer": "#/definitions/notification"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/groups/notifications.json",
+          "targetPointer": "#/definitions/notification"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/groups/notifications.json",
+          "targetPointer": "#/definitions/notification"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/groups/notifications.json",
+          "targetPointer": "#/definitions/notification"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/groups/notifications.json",
+          "targetPointer": "#/definitions/notification"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/groups/notifications.json",
+          "targetPointer": "#/definitions/notification"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/groups/notifications.json",
+          "targetPointer": "#/definitions/notification"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/groups/notifications.json",
+          "targetPointer": "#/definitions/notification"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/groups/notifications.json",
+          "targetPointer": "#/definitions/notification"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/groups/notifications.json",
+          "targetPointer": "#/definitions/notificationBranch"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/groups/notifications.json",
+          "targetPointer": "#/definitions/notification"
+        }
+      ]
+    },
+    {
+      "path": "schemas/signalk.json",
+      "sha": "07759f54c76bdf6da7602869745f5147b57b037f",
+      "size": 4261,
+      "kind": "root",
+      "id": "https://signalk.org/specification/1.5.1/schemas/signalk.json#",
+      "title": "SignalK",
+      "description": "Root schema of Signal K. Contains the list of vessels plus a reference to the local boat (also contained in the vessels list).",
+      "refs": [
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/vessel.json",
+          "targetPointer": ""
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/aircraft.json",
+          "targetPointer": ""
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/aton.json",
+          "targetPointer": ""
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/sar.json",
+          "targetPointer": ""
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/groups/sources.json",
+          "targetPointer": ""
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/groups/resources.json",
+          "targetPointer": ""
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/version"
+        }
+      ]
+    },
+    {
+      "path": "schemas/vessel.json",
+      "sha": "ac34e97aebb78e343e66fc3c9dff9586aecd9cde",
+      "size": 9103,
+      "kind": "root",
+      "id": "https://signalk.org/specification/1.5.1/schemas/vessel.json#",
+      "title": "vessel",
+      "description": "An object describing an individual vessel. It should be an object in vessels, named using MMSI or a UUID",
+      "refs": [
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/url"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/mmsi"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/mmsi"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/definitions.json",
+          "targetPointer": "#/definitions/uuid"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/groups/communication.json",
+          "targetPointer": ""
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/groups/environment.json",
+          "targetPointer": ""
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/groups/navigation.json",
+          "targetPointer": ""
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/groups/propulsion.json",
+          "targetPointer": ""
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/groups/electrical.json",
+          "targetPointer": ""
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/groups/notifications.json",
+          "targetPointer": "#/definitions/notification"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/groups/notifications.json",
+          "targetPointer": "#/definitions/notification"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/groups/notifications.json",
+          "targetPointer": "#/definitions/notification"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/groups/notifications.json",
+          "targetPointer": "#/definitions/notification"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/groups/notifications.json",
+          "targetPointer": "#/definitions/notification"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/groups/notifications.json",
+          "targetPointer": "#/definitions/notification"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/groups/notifications.json",
+          "targetPointer": "#/definitions/notification"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/groups/notifications.json",
+          "targetPointer": "#/definitions/notification"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/groups/notifications.json",
+          "targetPointer": "#/definitions/notification"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/groups/notifications.json",
+          "targetPointer": "#/definitions/notification"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/groups/notifications.json",
+          "targetPointer": "#/definitions/notificationBranch"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/groups/notifications.json",
+          "targetPointer": "#/definitions/notification"
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/groups/steering.json",
+          "targetPointer": ""
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/groups/tanks.json",
+          "targetPointer": ""
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/groups/design.json",
+          "targetPointer": ""
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/groups/sails.json",
+          "targetPointer": ""
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/groups/sensors.json",
+          "targetPointer": ""
+        },
+        {
+          "kind": "local-file",
+          "targetFile": "schemas/groups/performance.json",
+          "targetPointer": ""
+        }
+      ]
+    }
+  ]
+}

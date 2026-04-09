@@ -49,6 +49,16 @@ function normalizeRef(currentPath, ref) {
   }
 
   const [filePart, pointer = ''] = ref.split('#')
+
+  // Detect absolute URLs early (http://, https://, file://, etc.)
+  if (/^[a-z][a-z0-9+.-]*:/i.test(filePart)) {
+    return {
+      kind: 'external-url-or-other',
+      targetFile: filePart,
+      targetPointer: pointer ? `#${pointer}` : ''
+    }
+  }
+
   const currentDir = path.posix.dirname(currentPath)
   const resolved = path.posix.normalize(path.posix.join(currentDir, filePart))
 
