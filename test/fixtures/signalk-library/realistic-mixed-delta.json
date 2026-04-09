@@ -1,0 +1,48 @@
+{
+  "context": "vessels.urn:mrn:imo:mmsi:123456789",
+  "updates": [
+    {
+      "$source": "test-suite.demo",
+      "timestamp": "2026-04-09T12:00:00.000Z",
+      "meta": [
+        {
+          "path": "navigation.position",
+          "value": { "type": "Position" }
+        },
+        {
+          "path": "environment.depth.belowTransducer",
+          "value": { "type": "Numeric" }
+        },
+        {
+          "path": "navigation.magneticVariation",
+          "value": { "type": "Angle" }
+        }
+      ]
+    },
+    {
+      "$source": "test-suite.demo",
+      "timestamp": "2026-04-09T12:00:01.000Z",
+      "values": [
+        {
+          "path": "navigation.position",
+          "value": {
+            "latitude": 48.8584,
+            "longitude": 2.2945
+          }
+        },
+        {
+          "path": "environment.depth.belowTransducer",
+          "value": null
+        },
+        {
+          "path": "navigation.magneticVariation",
+          "value": 0.07
+        },
+        {
+          "path": "navigation.speedOverGround",
+          "value": 4.3
+        }
+      ]
+    }
+  ]
+}

@@ -55,7 +55,11 @@ class SchemaTypeIndex {
 
   index(delta: SkDelta): void {
     for (const update of asSkUpdateArray(delta.updates)) {
+      if (!isObject(update)) continue
+
       for (const meta of asSkMetaArray(update.meta)) {
+        if (!isObject(meta)) continue
+
         const path = typeof meta.path === 'string' ? meta.path : null
         const typeName =
           isObject(meta.value) && typeof meta.value.type === 'string'
@@ -88,10 +92,14 @@ function process(
   const context = typeof delta.context === 'string' ? delta.context : 'vessels.self'
 
   for (const update of asSkUpdateArray(delta.updates)) {
+    if (!isObject(update)) continue
+
     const timestamp = typeof update.timestamp === 'string' ? update.timestamp : undefined
     const sourceRef = typeof update.$source === 'string' ? update.$source : 'unknown-source'
 
     for (const valueEntry of asSkValueArray(update.values)) {
+      if (!isObject(valueEntry)) continue
+
       if (typeof valueEntry.path !== 'string') continue
       const path = valueEntry.path
       const base: NormalizedBaseDelta = {

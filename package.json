@@ -20,8 +20,8 @@
     "build": "npm run clean && tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "smoke": "tsx smoke-test-client/index.ts",
-    "test": "node --test",
-    "test:watch": "node --test --watch",
+    "test": "node --import tsx --test",
+    "test:watch": "node --import tsx --test --watch",
     "test:typecheck": "tsc -p tsconfig.test.json --noEmit"
   },
   "keywords": [],

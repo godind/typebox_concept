@@ -5,7 +5,7 @@ Signal K TypeBox validation library with an internal smoke-test client for manua
 ## Project layout
 - `src/lib/`: publishable library modules (schemas, parser, validators, types)
 - `smoke-test-client/`: internal runnable client harness (not published)
-- `test/`: library test scaffolding only (no test files authored yet)
+- `test/`: library unit/integration tests run via Node's built-in test runner with `tsx`
 
 ## Library behavior
 - Processes both `updates[].values[]` and `updates[].meta[]`
@@ -36,7 +36,8 @@ npm run test:typecheck
 ## Notes
 - This package publishes only the library output under `dist/lib`.
 - `smoke-test-client` is for manual verification and is not part of the public API.
-- Test infrastructure is prepared for library-only tests; actual tests are intentionally not added in this phase.
+- Automated tests run TypeScript test files directly via `node --import tsx --test`.
+- Current coverage starts with parser unit tests; add more cases under `test/unit` and `test/integration`.
 - Missing/unknown `meta.type` intentionally uses fail-open behavior.
 - Invalid known-schema values are not dropped; they are emitted as `InvalidValue` with `validationErrors`.
 - Validation uses local TypeBox schemas and compiled runtime validators.
