@@ -32,7 +32,7 @@ export type InvalidValue = NormalizedBaseDelta & {
   validationErrors: ValidationError[]
 }
 
-export type NoValueTypeValue = NormalizedBaseDelta & {
+export type NoSchemaTypeValue = NormalizedBaseDelta & {
   value: unknown
   schemaName?: undefined
   valueType?: undefined
@@ -40,7 +40,7 @@ export type NoValueTypeValue = NormalizedBaseDelta & {
   validationStatus: 'not-validated'
 }
 
-export type UnknownValueTypeValue = NormalizedBaseDelta & {
+export type UnknownSchemaTypeValue = NormalizedBaseDelta & {
   value: unknown
   schemaName?: undefined
   valueType: string
@@ -48,7 +48,7 @@ export type UnknownValueTypeValue = NormalizedBaseDelta & {
   validationStatus: 'not-validated'
 }
 
-export type ParsedValue = ValidatedValue | InvalidValue | NoValueTypeValue | UnknownValueTypeValue
+export type ParsedValue = ValidatedValue | InvalidValue | NoSchemaTypeValue | UnknownSchemaTypeValue
 
 class SchemaTypeIndex {
   private readonly pathToMetaType = new Map<string, string>()

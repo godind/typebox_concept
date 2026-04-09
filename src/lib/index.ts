@@ -21,6 +21,6 @@ export {
     type ParsedValue,
     type ValidatedValue,
     type InvalidValue,
-    type NoValueTypeValue,
-    type UnknownValueTypeValue
+    type NoSchemaTypeValue,
+    type UnknownSchemaTypeValue
 } from './parser.js'

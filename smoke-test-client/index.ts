@@ -38,24 +38,28 @@ function colorize(color: string, message: string): string {
     return `${color}${message}${ANSI.reset}`
 }
 
+function formatType(v: ParsedValue): string {
+    return typeof v.valueType === 'string' ? v.valueType : '<missing>'
+}
+
 function logParsedValue(v: ParsedValue): void {
     if (v.validationStatus === 'valid') {
-        console.log(colorize(ANSI.green, `[valid] ${v.valueType} at ${v.path}`))
+        console.log(colorize(ANSI.green, `[valid] type=${formatType(v)} path=${v.path}`))
         return
     }
 
     if (v.validationStatus === 'invalid') {
         const details = JSON.stringify(v.validationErrors, null, 2)
-        console.error(colorize(ANSI.red, `[invalid] ${v.valueType} at ${v.path}\n${details}`))
+        console.error(colorize(ANSI.red, `[invalid] type=${formatType(v)} path=${v.path}\n${details}`))
         return
     }
 
     if (v.valueTypeStatus === 'unknown-value-type') {
-        console.log(colorize(ANSI.yellow, `[unknown-value-type] ${v.valueType} at ${v.path}`))
+        console.log(colorize(ANSI.yellow, `[unknown-value-type] type=${formatType(v)} path=${v.path}`))
         return
     }
 
-    console.log(colorize(ANSI.white, `[no-value-type] ${v.path}`))
+    console.log(colorize(ANSI.white, `[no-value-type] type=${formatType(v)} path=${v.path}`))
 }
 
 const ws = new WebSocket(WS_URL, {

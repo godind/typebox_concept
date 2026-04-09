@@ -12,7 +12,7 @@ Signal K TypeBox validation library with an internal smoke-test client for manua
 - Builds `path -> meta.type` mapping from meta updates
 - Resolves `meta.type` to known TypeBox schema names
 - Emits an explicit `ParsedValue` result for every accepted value entry
-- Uses four result branches: `ValidatedValue`, `InvalidValue`, `NoValueTypeValue`, and `UnknownValueTypeValue`
+- Uses four result branches: `ValidatedValue`, `InvalidValue`, `NoSchemaTypeValue`, and `UnknownSchemaTypeValue`
 - Validates known schemas, preserves structured TypeBox validation errors for invalid values, and keeps missing or unknown `meta.type` fail-open
 
 ## Validation mode logs
@@ -29,7 +29,7 @@ The smoke client prints colored status lines for every parsed value and includes
 - Types: `Position`, `Numeric`, `SignalKSchemaName`
 - Validators: `createDeltaValidators()`
 - Parser runtime: `createParserRuntime()` with `indexSchemaTypes()`, `validateValues()`, and `processValues()`
-- Parser result types: `ParsedValue`, `ValidatedValue`, `InvalidValue`, `NoValueTypeValue`, `UnknownValueTypeValue`
+- Parser result types: `ParsedValue`, `ValidatedValue`, `InvalidValue`, `NoSchemaTypeValue`, `UnknownSchemaTypeValue`
 
 ## Commands
 ```bash
