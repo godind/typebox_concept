@@ -10,6 +10,9 @@ import { KnownSchemaRegistry, type SignalKSchemaName, type KnownSchemaTypeMap, t
 
 export type ValueTypeStatus = 'no-value-type' | 'unknown-value-type' | 'known-value-type'
 export type ValidationStatus = 'not-validated' | 'valid' | 'invalid'
+export type ValidationError = ReturnType<KnownSchemaValidators[SignalKSchemaName]['Errors']> extends Iterable<infer T>
+  ? T
+  : never
 
 export type ValidatedValue = {
   [K in SignalKSchemaName]: KnownSchemaTypeMap[K] & {
@@ -26,7 +29,7 @@ export type InvalidValue = NormalizedBaseDelta & {
   valueType: SignalKSchemaName
   valueTypeStatus: 'known-value-type'
   validationStatus: 'invalid'
-  validationErrors: string[]
+  validationErrors: ValidationError[]
 }
 
 export type NoValueTypeValue = NormalizedBaseDelta & {
@@ -45,11 +48,7 @@ export type UnknownValueTypeValue = NormalizedBaseDelta & {
   validationStatus: 'not-validated'
 }
 
-export type ParsedValue =
-  | ValidatedValue
-  | InvalidValue
-  | NoValueTypeValue
-  | UnknownValueTypeValue
+export type ParsedValue = ValidatedValue | InvalidValue | NoValueTypeValue | UnknownValueTypeValue
 
 class SchemaTypeIndex {
   private readonly pathToMetaType = new Map<string, string>()
@@ -137,7 +136,7 @@ function process(
           validationStatus: 'valid'
         } as ValidatedValue)
       } else {
-        const validationErrors = [...validator.Errors(candidate)].map((error) => String(error))
+        const validationErrors = [...validator.Errors(candidate)]
         accepted.push({
           ...base,
           value: valueEntry.value,
