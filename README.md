@@ -18,7 +18,7 @@ Signal K TypeBox validation library with an internal smoke-test client for manua
 ## Public API
 - Schemas: `PositionSchema`, `NumericSchema`
 - Types: `Position`, `Numeric`, `SignalKSchemaName`
-- Validators: `createDeltaValidators()`
+- Validators: `createSchemaValidators()`
 - Parser runtime: `createParserRuntime()` with `indexSchemaTypes()`, `validateValues()`, and `processValues()`
 - Parser result types: `ParsedValue`, `ValidatedValue`, `InvalidValue`, `NoSchemaTypeValue`, `UnknownSchemaTypeValue`
 

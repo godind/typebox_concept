@@ -76,7 +76,7 @@
     ],
     "allowedInternalChanges": [
       "schema registry source can move behind compatibility exports",
-      "validator compilation may split by domain while preserving createDeltaValidators()",
+      "validator compilation may split by domain while preserving createSchemaValidators()",
       "path-to-type indexing may use generated lookup maps"
     ],
     "compatibilityRules": [
