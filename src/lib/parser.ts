@@ -5,7 +5,7 @@
  * as the canonical schema key across contexts unless product rules change.
  */
 import { asSkMetaArray, asSkUpdateArray, asSkValueArray, isObject, type SkDelta } from './types.js'
-import { createDeltaValidators, type KnownSchemaValidators } from './validators.js'
+import { createSchemaValidators, type KnownSchemaValidators } from './validators.js'
 import { KnownSchemaRegistry, type SignalKSchemaName, type KnownSchemaTypeMap, type NormalizedBaseDelta } from './schemas.js'
 
 export type ValueTypeStatus = 'no-value-type' | 'unknown-value-type' | 'known-value-type'
@@ -195,7 +195,7 @@ export type ParserRuntime = {
  * Create a Signal K parser runtime that validates messages against
  * predefined schemas using an internal path-to-schema-type index.
  */
-export function createParserRuntime(validators: KnownSchemaValidators = createDeltaValidators()): ParserRuntime {
+export function createParserRuntime(validators: KnownSchemaValidators = createSchemaValidators()): ParserRuntime {
   const schemaTypeIndex = new SchemaTypeIndex()
 
   return {

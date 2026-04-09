@@ -1,0 +1,51 @@
+{
+  "phase": "Phase 3",
+  "batch": "Batch 0",
+  "scope": "foundation",
+  "generatedAt": "2026-04-09T16:41:36.591Z",
+  "upstreamRef": "master",
+  "upstreamPath": "schemas/definitions.json",
+  "definitionCount": 26,
+  "orderedDefinitions": [
+    "_attr",
+    "aircraftMmsi",
+    "alarmMethodEnum",
+    "alarmState",
+    "atonMmsi",
+    "meta",
+    "sourceRef",
+    "timestamp",
+    "commonValueFields",
+    "valuesDatetimeValue",
+    "datetimeValue",
+    "geohash",
+    "mmsi",
+    "source",
+    "nullValue",
+    "valuesNumberValue",
+    "numberValue",
+    "position",
+    "sarMmsi",
+    "valuesStringValue",
+    "stringValue",
+    "units",
+    "url",
+    "uuid",
+    "version",
+    "waypoint"
+  ],
+  "exceptions": [
+    {
+      "kind": "semantic-loss",
+      "location": "schemas/definitions.json#/definitions/meta.displayScale",
+      "detail": "oneOf mapped to Type.Union; exclusive single-match not enforced"
+    }
+  ],
+  "warnings": [
+    {
+      "location": "schemas/definitions.json#/definitions/waypoint.feature.id",
+      "detail": "no type field; emitting Type.Unknown for: {\"FIXME\":\"may be there, type not known (string? number?)\"}"
+    }
+  ],
+  "externalRefAllowlist": []
+}

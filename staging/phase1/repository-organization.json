@@ -1,0 +1,81 @@
+{
+  "currentState": {
+    "library": [
+      "src/lib/index.ts",
+      "src/lib/parser.ts",
+      "src/lib/schemas.ts",
+      "src/lib/validators.ts",
+      "src/lib/types.ts"
+    ],
+    "tests": [
+      "test/unit",
+      "test/integration",
+      "test/fixtures/signalk-library"
+    ]
+  },
+  "proposedTargetLayout": {
+    "src/lib/generated": {
+      "description": "Generated TypeBox schema modules and registry artifacts",
+      "children": [
+        "foundation",
+        "messaging",
+        "domains",
+        "variants",
+        "registry.ts",
+        "manifest.json"
+      ]
+    },
+    "src/lib/runtime": {
+      "description": "Runtime glue that consumes generated registry",
+      "children": [
+        "validators.ts",
+        "schema-type-index.ts",
+        "parser-runtime.ts"
+      ]
+    },
+    "src/lib/compat": {
+      "description": "Compatibility re-exports to preserve public API while internals migrate",
+      "children": [
+        "schemas.ts",
+        "validators.ts",
+        "parser.ts"
+      ]
+    },
+    "scripts/generator": {
+      "description": "Generation pipeline tools",
+      "children": [
+        "ingest",
+        "convert",
+        "emit",
+        "shared"
+      ]
+    },
+    "test/parity": {
+      "description": "Upstream parity and conversion correctness tests",
+      "children": [
+        "fixtures",
+        "batch-foundation.test.ts",
+        "batch-messaging.test.ts"
+      ]
+    }
+  },
+  "batchToFolderMapping": {
+    "batch0-foundation": "src/lib/generated/foundation",
+    "batch1-messaging": "src/lib/generated/messaging",
+    "batch2-navigation": "src/lib/generated/domains/navigation",
+    "batch3-environment": "src/lib/generated/domains/environment",
+    "batch4-electrical": "src/lib/generated/domains/electrical",
+    "batch5-propulsion-steering": "src/lib/generated/domains/propulsion-steering",
+    "batch6-tanks-design": "src/lib/generated/domains/tanks-design",
+    "batch7-sails-performance": "src/lib/generated/domains/sails-performance",
+    "batch8-communication-sensors-sources": "src/lib/generated/domains/communication-sensors-sources",
+    "batch9-safety-alerting": "src/lib/generated/domains/safety-alerting",
+    "batch10-resources": "src/lib/generated/domains/resources",
+    "batch11-non-vessel-variants": "src/lib/generated/variants"
+  },
+  "promotionRules": [
+    "No active src/lib path changes before gate approval",
+    "Promote from staging artifacts only after parity checks pass",
+    "Use compatibility re-exports during transition to avoid runtime breakage"
+  ]
+}

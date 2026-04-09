@@ -11,7 +11,7 @@ export {
     type SignalKSchemaName
 } from './schemas.js'
 
-export { createDeltaValidators } from './validators.js'
+export { createSchemaValidators } from './validators.js'
 
 export {
     createParserRuntime,

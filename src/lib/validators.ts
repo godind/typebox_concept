@@ -10,7 +10,7 @@ export type KnownSchemaValidators = Record<SignalKSchemaName, ReturnType<typeof 
 
 // Compile all known schemas once so parser logic can consume ready-to-use
 // validators without rebuilding them for each incoming delta message.
-export function createDeltaValidators(): KnownSchemaValidators {
+export function createSchemaValidators(): KnownSchemaValidators {
   const compiled = {} as KnownSchemaValidators
   for (const schemaName of Object.keys(KnownSchemaRegistry) as SignalKSchemaName[]) {
       compiled[schemaName] = Compile(KnownSchemaRegistry[schemaName])

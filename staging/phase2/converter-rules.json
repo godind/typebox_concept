@@ -1,0 +1,162 @@
+{
+  "phase": "Phase 2",
+  "title": "JSON Schema Draft-04 to TypeBox Converter Rules",
+  "status": "proposed",
+  "sourcedFrom": "definitions.json + groups/navigation.json empirical inspection",
+  "decisionIntegration": {
+    "B1": "Every generated schema gets $id: signalk://schemas/{normalized-path}#{DefinitionName}",
+    "B2": "additionalProperties NOT set to false by default; unknown fields flow through",
+    "B3": "Generated code lives in src/lib/generated; public surface via src/lib/schemas.ts compat re-exports",
+    "B4": "Output uses sorted keys and deterministic property ordering for byte-stable diffs",
+    "B5": "External refs (geojson.org) kept as Type.Any() with explicit inline comment; allowlist maintained in manifest"
+  },
+  "idStrategy": {
+    "formula": "signalk://schemas/{normalizedRelativePath}#{DefinitionName}",
+    "examples": [
+      "definitions.json#/definitions/timestamp  → $id: signalk://schemas/definitions#Timestamp",
+      "groups/navigation.json (root)             → $id: signalk://schemas/groups/navigation",
+      "groups/navigation.json#/definitions/course → $id: signalk://schemas/groups/navigation#Course"
+    ],
+    "namingConvention": "camelCase definition key → PascalCase export name (numberValue → NumberValue)"
+  },
+  "typeMapping": [
+    {
+      "rule": "T01",
+      "upstreamPattern": "{ \"type\": \"string\" }",
+      "typeboxOutput": "Type.String()",
+      "notes": "Passthrough constraints: format, pattern, minLength, maxLength"
+    },
+    {
+      "rule": "T02",
+      "upstreamPattern": "{ \"type\": \"number\" }",
+      "typeboxOutput": "Type.Number()",
+      "notes": "Passthrough constraints: minimum, maximum, exclusiveMinimum, exclusiveMaximum, multipleOf"
+    },
+    {
+      "rule": "T03",
+      "upstreamPattern": "{ \"type\": \"integer\" }",
+      "typeboxOutput": "Type.Integer()",
+      "notes": "Passthrough constraints same as number"
+    },
+    {
+      "rule": "T04",
+      "upstreamPattern": "{ \"type\": \"boolean\" }",
+      "typeboxOutput": "Type.Boolean()",
+      "notes": "No common constraints"
+    },
+    {
+      "rule": "T05",
+      "upstreamPattern": "{ \"type\": \"null\" }",
+      "typeboxOutput": "Type.Null()",
+      "notes": "Used in nullValue definition"
+    },
+    {
+      "rule": "T06",
+      "upstreamPattern": "{ \"type\": \"array\", \"items\": S }",
+      "typeboxOutput": "Type.Array(S, { minItems?, maxItems? })",
+      "notes": "Passthrough: minItems, maxItems, additionalItems (flag only)"
+    },
+    {
+      "rule": "T07",
+      "upstreamPattern": "{ \"type\": \"object\", \"properties\": {...}, \"required\": [...] }",
+      "typeboxOutput": "Type.Object({ ... }) with required keys as plain, optional as Type.Optional()",
+      "notes": "additionalProperties NOT set false by default (decision B2)"
+    },
+    {
+      "rule": "T08",
+      "upstreamPattern": "{ \"type\": [\"X\", \"null\"] }",
+      "typeboxOutput": "Type.Union([<X-mapped>, Type.Null()])",
+      "notes": "Gate A decision: nullable semantics via union"
+    },
+    {
+      "rule": "T09",
+      "upstreamPattern": "{ \"$ref\": \"#/definitions/Foo\" }",
+      "typeboxOutput": "Type.Ref(Foo)",
+      "notes": "Foo must be declared with $id before use; same-file definition"
+    },
+    {
+      "rule": "T10",
+      "upstreamPattern": "{ \"$ref\": \"../definitions.json#/definitions/Foo\" }",
+      "typeboxOutput": "Type.Ref(Foo) with import from generated foundation module",
+      "notes": "Resolver maps path to module; $id on target must be stable"
+    },
+    {
+      "rule": "T11",
+      "upstreamPattern": "{ \"allOf\": [S1, S2, ...] }",
+      "typeboxOutput": "Type.Intersect([S1, S2, ...])",
+      "notes": "Most common as allOf: [{$ref: commonValueFields}, {properties: {value: ...}}]"
+    },
+    {
+      "rule": "T12",
+      "upstreamPattern": "{ \"anyOf\": [S1, S2, ...] }",
+      "typeboxOutput": "Type.Union([S1, S2, ...])",
+      "notes": "Semantic difference from oneOf is ignored; validation passes on any match"
+    },
+    {
+      "rule": "T13",
+      "upstreamPattern": "{ \"oneOf\": [S1, S2, ...] }",
+      "typeboxOutput": "Type.Union([S1, S2, ...]) + EXCEPTION logged",
+      "notes": "TypeBox has no strict oneOf. Logged as conversion-exception kind=semantic-loss. Acceptable for lenient validation policy."
+    },
+    {
+      "rule": "T14",
+      "upstreamPattern": "{ \"enum\": [\"a\", \"b\", \"c\"] }",
+      "typeboxOutput": "Type.Union([Type.Literal('a'), Type.Literal('b'), Type.Literal('c')])",
+      "notes": "For mixed-type enums (string + number), each literal preserves its inferred type"
+    },
+    {
+      "rule": "T15",
+      "upstreamPattern": "{ \"patternProperties\": { \".*\": S } }",
+      "typeboxOutput": "Type.Record(Type.String(), S)",
+      "notes": "For specific regex patterns (not .*), use Type.Record(Type.RegExp(pattern), S)"
+    },
+    {
+      "rule": "T16",
+      "upstreamPattern": "{ \"$ref\": \"http://external.example.com/...\" }",
+      "typeboxOutput": "Type.Any() // external ref: <original-url>",
+      "notes": "Decision B5: external refs become Type.Any() with inline comment; URL added to external-ref-allowlist in manifest"
+    }
+  ],
+  "constraintPassthrough": [
+    "format", "pattern", "minimum", "maximum",
+    "exclusiveMinimum", "exclusiveMaximum", "multipleOf",
+    "minLength", "maxLength", "minItems", "maxItems"
+  ],
+  "metadataPassthrough": [
+    "description", "title", "default", "example", "units"
+  ],
+  "droppedKeywords": [
+    { "keyword": "id", "reason": "Draft-04 local id; replaced by stable $id formula" },
+    { "keyword": "additionalItems", "reason": "Not supported in TypeBox Array; ignored unless false" },
+    { "keyword": "$schema", "reason": "TypeBox emits its own schema declaration" },
+    { "keyword": "FIXME", "reason": "Upstream editorial comment; stripped and logged as warning" }
+  ],
+  "outputConventions": {
+    "fileNaming": "{batch-folder}/{definitionName}.ts for discrete definitions; index.ts barrel per folder",
+    "exportStyle": "named exports only (no default exports)",
+    "propertyOrdering": "alphabetical within Type.Object to ensure byte-stable output (decision B4)",
+    "headerComment": "// Generated from SignalK specification {upstreamRef} — do not edit manually",
+    "staticTypeExport": "export type {Name} = Type.Static<typeof {Name}Schema>"
+  },
+  "exceptionPolicy": {
+    "semanticLoss": "Log to manifest.exceptions[]; continue generation; add inline comment in output",
+    "unresolvedRef": "Emit Type.Unknown() with inline comment; fail parity check; block batch promotion",
+    "missingDefinition": "Emit Type.Unknown() with inline comment; fail parity check; block batch promotion"
+  },
+  "conversionExceptionsFound": [
+    {
+      "kind": "semantic-loss",
+      "location": "definitions.json#/definitions/meta.displayScale",
+      "detail": "oneOf with three variants mapped to Type.Union; exclusive single-match constraint not enforced"
+    }
+  ],
+  "parity-verification-plan": {
+    "sample-schemas": ["definitions.json (foundation primitives)", "groups/navigation.json (one property)"],
+    "checks": [
+      "Generated TypeScript compiles without errors",
+      "Type.Static output matches expected shape for 3 sample paths",
+      "Validator accepts known-valid upstream fixture",
+      "Validator rejects known-invalid upstream fixture"
+    ]
+  }
+}
