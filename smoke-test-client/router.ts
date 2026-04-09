@@ -4,9 +4,9 @@
  * Guidance: Keep routing concerns in smoke-test-client unless a stable,
  * reusable routing API is intentionally promoted into src/lib.
  */
-import type { ParsedDeltaValue } from '../src/lib/index.js'
+import type { ParsedValue } from '../src/lib/index.js'
 
-type AnyCallback = (value: ParsedDeltaValue) => void
+type AnyCallback = (value: ParsedValue) => void
 
 export class TypesafeSkRouter {
     private readonly pathHandlers = new Map<string, AnyCallback[]>()
@@ -17,7 +17,7 @@ export class TypesafeSkRouter {
         this.pathHandlers.set(path, list)
     }
 
-    emit(values: ParsedDeltaValue[]): void {
+    emit(values: ParsedValue[]): void {
         for (const value of values) {
             const pathList = this.pathHandlers.get(value.path)
             if (pathList) {

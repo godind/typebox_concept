@@ -32,10 +32,15 @@ function sendSubscriptions(ws: WebSocket): void {
 const router = new TypesafeSkRouter()
 const parser = createParserRuntime()
 
+function statusPrefix(v: { validationStatus: string; valueTypeStatus: string }): string {
+    if (v.validationStatus === 'valid') return '[valid]'
+    if (v.validationStatus === 'invalid') return '[invalid]'
+    if (v.valueTypeStatus === 'unknown-value-type') return '[unknown-value-type]'
+    return '[no-value-type]'
+}
+
 router.onPath('navigation.position', (v) => {
-    const prefix = v.validationStatus === 'validated'
-        ? '[validated] Position'
-        : '[accepted-unvalidated]'
+    const prefix = `${statusPrefix(v)} Position`
     if (!isObject(v.value)) {
         console.log(`${prefix} navigation.position -> null`)
         return
@@ -47,7 +52,7 @@ router.onPath('navigation.position', (v) => {
 })
 
 router.onPath('environment.wind.speedOverGround', (v) => {
-    const prefix = v.validationStatus === 'validated' ? '[validated]' : '[accepted-unvalidated]'
+    const prefix = statusPrefix(v)
     const numeric = typeof v.value === 'number' ? v.value.toFixed(3) : '-'
     console.log(`${prefix} environment.wind.speedOverGround -> ${numeric}`)
 })
@@ -64,7 +69,7 @@ ws.on('message', (raw) => {
     const delta = parseDelta(raw)
     if (!delta) return
 
-    const accepted = parser.processDelta(delta)
+    const accepted = parser.processValues(delta)
     router.emit(accepted)
 })
 

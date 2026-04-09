@@ -16,7 +16,11 @@ export { createDeltaValidators } from './validators.js'
 export {
     createParserRuntime,
     type ParserRuntime,
-    type ParsedDeltaValue,
-    type ValidatedDeltaValue,
-    type UnvalidatedDeltaValue
+    type ValueTypeStatus,
+    type ValidationStatus,
+    type ParsedValue,
+    type ValidatedValue,
+    type InvalidValue,
+    type NoValueTypeValue,
+    type UnknownValueTypeValue
 } from './parser.js'
