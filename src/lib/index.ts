@@ -5,11 +5,10 @@
  */
 export {
     PositionSchema,
-    NumericDeltaValueSchema,
-    PositionDeltaValueSchema,
+    NumericSchema,
     type Numeric,
     type Position,
-    type KnownSchemaName
+    type SignalKSchemaName
 } from './schemas.js'
 
 export { createDeltaValidators } from './validators.js'
@@ -17,8 +16,7 @@ export { createDeltaValidators } from './validators.js'
 export {
     createParserRuntime,
     type ParserRuntime,
-    type ValidationStatus,
-    type AcceptedDeltaValue,
-    type KnownValidatedDelta,
-    type UnvalidatedDelta
+    type ParsedDeltaValue,
+    type ValidatedDeltaValue,
+    type UnvalidatedDeltaValue
 } from './parser.js'

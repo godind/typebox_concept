@@ -4,15 +4,15 @@
  * compiled validators instead of recompiling in hot paths.
  */
 import { Compile } from 'typebox/schema'
-import { KnownSchemaRegistry, type KnownSchemaName } from './schemas.js'
+import { KnownSchemaRegistry, type SignalKSchemaName } from './schemas.js'
 
-export type KnownSchemaValidators = Record<KnownSchemaName, ReturnType<typeof Compile>>
+export type KnownSchemaValidators = Record<SignalKSchemaName, ReturnType<typeof Compile>>
 
 // Compile all known schemas once so parser logic can consume ready-to-use
 // validators without rebuilding them for each incoming delta message.
 export function createDeltaValidators(): KnownSchemaValidators {
   const compiled = {} as KnownSchemaValidators
-  for (const schemaName of Object.keys(KnownSchemaRegistry) as KnownSchemaName[]) {
+  for (const schemaName of Object.keys(KnownSchemaRegistry) as SignalKSchemaName[]) {
       compiled[schemaName] = Compile(KnownSchemaRegistry[schemaName])
   }
   return compiled

@@ -6,24 +6,24 @@
  */
 import { asSkMetaArray, asSkUpdateArray, asSkValueArray, isObject, type SkDelta } from './types.js'
 import { createDeltaValidators, type KnownSchemaValidators } from './validators.js'
-import { KnownSchemaRegistry, type KnownSchemaName, type KnownSchemaTypeMap, type NormalizedBaseDelta } from './schemas.js'
+import { KnownSchemaRegistry, type SignalKSchemaName, type KnownSchemaTypeMap, type NormalizedBaseDelta } from './schemas.js'
 
 export type ValidationStatus = 'validated' | 'accepted-unvalidated'
 
-export type KnownValidatedDelta = {
-  [K in KnownSchemaName]: KnownSchemaTypeMap[K] & {
+export type ValidatedDeltaValue = {
+  [K in SignalKSchemaName]: KnownSchemaTypeMap[K] & {
     schemaName: K
     validationStatus: 'validated'
   }
-}[KnownSchemaName]
+}[SignalKSchemaName]
 
-export type UnvalidatedDelta = NormalizedBaseDelta & {
+export type UnvalidatedDeltaValue = NormalizedBaseDelta & {
   value: unknown
   schemaName?: undefined
   validationStatus: 'accepted-unvalidated'
 }
 
-export type AcceptedDeltaValue = KnownValidatedDelta | UnvalidatedDelta
+export type ParsedDeltaValue = ValidatedDeltaValue | UnvalidatedDeltaValue
 
 class SchemaTypeIndex {
   private readonly pathToMetaType = new Map<string, string>()
@@ -42,10 +42,10 @@ class SchemaTypeIndex {
     }
   }
 
-  lookupSchemaName(path: string): KnownSchemaName | undefined {
+  lookupSchemaName(path: string): SignalKSchemaName | undefined {
     const raw = this.pathToMetaType.get(path)
     if (!raw) return undefined
-    if (raw in KnownSchemaRegistry) return raw as KnownSchemaName
+    if (raw in KnownSchemaRegistry) return raw as SignalKSchemaName
     return undefined
   }
 }
@@ -54,8 +54,8 @@ function process(
   delta: SkDelta,
   map: SchemaTypeIndex,
   validators: KnownSchemaValidators
-): AcceptedDeltaValue[] {
-  const accepted: AcceptedDeltaValue[] = []
+): ParsedDeltaValue[] {
+  const accepted: ParsedDeltaValue[] = []
   const context = typeof delta.context === 'string' ? delta.context : 'vessels.self'
 
   for (const update of asSkUpdateArray(delta.updates)) {
@@ -90,7 +90,7 @@ function process(
           ...candidate,
           schemaName,
           validationStatus: 'validated'
-        } as KnownValidatedDelta)
+        } as ValidatedDeltaValue)
       }
     }
   }
@@ -113,12 +113,12 @@ export type ParserRuntime = {
    * 
    * Useful in staged flows where metadata indexing is handled separately.
    */
-  validateDeltaValues: (delta: SkDelta) => AcceptedDeltaValue[]
+  validateDeltaValues: (delta: SkDelta) => ParsedDeltaValue[]
 
   /**
    * One-step pipeline: index schema types from delta metadata, then validate values shape and content.
    */
-  processDelta: (delta: SkDelta) => AcceptedDeltaValue[]
+  processDelta: (delta: SkDelta) => ParsedDeltaValue[]
 }
 
 /**
@@ -132,10 +132,10 @@ export function createParserRuntime(validators: KnownSchemaValidators = createDe
     indexSchemaTypes(delta: SkDelta): void {
       schemaTypeIndex.index(delta)
     },
-    validateDeltaValues(delta: SkDelta): AcceptedDeltaValue[] {
+    validateDeltaValues(delta: SkDelta): ParsedDeltaValue[] {
       return process(delta, schemaTypeIndex, validators)
     },
-    processDelta(delta: SkDelta): AcceptedDeltaValue[] {
+    processDelta(delta: SkDelta): ParsedDeltaValue[] {
       schemaTypeIndex.index(delta)
       return process(delta, schemaTypeIndex, validators)
     }

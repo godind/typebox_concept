@@ -31,13 +31,15 @@ export const PositionSchema = Type.Object({
     additionalProperties: false
 })
 
+export const NumericSchema = Type.Number()
+
 // Single source of truth for known delta-value schemas.
 // Add new known schemas here and the registry/type-map update automatically.
 const DeclaredKnownDeltaValueSchemas = {
     Numeric: Type.Intersect([
         NormalizedBaseDeltaSchema,
         Type.Object({
-            value: Type.Union([Type.Number(), Type.Null()])
+            value: Type.Union([NumericSchema, Type.Null()])
         })
     ]),
     Position: Type.Intersect([
@@ -55,16 +57,16 @@ export const PositionDeltaValueSchema = DeclaredKnownDeltaValueSchemas.Position
 // Export TS types directly from TypeBox schemas for
 // zero-drift safety in parser/router
 export type NormalizedBaseDelta = Type.Static<typeof NormalizedBaseDeltaSchema>
-export type Numeric = Type.Static<typeof NumericDeltaValueSchema>
-export type Position = Type.Static<typeof PositionDeltaValueSchema>
+export type Numeric = Type.Static<typeof NumericSchema> | null
+export type Position = Type.Static<typeof PositionSchema> | null
 
 // Registry is derived from the declared schema source so we cannot forget to sync it.
 export const KnownSchemaRegistry = DeclaredKnownDeltaValueSchemas
 
-export type KnownSchemaName = keyof typeof KnownSchemaRegistry
+export type SignalKSchemaName = keyof typeof KnownSchemaRegistry
 
 // Auto-derive schema-name -> static type from the registry so adding a new
 // known schema updates parser/router typing without extra manual mapping.
 export type KnownSchemaTypeMap = {
-    [K in KnownSchemaName]: Type.Static<(typeof KnownSchemaRegistry)[K]>
+    [K in SignalKSchemaName]: Type.Static<(typeof KnownSchemaRegistry)[K]>
 }
