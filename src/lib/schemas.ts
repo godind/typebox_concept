@@ -14,7 +14,7 @@ export const NormalizedBaseDeltaSchema = Type.Object({
     timestamp: Type.Optional(Type.String())
 })
 
-export const PositionSchema = Type.Object({
+const PositionValueSchema = Type.Object({
     latitude: Type.Number({
         minimum: -90,
         maximum: 90
@@ -31,7 +31,9 @@ export const PositionSchema = Type.Object({
     additionalProperties: false
 })
 
-export const NumericSchema = Type.Number()
+export const PositionSchema = Type.Union([PositionValueSchema, Type.Null()])
+
+export const NumericSchema = Type.Union([Type.Number(), Type.Null()])
 
 // Single source of truth for known delta-value schemas.
 // Add new known schemas here and the registry/type-map update automatically.
@@ -39,13 +41,13 @@ const DeclaredKnownDeltaValueSchemas = {
     Numeric: Type.Intersect([
         NormalizedBaseDeltaSchema,
         Type.Object({
-            value: Type.Union([NumericSchema, Type.Null()])
+            value: NumericSchema
         })
     ]),
     Position: Type.Intersect([
         NormalizedBaseDeltaSchema,
         Type.Object({
-            value: Type.Union([PositionSchema, Type.Null()])
+            value: PositionSchema
         })
     ])
 } as const satisfies Record<string, TSchema>
@@ -57,8 +59,8 @@ export const PositionDeltaValueSchema = DeclaredKnownDeltaValueSchemas.Position
 // Export TS types directly from TypeBox schemas for
 // zero-drift safety in parser/router
 export type NormalizedBaseDelta = Type.Static<typeof NormalizedBaseDeltaSchema>
-export type Numeric = Type.Static<typeof NumericSchema> | null
-export type Position = Type.Static<typeof PositionSchema> | null
+export type Numeric = Type.Static<typeof NumericSchema>
+export type Position = Type.Static<typeof PositionSchema>
 
 // Registry is derived from the declared schema source so we cannot forget to sync it.
 export const KnownSchemaRegistry = DeclaredKnownDeltaValueSchemas

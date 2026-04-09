@@ -4,7 +4,7 @@
  * Guidance: Keep routing concerns in smoke-test-client unless a stable,
  * reusable routing API is intentionally promoted into src/lib.
  */
-import type { ParsedDeltaValue } from '../src/lib/parser.js'
+import type { ParsedDeltaValue } from '../src/lib/index.js'
 
 type AnyCallback = (value: ParsedDeltaValue) => void
 
