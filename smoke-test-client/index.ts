@@ -8,9 +8,11 @@ import WebSocket from 'ws'
 import { parseDelta } from './transport.js'
 import { createParserRuntime, type ParsedValue } from '../src/lib/index.js'
 
+const ANSI = { reset: '\x1b[0m', green: '\x1b[32m', red: '\x1b[31m', yellow: '\x1b[33m', white: '\x1b[37m' } as const
+
 const WS_URL = 'ws://localhost:3000/signalk/v1/stream?subscribe=none&sendMeta=all'
 const TARGET_PATHS = ['*']//['navigation.position', 'environment.wind.speedTrue', 'environment.wind.speedOverGround'] as const
-const ANSI = { reset: '\x1b[0m', green: '\x1b[32m', red: '\x1b[31m', yellow: '\x1b[33m', white: '\x1b[37m' } as const
+const UPDATE_INTERVAL = 1000
 
 function sendSubscriptions(ws: WebSocket): void {
     ws.send(
@@ -26,7 +28,7 @@ function sendSubscriptions(ws: WebSocket): void {
             sendMeta: 'all',
             subscribe: TARGET_PATHS.map((path) => ({
                 path,
-                period: 1000
+                period: UPDATE_INTERVAL
             }))
         })
     )
