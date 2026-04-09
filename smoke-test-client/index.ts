@@ -5,12 +5,12 @@
  * src/lib so the package remains library-first.
  */
 import WebSocket from 'ws'
-import { TypesafeSkRouter } from './router.js'
-import { isObject, parseDelta } from './transport.js'
-import { createParserRuntime } from '../src/lib/index.js'
+import { parseDelta } from './transport.js'
+import { createParserRuntime, type ParsedValue } from '../src/lib/index.js'
 
 const WS_URL = 'ws://localhost:3000/signalk/v1/stream?subscribe=none&sendMeta=all'
-const TARGET_PATHS = ['navigation.position', 'environment.wind.speedOverGround'] as const
+const TARGET_PATHS = ['navigation.position', 'environment.wind.speedTrue', 'environment.wind.speedOverGround'] as const
+const ANSI = { reset: '\x1b[0m', green: '\x1b[32m', red: '\x1b[31m', yellow: '\x1b[33m', white: '\x1b[37m' } as const
 
 function sendSubscriptions(ws: WebSocket): void {
     ws.send(
@@ -24,38 +24,39 @@ function sendSubscriptions(ws: WebSocket): void {
         JSON.stringify({
             context: 'vessels.self',
             sendMeta: 'all',
-            subscribe: TARGET_PATHS.map((path) => ({ path }))
+            subscribe: TARGET_PATHS.map((path) => ({
+                path,
+                period: 1000
+            }))
         })
     )
 }
 
-const router = new TypesafeSkRouter()
 const parser = createParserRuntime()
 
-function statusPrefix(v: { validationStatus: string; valueTypeStatus: string }): string {
-    if (v.validationStatus === 'valid') return '[valid]'
-    if (v.validationStatus === 'invalid') return '[invalid]'
-    if (v.valueTypeStatus === 'unknown-value-type') return '[unknown-value-type]'
-    return '[no-value-type]'
+function colorize(color: string, message: string): string {
+    return `${color}${message}${ANSI.reset}`
 }
 
-router.onPath('navigation.position', (v) => {
-    const prefix = `${statusPrefix(v)} Position`
-    if (!isObject(v.value)) {
-        console.log(`${prefix} navigation.position -> null`)
+function logParsedValue(v: ParsedValue): void {
+    if (v.validationStatus === 'valid') {
+        console.log(colorize(ANSI.green, `[valid] ${v.valueType} at ${v.path}`))
         return
     }
 
-    const latitude = typeof v.value.latitude === 'number' ? v.value.latitude : null
-    const longitude = typeof v.value.longitude === 'number' ? v.value.longitude : null
-    console.log(`${prefix} navigation.position -> lat=${latitude ?? '-'} lon=${longitude ?? '-'}`)
-})
+    if (v.validationStatus === 'invalid') {
+        const details = JSON.stringify(v.validationErrors, null, 2)
+        console.error(colorize(ANSI.red, `[invalid] ${v.valueType} at ${v.path}\n${details}`))
+        return
+    }
 
-router.onPath('environment.wind.speedOverGround', (v) => {
-    const prefix = statusPrefix(v)
-    const numeric = typeof v.value === 'number' ? v.value.toFixed(3) : '-'
-    console.log(`${prefix} environment.wind.speedOverGround -> ${numeric}`)
-})
+    if (v.valueTypeStatus === 'unknown-value-type') {
+        console.log(colorize(ANSI.yellow, `[unknown-value-type] ${v.valueType} at ${v.path}`))
+        return
+    }
+
+    console.log(colorize(ANSI.white, `[no-value-type] ${v.path}`))
+}
 
 const ws = new WebSocket(WS_URL, {
     handshakeTimeout: 10000
@@ -70,7 +71,7 @@ ws.on('message', (raw) => {
     if (!delta) return
 
     const accepted = parser.processValues(delta)
-    router.emit(accepted)
+    accepted.forEach(logParsedValue)
 })
 
 ws.on('close', (code, reasonBuffer) => {

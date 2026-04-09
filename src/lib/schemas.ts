@@ -20,7 +20,7 @@ const PositionValueSchema = Type.Object({
         maximum: 90
     }),
     longitude: Type.Number({
-        minimum: -20,
+        minimum: -180,
         maximum: 180
     }),
     altitude: Type.Optional(Type.Number({
