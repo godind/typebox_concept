@@ -1,7 +1,11 @@
 /**
- * Phase 3 Batch 2 navigation generator.
- * Fetches Signal K schemas/groups/navigation.json and emits a TypeBox module
+ * Phase 3 Batch 3 environment generator.
+ * Fetches Signal K schemas/groups/environment.json and emits a TypeBox module
  * for staging review.
+ *
+ * Format registry pre-scan results (April 2026, full-spec audit):
+ *   - ^[a-zA-Z0-9/+-]+$  (timezoneRegion): intentionally unmapped — generic
+ *     timezone region string; pattern enforcement from the schema is sufficient.
  */
 import fs from 'fs'
 import path from 'path'
@@ -12,7 +16,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const OUT_DIR = __dirname
 const UPSTREAM_BASE = 'https://raw.githubusercontent.com/SignalK/specification/master'
 const UPSTREAM_REF = 'master'
-const UPSTREAM_PATHS = ['schemas/groups/navigation.json']
+const UPSTREAM_PATHS = ['schemas/groups/environment.json']
 
 const EXTERNAL_REF_ALLOWLIST = new Set()
 const EXCEPTIONS = []
@@ -123,7 +127,7 @@ function resolveRef(upstreamPath, ref) {
   const localDefMatch = ref.match(/^#\/definitions\/(.+)$/)
   if (localDefMatch) return `Type.Ref(${JSON.stringify(definitionId(upstreamPath, localDefMatch[1]))})`
 
-  const definitionsMatch = ref.match(/(?:\.\/)?definitions\.json#\/definitions\/(.+)$/)
+  const definitionsMatch = ref.match(/(?:\.\.\/)?definitions\.json#\/definitions\/(.+)$/)
   if (definitionsMatch) {
     return `Type.Ref(${JSON.stringify(definitionId('schemas/definitions.json', definitionsMatch[1]))})`
   }
@@ -134,9 +138,7 @@ function resolveRef(upstreamPath, ref) {
 
 function intersectSets(a, b) {
   const out = new Set()
-  for (const v of a) {
-    if (b.has(v)) out.add(v)
-  }
+  for (const v of a) { if (b.has(v)) out.add(v) }
   return out
 }
 
@@ -149,35 +151,29 @@ function extractLiteralSet(schema) {
 function tupleBranchSignature(schema) {
   if (!schema || typeof schema !== 'object') return null
   if (schema.type !== 'array' || !Array.isArray(schema.items)) return null
-
   const len = schema.items.length
   const minItems = schema.minItems ?? len
   const maxItems = schema.maxItems ?? len
   const firstItemLiterals = extractLiteralSet(schema.items[0])
-
   return { minItems, maxItems, firstItemLiterals }
 }
 
 function proveTupleDisjoint(variantSchemas) {
   const signatures = variantSchemas.map(tupleBranchSignature)
   if (signatures.some(s => s === null)) return null
-
   for (let i = 0; i < signatures.length; i++) {
     for (let j = i + 1; j < signatures.length; j++) {
       const a = signatures[i]
       const b = signatures[j]
       const lengthOverlap = !(a.maxItems < b.minItems || b.maxItems < a.minItems)
       if (!lengthOverlap) continue
-
       if (a.firstItemLiterals && b.firstItemLiterals) {
         const overlap = intersectSets(a.firstItemLiterals, b.firstItemLiterals)
         if (overlap.size === 0) continue
       }
-
       return null
     }
   }
-
   return 'tuple branches are pairwise disjoint by length/literal position constraints'
 }
 
@@ -190,14 +186,11 @@ function anchoredPrefixToken(pattern) {
 function proveStringPrefixDisjoint(variantSchemas) {
   const prefixes = []
   for (const schema of variantSchemas) {
-    if (!schema || typeof schema !== 'object' || schema.type !== 'string' || typeof schema.pattern !== 'string') {
-      return null
-    }
+    if (!schema || typeof schema !== 'object' || schema.type !== 'string' || typeof schema.pattern !== 'string') return null
     const token = anchoredPrefixToken(schema.pattern)
     if (!token) return null
     prefixes.push(token)
   }
-
   const unique = new Set(prefixes)
   if (unique.size !== prefixes.length) return null
   return `string branches are disjoint by anchored prefix tokens (${prefixes.join(', ')})`
@@ -223,14 +216,12 @@ function toTypebox(schema, context, upstreamPath, indent = 0) {
       logWarning(context, 'empty type array; emitted Type.Unknown()')
       return 'Type.Unknown()'
     }
-
     if (nonNull.length > 1) {
       const opts = constraintOptions(schema, context)
       const members = nonNull.map(t => typeFromName(t, opts))
       const allMembers = hasNull ? [...members, 'Type.Null()'] : members
       return `Type.Union([${allMembers.join(', ')}])`
     }
-
     const baseSchema = { ...schema, type: nonNull[0] }
     const baseExpr = toTypebox(baseSchema, context, upstreamPath, indent)
     return hasNull ? `Type.Union([${baseExpr}, Type.Null()])` : baseExpr
@@ -244,10 +235,7 @@ function toTypebox(schema, context, upstreamPath, indent = 0) {
       if (typeof v === 'number') return `Type.Literal(${v})`
       return `Type.Literal(${JSON.stringify(v)})`
     })
-    if (literals.length === 0) {
-      logWarning(context, 'empty enum encountered; emitted Type.Never()')
-      return 'Type.Never()'
-    }
+    if (literals.length === 0) { logWarning(context, 'empty enum; emitted Type.Never()'); return 'Type.Never()' }
     if (literals.length === 1) return literals[0]
     return `Type.Union([\n${literals.map(l => innerPad + l).join(',\n')}\n${pad}]${idOpt})`
   }
@@ -323,18 +311,17 @@ function toTypebox(schema, context, upstreamPath, indent = 0) {
     case 'null':
       return 'Type.Null()'
     case 'array': {
-      const itemExpr = schema.items
-        ? (Array.isArray(schema.items)
-          ? null
-          : toTypebox(schema.items, `${context}.items`, upstreamPath, indent))
-        : 'Type.Unknown()'
       const arrOpts = {}
       if (schema.minItems !== undefined) arrOpts.minItems = schema.minItems
       if (schema.maxItems !== undefined) arrOpts.maxItems = schema.maxItems
       if (Array.isArray(schema.items)) {
-        const tupleItems = schema.items.map((item, index) => toTypebox(item, `${context}.items[${index}]`, upstreamPath, indent + 1))
+        const tupleItems = schema.items.map((item, index) =>
+          toTypebox(item, `${context}.items[${index}]`, upstreamPath, indent + 1))
         return `Type.Tuple([${tupleItems.join(', ')}]${Object.keys(arrOpts).length ? ', ' + JSON.stringify(arrOpts) : ''})`
       }
+      const itemExpr = schema.items
+        ? toTypebox(schema.items, `${context}.items`, upstreamPath, indent)
+        : 'Type.Unknown()'
       return `Type.Array(${itemExpr}${Object.keys(arrOpts).length ? ', ' + JSON.stringify(arrOpts) : ''})`
     }
     case 'object': {
@@ -398,11 +385,7 @@ function emitRootModule(schema, upstreamPath) {
   lines.push(`export type ${typeName} = Type.Static<typeof ${schemaName}>`)
   lines.push('')
 
-  return {
-    schemaName,
-    typeName,
-    source: lines.join('\n')
-  }
+  return { schemaName, typeName, source: lines.join('\n') }
 }
 
 async function loadSchema(upstreamPath) {
@@ -419,23 +402,19 @@ async function main() {
     const emitted = emitRootModule(schema, upstreamPath)
     const fileName = `${schemaBaseName(upstreamPath)}.ts`
     fs.writeFileSync(path.join(OUT_DIR, fileName), emitted.source, 'utf8')
-    outputs.push({
-      upstreamPath,
-      outputFile: fileName,
-      schemaName: emitted.schemaName,
-      typeName: emitted.typeName
-    })
+    outputs.push({ upstreamPath, outputFile: fileName, schemaName: emitted.schemaName, typeName: emitted.typeName })
   }
 
   const barrel = outputs
-    .map(({ outputFile, schemaName, typeName }) => `export { ${schemaName} } from './${outputFile.replace('.ts', '.js')}'\nexport type { ${typeName} } from './${outputFile.replace('.ts', '.js')}'`)
+    .map(({ outputFile, schemaName, typeName }) =>
+      `export { ${schemaName} } from './${outputFile.replace('.ts', '.js')}'\nexport type { ${typeName} } from './${outputFile.replace('.ts', '.js')}'`)
     .join('\n\n') + '\n'
   fs.writeFileSync(path.join(OUT_DIR, 'index.ts'), barrel, 'utf8')
 
   const manifest = {
     phase: 'Phase 3',
-    batch: 'Batch 2',
-    scope: 'navigation',
+    batch: 'Batch 3',
+    scope: 'environment',
     generatedAt: new Date().toISOString(),
     upstreamRef: UPSTREAM_REF,
     upstreamPaths: UPSTREAM_PATHS,
@@ -448,9 +427,10 @@ async function main() {
   }
   fs.writeFileSync(path.join(OUT_DIR, 'manifest.json'), JSON.stringify(manifest, null, 2), 'utf8')
 
-  console.log(`Wrote ${outputs.length} navigation schema module(s) to ${OUT_DIR}`)
+  console.log(`Wrote ${outputs.length} environment schema module(s) to ${OUT_DIR}`)
   console.log(`Exceptions: ${EXCEPTIONS.length}, Warnings: ${WARNINGS.length}`)
-  console.log(`External refs: ${EXTERNAL_REF_ALLOWLIST.size}`)
+  console.log(`Unmapped format candidates: ${FORMAT_TRACE.unmapped.length}`)
+  console.log(`Format mappings applied: ${FORMAT_TRACE.applied.length}`)
 }
 
 main().catch(error => {

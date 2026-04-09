@@ -17,5 +17,7 @@ export function registerRuntimeFormats(): void {
   Format.Set("signalk-self-aircraft-id", (value) => typeof value === 'string' && new RegExp("^aircraft.(urn:mrn:(imo:mmsi:1[0-9]{8}$|signalk:uuid:[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-4[0-9A-Fa-f]{3}-[89ABab][0-9A-Fa-f]{3}-[0-9A-Fa-f]{12}$))|(http(s?):.*|mailto:.*|tel:(\\+?)[0-9]{4,})$").test(value))
   Format.Set("signalk-self-aton-id", (value) => typeof value === 'string' && new RegExp("^aton.(urn:mrn:(imo:mmsi:99[0-9]{7}$|signalk:uuid:[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-4[0-9A-Fa-f]{3}-[89ABab][0-9A-Fa-f]{3}-[0-9A-Fa-f]{12}$))|(http(s?):.*|mailto:.*|tel:(\\+?)[0-9]{4,})$").test(value))
   Format.Set("signalk-self-sar-id", (value) => typeof value === 'string' && new RegExp("^sar.(urn:mrn:(imo:mmsi:97[0-9]{7}$|signalk:uuid:[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-4[0-9A-Fa-f]{3}-[89ABab][0-9A-Fa-f]{3}-[0-9A-Fa-f]{12}$))|(http(s?):.*|mailto:.*|tel:(\\+?)[0-9]{4,})$").test(value))
+  Format.Set("signalk-request-id", (value) => typeof value === 'string' && new RegExp("[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}").test(value))
+  Format.Set("signalk-imo-number", (value) => typeof value === 'string' && new RegExp("^IMO [0-9]{7,7}$").test(value))
   _registered = true
 }

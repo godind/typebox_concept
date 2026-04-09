@@ -223,14 +223,18 @@ function toTypebox(schema, context, indent = 0) {
     case 'object': {
       if (schema.patternProperties && !schema.properties) {
         const patterns = Object.entries(schema.patternProperties)
-        if (patterns.length === 1 && patterns[0][0] === '.*') {
-          const valExpr = toTypebox(patterns[0][1], context + '.patternProperties.*', indent + 1)
-          return `Type.Record(Type.String(), ${valExpr})`
+        if (patterns.length === 1) {
+          const [pat, patSchema] = patterns[0]
+          const valExpr = toTypebox(patSchema, pat === '.*' ? context + '.patternProperties.*' : context + '.patternProperties', indent + 1)
+          const keyExpr = pat === '.*'
+            ? 'Type.String()'
+            : `Type.String({"pattern":${JSON.stringify(pat)}})`
+          return `Type.Record(${keyExpr}, ${valExpr})`
         }
         const [pat, patSchema] = patterns[0]
         const valExpr = toTypebox(patSchema, context + '.patternProperties', indent + 1)
-        logWarning(context, 'multiple patternProperties collapsed to first pattern')
-        return `Type.Record(Type.String(), ${valExpr}) /* original pattern: ${pat} */`
+        logWarning(context, 'multiple patternProperties collapsed to first key pattern')
+        return `Type.Record(Type.String({"pattern":${JSON.stringify(pat)}}), ${valExpr}) /* first pattern only */`
       }
 
       const propLines = []

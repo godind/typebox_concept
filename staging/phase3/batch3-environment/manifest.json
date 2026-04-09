@@ -1,0 +1,28 @@
+{
+  "phase": "Phase 3",
+  "batch": "Batch 3",
+  "scope": "environment",
+  "generatedAt": "2026-04-09T23:02:32.284Z",
+  "upstreamRef": "master",
+  "upstreamPaths": [
+    "schemas/groups/environment.json"
+  ],
+  "outputs": [
+    {
+      "upstreamPath": "schemas/groups/environment.json",
+      "outputFile": "environment.ts",
+      "schemaName": "EnvironmentSchema",
+      "typeName": "Environment"
+    }
+  ],
+  "exceptions": [],
+  "warnings": [],
+  "externalRefAllowlist": [],
+  "formatMappingsApplied": [],
+  "unmappedFormatCandidates": [
+    {
+      "location": "schemas/groups/environment.json#.time.timezoneRegion",
+      "pattern": "^[a-zA-Z0-9/+-]+$"
+    }
+  ]
+}

@@ -75,6 +75,24 @@ export const FORMAT_RULES = [
     format: 'signalk-self-sar-id',
     match: { kind: 'exact-pattern', value: '^sar.(urn:mrn:(imo:mmsi:97[0-9]{7}$|signalk:uuid:[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-4[0-9A-Fa-f]{3}-[89ABab][0-9A-Fa-f]{3}-[0-9A-Fa-f]{12}$))|(http(s?):.*|mailto:.*|tel:(\\+?)[0-9]{4,})$' },
     runtimeRegex: '^sar.(urn:mrn:(imo:mmsi:97[0-9]{7}$|signalk:uuid:[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-4[0-9A-Fa-f]{3}-[89ABab][0-9A-Fa-f]{3}-[0-9A-Fa-f]{12}$))|(http(s?):.*|mailto:.*|tel:(\\+?)[0-9]{4,})$'
+  },
+  // Curated semantic rules added after full-spec audit (April 2026).
+  // Patterns .*Z$ and ^[a-zA-Z0-9/+-]+$ intentionally left unmapped:
+  //   .*Z$ is already paired with upstream format:date-time; redundant format label adds no routing value.
+  //   ^[a-zA-Z0-9/+-]+$ is a generic timezone region string; pattern enforcement is sufficient.
+  {
+    id: 'request-id',
+    format: 'signalk-request-id',
+    // Plain UUID (no MRN prefix) used for requestId in auth/request-response messages.
+    match: { kind: 'exact-pattern', value: '[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}' },
+    runtimeRegex: '[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}'
+  },
+  {
+    id: 'imo-number',
+    format: 'signalk-imo-number',
+    // IMO vessel registration number: "IMO " prefix followed by exactly 7 digits.
+    match: { kind: 'exact-pattern', value: '^IMO [0-9]{7,7}$' },
+    runtimeRegex: '^IMO [0-9]{7,7}$'
   }
 ]
 
