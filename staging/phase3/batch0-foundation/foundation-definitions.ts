@@ -9,7 +9,7 @@ export const _attrSchema = Type.Object({
   }, {"$id":"signalk://schemas/definitions#_attr","description":"Filesystem specific data, e.g. security, possibly more later.","title":"_attr schema."})
 export type _attr = Type.Static<typeof _attrSchema>
 
-export const AircraftMmsiSchema = Type.String({"$id":"signalk://schemas/definitions#AircraftMmsi","pattern":"^1[0-9]{8}$","description":"Maritime Mobile Service Identity (MMSI) for aircraft. Has to be 9 digits. See http://en.wikipedia.org/wiki/Maritime_Mobile_Service_Identity for information.","examples":["103123456"]})
+export const AircraftMmsiSchema = Type.String({"$id":"signalk://schemas/definitions#AircraftMmsi","pattern":"^1[0-9]{8}$","format":"signalk-aircraft-mmsi","description":"Maritime Mobile Service Identity (MMSI) for aircraft. Has to be 9 digits. See http://en.wikipedia.org/wiki/Maritime_Mobile_Service_Identity for information.","examples":["103123456"]})
 export type AircraftMmsi = Type.Static<typeof AircraftMmsiSchema>
 
 export const AlarmMethodEnumSchema = Type.Union([
@@ -28,7 +28,7 @@ export const AlarmStateSchema = Type.Union([
 ], { $id: "signalk://schemas/definitions#AlarmState" })
 export type AlarmState = Type.Static<typeof AlarmStateSchema>
 
-export const AtonMmsiSchema = Type.String({"$id":"signalk://schemas/definitions#AtonMmsi","pattern":"^99[0-9]{7}$","description":"Maritime Mobile Service Identity (MMSI) for . Has to be 9 digits. See http://en.wikipedia.org/wiki/Maritime_Mobile_Service_Identity for information.","examples":["993123456"]})
+export const AtonMmsiSchema = Type.String({"$id":"signalk://schemas/definitions#AtonMmsi","pattern":"^99[0-9]{7}$","format":"signalk-aton-mmsi","description":"Maritime Mobile Service Identity (MMSI) for . Has to be 9 digits. See http://en.wikipedia.org/wiki/Maritime_Mobile_Service_Identity for information.","examples":["993123456"]})
 export type AtonMmsi = Type.Static<typeof AtonMmsiSchema>
 
 export const MetaSchema = Type.Object({
@@ -36,11 +36,11 @@ export const MetaSchema = Type.Object({
     "alertMethod": Type.Optional(Type.Array(Type.Ref("signalk://schemas/definitions#AlarmMethodEnum"))),
     "description": Type.String({"description":"Description of the SK path.","title":"Description schema.","examples":["Engine revolutions (x60 for RPM)"]}),
     "displayName": Type.Optional(Type.String({"description":"A display name for this value. This is shown on the gauge and should not include units.","title":"DisplayName schema.","examples":["Tachometer, Engine 1"]})),
-    "displayScale": Type.Optional(/* oneOf->Union: exclusive constraint not enforced */ Type.Union([
+    "displayScale": Type.Optional(/* oneOf->Union: exclusivity restored via additionalProperties:false on dominated branch(es) 0,1 */ Type.Union([
       Type.Object({
           "lower": Type.Unknown(),
           "upper": Type.Unknown()
-        }),
+        }, {"additionalProperties":false}),
       Type.Object({
           "lower": Type.Unknown(),
           "type": Type.Union([
@@ -49,13 +49,13 @@ export const MetaSchema = Type.Object({
             Type.Literal("logarithmic")
           ]),
           "upper": Type.Unknown()
-        }),
+        }, {"additionalProperties":false}),
       Type.Object({
           "lower": Type.Unknown(),
           "power": Type.Unknown(),
           "type": Type.Literal("power"),
           "upper": Type.Unknown()
-        })
+        }, {"additionalProperties":false})
     ])),
     "emergencyMethod": Type.Optional(Type.Array(Type.Ref("signalk://schemas/definitions#AlarmMethodEnum"))),
     "enum": Type.Optional(Type.Array(Type.Unknown())),
@@ -81,7 +81,7 @@ export const MetaSchema = Type.Object({
   }, {"$id":"signalk://schemas/definitions#Meta","description":"Provides meta data to enable alarm and display configuration.","title":"Meta schema."})
 export type Meta = Type.Static<typeof MetaSchema>
 
-export const SourceRefSchema = Type.String({"$id":"signalk://schemas/definitions#SourceRef","pattern":"^[A-Za-z0-9-_.]*$","description":"Reference to the source under /sources. A dot spearated path to the data. eg [type].[bus].[device]","examples":["NMEA0183.COM1.GP"]})
+export const SourceRefSchema = Type.String({"$id":"signalk://schemas/definitions#SourceRef","pattern":"^[A-Za-z0-9-_.]*$","format":"signalk-source-ref","description":"Reference to the source under /sources. A dot spearated path to the data. eg [type].[bus].[device]","examples":["NMEA0183.COM1.GP"]})
 export type SourceRef = Type.Static<typeof SourceRefSchema>
 
 export const TimestampSchema = Type.String({"$id":"signalk://schemas/definitions#Timestamp","format":"date-time","pattern":".*Z$","description":"RFC 3339 (UTC only without local offset) string representing date and time.","examples":["2014-04-10T08:33:53Z"]})
@@ -114,10 +114,10 @@ export const DatetimeValueSchema = Type.Intersect([
 ], { $id: "signalk://schemas/definitions#DatetimeValue" })
 export type DatetimeValue = Type.Static<typeof DatetimeValueSchema>
 
-export const GeohashSchema = Type.String({"$id":"signalk://schemas/definitions#Geohash","pattern":"^[0-9A-Za-z:]{1,}$","description":"A geohash (see http://geohash.org)","examples":["eg rbe:TasmanBay"]})
+export const GeohashSchema = Type.String({"$id":"signalk://schemas/definitions#Geohash","pattern":"^[0-9A-Za-z:]{1,}$","format":"signalk-geohash","description":"A geohash (see http://geohash.org)","examples":["eg rbe:TasmanBay"]})
 export type Geohash = Type.Static<typeof GeohashSchema>
 
-export const MmsiSchema = Type.String({"$id":"signalk://schemas/definitions#Mmsi","pattern":"^[2-7][0-9]{8}$","description":"Maritime Mobile Service Identity (MMSI). Has to be 9 digits. See http://en.wikipedia.org/wiki/Maritime_Mobile_Service_Identity for information.","examples":["503123456"]})
+export const MmsiSchema = Type.String({"$id":"signalk://schemas/definitions#Mmsi","pattern":"^[2-7][0-9]{8}$","format":"signalk-vessel-mmsi","description":"Maritime Mobile Service Identity (MMSI). Has to be 9 digits. See http://en.wikipedia.org/wiki/Maritime_Mobile_Service_Identity for information.","examples":["503123456"]})
 export type Mmsi = Type.Static<typeof MmsiSchema>
 
 export const SourceSchema = Type.Object({
@@ -181,7 +181,7 @@ export const PositionSchema = Type.Intersect([
 ], { $id: "signalk://schemas/definitions#Position" })
 export type Position = Type.Static<typeof PositionSchema>
 
-export const SarMmsiSchema = Type.String({"$id":"signalk://schemas/definitions#SarMmsi","pattern":"^97[0-9]{7}$","description":"Maritime Mobile Service Identity (MMSI) for . Has to be 9 digits. See http://en.wikipedia.org/wiki/Maritime_Mobile_Service_Identity for information.","examples":["973123456"]})
+export const SarMmsiSchema = Type.String({"$id":"signalk://schemas/definitions#SarMmsi","pattern":"^97[0-9]{7}$","format":"signalk-sar-mmsi","description":"Maritime Mobile Service Identity (MMSI) for . Has to be 9 digits. See http://en.wikipedia.org/wiki/Maritime_Mobile_Service_Identity for information.","examples":["973123456"]})
 export type SarMmsi = Type.Static<typeof SarMmsiSchema>
 
 export const ValuesStringValueSchema = Type.Object({
@@ -207,10 +207,10 @@ export type Units = Type.Static<typeof UnitsSchema>
 export const UrlSchema = Type.String({"$id":"signalk://schemas/definitions#Url","description":"A location of a resource, potentially relative. For hierarchical schemes (like http), applications must resolve relative URIs (e.g. './v1/api/'). Implementations should support the following schemes: http:, https:, mailto:, tel:, and ws:.","examples":["http://localhost:8080/signalk/v1/api/vessels/self/environment"]})
 export type Url = Type.Static<typeof UrlSchema>
 
-export const UuidSchema = Type.String({"$id":"signalk://schemas/definitions#Uuid","pattern":"^urn:mrn:signalk:uuid:[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-4[0-9A-Fa-f]{3}-[89ABab][0-9A-Fa-f]{3}-[0-9A-Fa-f]{12}$","description":"A unique Signal K flavoured maritime resource identifier (MRN). A MRN is a form of URN, following a specific format: urn:mrn:<issueing authority>:<id type>:<id>. In case of a Signal K uuid, that looks like this: urn:mrn:signalk:uuid:<uuid>, where Signal K is the issuing authority and UUID (v4) the ID type.","examples":["urn:mrn:signalk:uuid:b7590868-1d62-47d9-989c-32321b349fb9"]})
+export const UuidSchema = Type.String({"$id":"signalk://schemas/definitions#Uuid","pattern":"^urn:mrn:signalk:uuid:[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-4[0-9A-Fa-f]{3}-[89ABab][0-9A-Fa-f]{3}-[0-9A-Fa-f]{12}$","format":"signalk-uuid-urn","description":"A unique Signal K flavoured maritime resource identifier (MRN). A MRN is a form of URN, following a specific format: urn:mrn:<issueing authority>:<id type>:<id>. In case of a Signal K uuid, that looks like this: urn:mrn:signalk:uuid:<uuid>, where Signal K is the issuing authority and UUID (v4) the ID type.","examples":["urn:mrn:signalk:uuid:b7590868-1d62-47d9-989c-32321b349fb9"]})
 export type Uuid = Type.Static<typeof UuidSchema>
 
-export const VersionSchema = Type.String({"$id":"signalk://schemas/definitions#Version","pattern":"^[0-9]{1,3}[.][0-9]{1,2}[.][0-9]{1,2}($|-[a-zA-Z0-9]+$)","description":"Version of the Signal K schema/APIs used by the root object.","examples":["1.5.0"]})
+export const VersionSchema = Type.String({"$id":"signalk://schemas/definitions#Version","pattern":"^[0-9]{1,3}[.][0-9]{1,2}[.][0-9]{1,2}($|-[a-zA-Z0-9]+$)","format":"signalk-version","description":"Version of the Signal K schema/APIs used by the root object.","examples":["1.5.0"]})
 export type Version = Type.Static<typeof VersionSchema>
 
 export const WaypointSchema = Type.Object({

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-09T07:06:00.902Z",
+  "generatedAt": "2026-04-09T19:09:17.235Z",
   "upstreamRef": "master",
   "sampledDefinitions": [
     "timestamp",
@@ -7,7 +7,8 @@
     "mmsi",
     "alarmState",
     "numberValue",
-    "position"
+    "position",
+    "meta"
   ],
   "exceptions": [],
   "warnings": [],

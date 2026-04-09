@@ -2,7 +2,7 @@
   "phase": "Phase 3",
   "batch": "Batch 0",
   "scope": "foundation",
-  "generatedAt": "2026-04-09T16:41:36.591Z",
+  "generatedAt": "2026-04-09T20:38:57.837Z",
   "upstreamRef": "master",
   "upstreamPath": "schemas/definitions.json",
   "definitionCount": 26,
@@ -34,18 +34,63 @@
     "version",
     "waypoint"
   ],
-  "exceptions": [
-    {
-      "kind": "semantic-loss",
-      "location": "schemas/definitions.json#/definitions/meta.displayScale",
-      "detail": "oneOf mapped to Type.Union; exclusive single-match not enforced"
-    }
-  ],
+  "exceptions": [],
   "warnings": [
     {
       "location": "schemas/definitions.json#/definitions/waypoint.feature.id",
       "detail": "no type field; emitting Type.Unknown for: {\"FIXME\":\"may be there, type not known (string? number?)\"}"
     }
   ],
-  "externalRefAllowlist": []
+  "externalRefAllowlist": [],
+  "formatMappingsApplied": [
+    {
+      "location": "schemas/definitions.json#/definitions/aircraftMmsi",
+      "format": "signalk-aircraft-mmsi",
+      "rule": "mmsi-aircraft",
+      "pattern": "^1[0-9]{8}$"
+    },
+    {
+      "location": "schemas/definitions.json#/definitions/atonMmsi",
+      "format": "signalk-aton-mmsi",
+      "rule": "mmsi-aton",
+      "pattern": "^99[0-9]{7}$"
+    },
+    {
+      "location": "schemas/definitions.json#/definitions/sourceRef",
+      "format": "signalk-source-ref",
+      "rule": "source-ref",
+      "pattern": "^[A-Za-z0-9-_.]*$"
+    },
+    {
+      "location": "schemas/definitions.json#/definitions/geohash",
+      "format": "signalk-geohash",
+      "rule": "geohash",
+      "pattern": "^[0-9A-Za-z:]{1,}$"
+    },
+    {
+      "location": "schemas/definitions.json#/definitions/mmsi",
+      "format": "signalk-vessel-mmsi",
+      "rule": "mmsi-vessel",
+      "pattern": "^[2-7][0-9]{8}$"
+    },
+    {
+      "location": "schemas/definitions.json#/definitions/sarMmsi",
+      "format": "signalk-sar-mmsi",
+      "rule": "mmsi-sar",
+      "pattern": "^97[0-9]{7}$"
+    },
+    {
+      "location": "schemas/definitions.json#/definitions/uuid",
+      "format": "signalk-uuid-urn",
+      "rule": "uuid-urn",
+      "pattern": "^urn:mrn:signalk:uuid:[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-4[0-9A-Fa-f]{3}-[89ABab][0-9A-Fa-f]{3}-[0-9A-Fa-f]{12}$"
+    },
+    {
+      "location": "schemas/definitions.json#/definitions/version",
+      "format": "signalk-version",
+      "rule": "version-semver-like",
+      "pattern": "^[0-9]{1,3}[.][0-9]{1,2}[.][0-9]{1,2}($|-[a-zA-Z0-9]+$)"
+    }
+  ],
+  "unmappedFormatCandidates": []
 }

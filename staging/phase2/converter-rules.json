@@ -13,7 +13,7 @@
   "idStrategy": {
     "formula": "signalk://schemas/{normalizedRelativePath}#{DefinitionName}",
     "examples": [
-      "definitions.json#/definitions/timestamp  → $id: signalk://schemas/definitions#Timestamp",
+    "definitions.json#/definitions/timestamp  -> $id: signalk://schemas/definitions#Timestamp",
       "groups/navigation.json (root)             → $id: signalk://schemas/groups/navigation",
       "groups/navigation.json#/definitions/course → $id: signalk://schemas/groups/navigation#Course"
     ],
@@ -95,8 +95,8 @@
     {
       "rule": "T13",
       "upstreamPattern": "{ \"oneOf\": [S1, S2, ...] }",
-      "typeboxOutput": "Type.Union([S1, S2, ...]) + EXCEPTION logged",
-      "notes": "TypeBox has no strict oneOf. Logged as conversion-exception kind=semantic-loss. Acceptable for lenient validation policy."
+    "typeboxOutput": "Type.Union([S1, S2, ...]) with additionalProperties:false on dominated branches (preferred) OR plain Type.Union + EXCEPTION if pattern not applicable",
+    "notes": "TypeBox has no strict oneOf. When all branches are plain objects (no $ref/combiners), exclusivity is restored by closing 'dominated' branches (those whose property key set is a strict subset of another branch's key set) with additionalProperties:false. This is the preferred path: no semantic-loss exception, no custom validator. Falls back to plain Type.Union + semantic-loss exception when branches include $ref, anyOf, allOf, enum, or other non-object structures. Validated against Signal K meta.displayScale (8/8 exclusivity cases pass)."
     },
     {
       "rule": "T14",
@@ -143,13 +143,7 @@
     "unresolvedRef": "Emit Type.Unknown() with inline comment; fail parity check; block batch promotion",
     "missingDefinition": "Emit Type.Unknown() with inline comment; fail parity check; block batch promotion"
   },
-  "conversionExceptionsFound": [
-    {
-      "kind": "semantic-loss",
-      "location": "definitions.json#/definitions/meta.displayScale",
-      "detail": "oneOf with three variants mapped to Type.Union; exclusive single-match constraint not enforced"
-    }
-  ],
+"conversionExceptionsFound": [],
   "parity-verification-plan": {
     "sample-schemas": ["definitions.json (foundation primitives)", "groups/navigation.json (one property)"],
     "checks": [

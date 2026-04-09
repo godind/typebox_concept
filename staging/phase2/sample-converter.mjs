@@ -11,6 +11,8 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const OUT_DIR = path.join(__dirname, 'sample-parity')
 const UPSTREAM_BASE = 'https://raw.githubusercontent.com/SignalK/specification/master'
 const UPSTREAM_REF = 'master'
+const UPSTREAM_PATH = 'schemas/definitions.json'
+const ID_PREFIX = `signalk://schemas/${UPSTREAM_PATH.replace(/^schemas\//, '').replace('.json', '')}#`
 
 // ── Rule helpers ─────────────────────────────────────────────────────────────
 
@@ -28,6 +30,10 @@ function logWarning(location, detail) {
 
 function toPascalCase(s) {
   return s.charAt(0).toUpperCase() + s.slice(1)
+}
+
+function definitionId(defName) {
+    return `${ID_PREFIX}${toPascalCase(defName)}`
 }
 
 function constraintOptions(schema) {
@@ -53,6 +59,19 @@ function optsStr(opts) {
   return ', ' + JSON.stringify(opts)
 }
 
+function typeFromName(typeName, opts) {
+    switch (typeName) {
+        case 'string': return `Type.String(${opts ? JSON.stringify(opts) : ''})`
+        case 'number': return `Type.Number(${opts ? JSON.stringify(opts) : ''})`
+        case 'integer': return `Type.Integer(${opts ? JSON.stringify(opts) : ''})`
+        case 'boolean': return 'Type.Boolean()'
+        case 'null': return 'Type.Null()'
+        case 'object': return `Type.Object(${opts ? JSON.stringify(opts) : '{}'})`
+        case 'array': return `Type.Array(Type.Unknown()${opts ? ', ' + JSON.stringify(opts) : ''})`
+        default: return 'Type.Unknown()'
+    }
+}
+
 // Convert a single JSON Schema node to a TypeBox expression string.
 function toTypebox(schema, context, indent = 0) {
   const pad = '  '.repeat(indent)
@@ -71,12 +90,12 @@ function toTypebox(schema, context, indent = 0) {
     const defMatch = ref.match(/^#\/definitions\/(.+)$/)
     if (defMatch) {
       // T09: same-file ref
-      return `Type.Ref(${toPascalCase(defMatch[1])}Schema)`
+        return `Type.Ref(${JSON.stringify(definitionId(defMatch[1]))})`
     }
     const crossMatch = ref.match(/definitions\.json#\/definitions\/(.+)$/)
     if (crossMatch) {
       // T10: cross-file ref to foundation
-      return `Type.Ref(${toPascalCase(crossMatch[1])}Schema)`
+        return `Type.Ref(${JSON.stringify(definitionId(crossMatch[1]))})`
     }
     logWarning(context, `unresolved $ref: ${ref}`)
     return `Type.Unknown() /* unresolved ref: ${ref} */`
@@ -86,10 +105,22 @@ function toTypebox(schema, context, indent = 0) {
   if (Array.isArray(schema.type)) {
     const nonNull = schema.type.filter(t => t !== 'null')
     const hasNull = schema.type.includes('null')
+      if (nonNull.length === 0) {
+          if (hasNull) return 'Type.Null()'
+          logWarning(context, 'empty type array; emitted Type.Unknown()')
+          return 'Type.Unknown()'
+      }
+
+      if (nonNull.length > 1) {
+          const opts = constraintOptions(schema)
+          const members = nonNull.map(t => typeFromName(t, opts))
+          const allMembers = hasNull ? [...members, 'Type.Null()'] : members
+          return `Type.Union([${allMembers.join(', ')}])`
+      }
+
     const baseSchema = { ...schema, type: nonNull.length === 1 ? nonNull[0] : nonNull }
     const baseExpr = toTypebox(baseSchema, context, indent)
-    if (hasNull) return `Type.Union([${baseExpr}, Type.Null()])`
-    return baseExpr
+      return hasNull ? `Type.Union([${baseExpr}, Type.Null()])` : baseExpr
   }
 
   // enum — T14
@@ -122,12 +153,38 @@ function toTypebox(schema, context, indent = 0) {
   }
 
   // oneOf — T13
-  if (schema.oneOf) {
-    logException('semantic-loss', context, 'oneOf mapped to Type.Union; exclusive single-match not enforced')
+    if (schema.oneOf) {
     const id = schema['$id']
     const idOpt = id ? `, { $id: ${JSON.stringify(id)} }` : ''
+        // Restore oneOf exclusivity for plain-object branches by closing dominated
+        // branches (strict property-key subset of another branch).
+        const isPlainObjectBranch = s =>
+            (s.type === 'object' || (!s.type && s.properties)) &&
+            !s['$ref'] && !s.oneOf && !s.anyOf && !s.allOf && !s.enum
+        if (schema.oneOf.every(isPlainObjectBranch)) {
+            const propKeys = s => Object.keys(s.properties || {})
+            const dominated = new Set()
+            for (let i = 0; i < schema.oneOf.length; i++) {
+                const ki = propKeys(schema.oneOf[i])
+                for (let j = 0; j < schema.oneOf.length; j++) {
+                    if (i === j) continue
+                    const kj = propKeys(schema.oneOf[j])
+                    if (ki.length < kj.length && ki.every(k => kj.includes(k))) {
+                        dominated.add(i)
+                    }
+                }
+            }
+            if (dominated.size > 0) {
+                const members = schema.oneOf.map((s, i) => {
+                    const patched = dominated.has(i) ? { ...s, additionalProperties: false } : s
+                    return innerPad + toTypebox(patched, context, indent + 1)
+                })
+                return `/* oneOf->Union: exclusivity restored via additionalProperties:false on dominated branch(es) ${[...dominated].join(',')} */ Type.Union([\n${members.join(',\n')}\n${pad}]${idOpt})`
+            }
+        }
+        logException('semantic-loss', context, 'oneOf mapped to Type.Union; exclusive single-match not enforced')
     const members = schema.oneOf.map(s => innerPad + toTypebox(s, context, indent + 1))
-    return `/* oneOf→Union: exclusive constraint not enforced */ Type.Union([\n${members.join(',\n')}\n${pad}]${idOpt})`
+        return `/* oneOf->Union: exclusive constraint not enforced */ Type.Union([\n${members.join(',\n')}\n${pad}]${idOpt})`
   }
 
   const opts = constraintOptions(schema)
@@ -188,6 +245,7 @@ function toTypebox(schema, context, indent = 0) {
       if (schema['$id']) objOpts['$id'] = schema['$id']
       if (opts?.description) objOpts.description = opts.description
       if (opts?.title) objOpts.title = opts.title
+          if (schema.additionalProperties === false) objOpts.additionalProperties = false
       // B2: do NOT set additionalProperties: false by default
 
       const body = lines.length ? `{\n${lines.join(',\n')}\n${innerPad}}` : '{}'
@@ -201,10 +259,77 @@ function toTypebox(schema, context, indent = 0) {
   }
 }
 
+function collectDefinitionRefs(node, refs = new Set()) {
+    if (!node || typeof node !== 'object') return refs
+    if (Array.isArray(node)) {
+        for (const item of node) collectDefinitionRefs(item, refs)
+        return refs
+    }
+
+    if (typeof node['$ref'] === 'string') {
+        const ref = node['$ref']
+        const same = ref.match(/^#\/definitions\/(.+)$/)
+        const cross = ref.match(/definitions\.json#\/definitions\/(.+)$/)
+        const target = same?.[1] || cross?.[1]
+        if (target) refs.add(target)
+    }
+
+    for (const value of Object.values(node)) {
+        collectDefinitionRefs(value, refs)
+    }
+    return refs
+}
+
+function orderDefinitions(defs) {
+    const keys = Object.keys(defs)
+    const graph = new Map()
+    for (const key of keys) {
+        const refs = Array.from(collectDefinitionRefs(defs[key])).filter(r => defs[r])
+        graph.set(key, refs)
+    }
+
+    const ordered = []
+    const state = new Map()
+
+    function visit(node) {
+        const status = state.get(node)
+        if (status === 'done') return
+        if (status === 'visiting') {
+            logWarning(`${UPSTREAM_PATH}#/definitions/${node}`, 'cyclic ref detected; preserving insertion order fallback')
+            return
+        }
+        state.set(node, 'visiting')
+        const deps = graph.get(node) || []
+        deps.sort((a, b) => a.localeCompare(b))
+        for (const dep of deps) visit(dep)
+        state.set(node, 'done')
+        ordered.push(node)
+    }
+
+    const roots = [...keys].sort((a, b) => a.localeCompare(b))
+    for (const key of roots) visit(key)
+    return ordered
+}
+
+function expandSampleDefinitions(allDefs, requestedKeys) {
+    const included = new Set()
+
+    function visit(key) {
+        if (included.has(key) || !allDefs[key]) return
+        included.add(key)
+        const refs = Array.from(collectDefinitionRefs(allDefs[key]))
+        for (const ref of refs) visit(ref)
+    }
+
+    for (const key of requestedKeys) visit(key)
+    return Object.fromEntries([...included].sort((a, b) => a.localeCompare(b)).map(key => [key, allDefs[key]]))
+}
+
 // ── Emit a definitions file from upstream JSON Schema ───────────────────────
 
 function emitDefinitionsModule(upstreamSchema, filePath, upstreamPath) {
   const defs = upstreamSchema.definitions || {}
+    const orderedKeys = orderDefinitions(defs)
   const lines = []
 
   lines.push(`// Generated from SignalK specification ${UPSTREAM_REF} — do not edit manually`)
@@ -212,12 +337,10 @@ function emitDefinitionsModule(upstreamSchema, filePath, upstreamPath) {
   lines.push(`import { Type } from 'typebox'`)
   lines.push(``)
 
-  // Two-pass: emit all definitions in dependency order
-  // Simple approach: emit in source order (definitions.json appears lint-ordered already)
-  const exports = []
-  for (const [key, defSchema] of Object.entries(defs)) {
+    for (const key of orderedKeys) {
+        const defSchema = defs[key]
     const name = toPascalCase(key) + 'Schema'
-    const id = `signalk://schemas/${upstreamPath.replace(/^schemas\//, '').replace('.json', '')}#${toPascalCase(key)}`
+      const id = definitionId(key)
     const context = `${upstreamPath}#/definitions/${key}`
 
     // Inject $id into schema options before converting
@@ -226,8 +349,7 @@ function emitDefinitionsModule(upstreamSchema, filePath, upstreamPath) {
 
     lines.push(`export const ${name} = ${expr}`)
     lines.push(`export type ${toPascalCase(key)} = Type.Static<typeof ${name}>`)
-    lines.push(``)
-    exports.push(name)
+      lines.push(``)
   }
 
   return lines.join('\n')
@@ -236,22 +358,18 @@ function emitDefinitionsModule(upstreamSchema, filePath, upstreamPath) {
 // ── Main ─────────────────────────────────────────────────────────────────────
 
 async function main() {
-  const resp = await fetch(`${UPSTREAM_BASE}/schemas/definitions.json`)
+    const resp = await fetch(`${UPSTREAM_BASE}/${UPSTREAM_PATH}`)
   if (!resp.ok) throw new Error(`fetch failed: ${resp.status}`)
   const schema = await resp.json()
 
-  // Emit a focused sample covering the 6 most representative definitions
-  const SAMPLE_DEFS = ['timestamp', 'sourceRef', 'mmsi', 'alarmState', 'numberValue', 'position']
+    // Emit a focused sample that includes oneOf coverage via meta.displayScale inside meta.
+    const SAMPLE_DEFS = ['timestamp', 'sourceRef', 'mmsi', 'alarmState', 'numberValue', 'position', 'meta']
   const sampledSchema = {
     ...schema,
-    definitions: Object.fromEntries(
-      SAMPLE_DEFS
-        .filter(k => schema.definitions[k])
-        .map(k => [k, schema.definitions[k]])
-    )
+      definitions: expandSampleDefinitions(schema.definitions || {}, SAMPLE_DEFS)
   }
 
-  const output = emitDefinitionsModule(sampledSchema, 'schemas/definitions.json', 'schemas/definitions.json')
+    const output = emitDefinitionsModule(sampledSchema, UPSTREAM_PATH, UPSTREAM_PATH)
   const outFile = path.join(OUT_DIR, 'definitions-sample.ts')
   fs.writeFileSync(outFile, output, 'utf8')
 

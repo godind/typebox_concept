@@ -1,0 +1,23 @@
+{
+  "phase": "Phase 3",
+  "batch": "Batch 2",
+  "scope": "navigation",
+  "generatedAt": "2026-04-09T20:51:33.517Z",
+  "upstreamRef": "master",
+  "upstreamPaths": [
+    "schemas/groups/navigation.json"
+  ],
+  "outputs": [
+    {
+      "upstreamPath": "schemas/groups/navigation.json",
+      "outputFile": "navigation.ts",
+      "schemaName": "NavigationSchema",
+      "typeName": "Navigation"
+    }
+  ],
+  "exceptions": [],
+  "warnings": [],
+  "externalRefAllowlist": [],
+  "formatMappingsApplied": [],
+  "unmappedFormatCandidates": []
+}

@@ -5,6 +5,7 @@
 import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
+import { applyFormatMapping, createFormatTrace } from '../format-mapping-registry.mjs'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const OUT_DIR = __dirname
@@ -16,6 +17,7 @@ const ID_PREFIX = `signalk://schemas/${UPSTREAM_PATH.replace(/^schemas\//, '').r
 const EXTERNAL_REF_ALLOWLIST = new Set()
 const EXCEPTIONS = []
 const WARNINGS = []
+const FORMAT_TRACE = createFormatTrace()
 
 function logException(kind, location, detail) {
   EXCEPTIONS.push({ kind, location, detail })
@@ -33,7 +35,7 @@ function definitionId(defName) {
   return `${ID_PREFIX}${toPascalCase(defName)}`
 }
 
-function constraintOptions(schema) {
+function constraintOptions(schema, context) {
   const keys = [
     'minimum', 'maximum', 'exclusiveMinimum', 'exclusiveMaximum',
     'multipleOf', 'minLength', 'maxLength', 'minItems', 'maxItems',
@@ -44,6 +46,10 @@ function constraintOptions(schema) {
   for (const k of keys) {
     if (schema[k] !== undefined) opts[k] = schema[k]
   }
+    const mappedFormat = applyFormatMapping(schema, context, FORMAT_TRACE)
+    if (mappedFormat !== undefined && opts.format === undefined) {
+        opts.format = mappedFormat
+    }
   if (schema.description) opts.description = schema.description
   if (schema.title) opts.title = schema.title
   if (schema.default !== undefined) opts.default = schema.default
@@ -104,7 +110,7 @@ function toTypebox(schema, context, indent = 0) {
     }
 
     if (nonNull.length > 1) {
-      const opts = constraintOptions(schema)
+        const opts = constraintOptions(schema, context)
       const members = nonNull.map(t => typeFromName(t, opts))
       const allMembers = hasNull ? [...members, 'Type.Null()'] : members
       return `Type.Union([${allMembers.join(', ')}])`
@@ -145,15 +151,48 @@ function toTypebox(schema, context, indent = 0) {
     return `Type.Union([\n${members.join(',\n')}\n${pad}]${idOpt})`
   }
 
-  if (schema.oneOf) {
-    logException('semantic-loss', context, 'oneOf mapped to Type.Union; exclusive single-match not enforced')
+    if (schema.oneOf) {
     const id = schema['$id']
     const idOpt = id ? `, { $id: ${JSON.stringify(id)} }` : ''
+        // Attempt to restore oneOf exclusivity: if ALL branches are plain object schemas (no $ref/
+        // nested combiners), close any "dominated" branch (one whose property keys are a proper
+        // subset of another branch's property keys) with additionalProperties:false. This prevents
+        // a value with extra fields from matching the base branch when it should match a more
+        // specific branch, restoring the intended oneOf single-match semantics without any custom
+        // validator. Falls back to a plain Union + semantic-loss exception when the pattern does
+        // not apply (e.g. non-object branches or $ref branches).
+        const isPlainObjectBranch = s =>
+            (s.type === 'object' || (!s.type && s.properties)) &&
+            !s['$ref'] && !s.oneOf && !s.anyOf && !s.allOf && !s.enum
+        if (schema.oneOf.every(isPlainObjectBranch)) {
+            const propKeys = s => Object.keys(s.properties || {})
+            const dominated = new Set()
+            for (let i = 0; i < schema.oneOf.length; i++) {
+                const ki = propKeys(schema.oneOf[i])
+                for (let j = 0; j < schema.oneOf.length; j++) {
+                    if (i === j) continue
+                    const kj = propKeys(schema.oneOf[j])
+                    // branch i is dominated by branch j when: ki ⊊ kj (strict subset by length, full overlap)
+                    if (ki.length < kj.length && ki.every(k => kj.includes(k))) {
+                        dominated.add(i)
+                    }
+                }
+            }
+            if (dominated.size > 0) {
+                // Emit closed branches with additionalProperties:false; leave others untouched.
+                const members = schema.oneOf.map((s, i) => {
+                    const patched = dominated.has(i) ? { ...s, additionalProperties: false } : s
+                    return innerPad + toTypebox(patched, context, indent + 1)
+                })
+                return `/* oneOf->Union: exclusivity restored via additionalProperties:false on dominated branch(es) ${[...dominated].join(',')} */ Type.Union([\n${members.join(',\n')}\n${pad}]${idOpt})`
+            }
+        }
+        logException('semantic-loss', context, 'oneOf mapped to Type.Union; exclusive single-match not enforced')
     const members = schema.oneOf.map(s => innerPad + toTypebox(s, context, indent + 1))
     return `/* oneOf->Union: exclusive constraint not enforced */ Type.Union([\n${members.join(',\n')}\n${pad}]${idOpt})`
   }
 
-  const opts = constraintOptions(schema)
+    const opts = constraintOptions(schema, context)
 
   if (!schema.type && (schema.properties || schema.patternProperties)) {
     return toTypebox({ ...schema, type: 'object' }, context, indent)
@@ -211,6 +250,7 @@ function toTypebox(schema, context, indent = 0) {
       if (schema['$id']) objOpts['$id'] = schema['$id']
       if (opts?.description) objOpts.description = opts.description
       if (opts?.title) objOpts.title = opts.title
+          if (schema.additionalProperties === false) objOpts.additionalProperties = false
 
       const body = propLines.length ? `{\n${propLines.join(',\n')}\n${innerPad}}` : '{}'
       return `Type.Object(${body}${Object.keys(objOpts).length ? ', ' + JSON.stringify(objOpts) : ''})`
@@ -319,7 +359,9 @@ async function main() {
     orderedDefinitions: orderedKeys,
     exceptions: EXCEPTIONS,
     warnings: WARNINGS,
-    externalRefAllowlist: Array.from(EXTERNAL_REF_ALLOWLIST)
+      externalRefAllowlist: Array.from(EXTERNAL_REF_ALLOWLIST),
+      formatMappingsApplied: FORMAT_TRACE.applied,
+      unmappedFormatCandidates: FORMAT_TRACE.unmapped
   }
   fs.writeFileSync(path.join(OUT_DIR, 'manifest.json'), JSON.stringify(manifest, null, 2), 'utf8')
 

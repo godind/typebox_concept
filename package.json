@@ -17,11 +17,16 @@
   "sideEffects": false,
   "scripts": {
     "clean": "rm -rf dist",
+    "generate:runtime-formats": "node staging/phase3/generate-runtime-format-module.mjs",
+    "prebuild": "npm run generate:runtime-formats",
     "build": "npm run clean && tsc -p tsconfig.json",
+    "pretypecheck": "npm run generate:runtime-formats",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "smoke": "tsx smoke-test-client/index.ts",
+    "pretest": "npm run generate:runtime-formats",
     "test": "node --import tsx --test",
     "test:watch": "node --import tsx --test --watch",
+    "pretest:typecheck": "npm run generate:runtime-formats",
     "test:typecheck": "tsc -p tsconfig.test.json --noEmit"
   },
   "keywords": [],
