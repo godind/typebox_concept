@@ -9,7 +9,7 @@ import { fileURLToPath } from 'url'
 import { FORMAT_RULES } from './format-mapping-registry.mjs'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
-const OUT_FILE = path.resolve(__dirname, '../../src/lib/formaters.ts')
+const OUT_FILE = path.resolve(__dirname, '../../src/lib/formats.ts')
 
 function toFileContent() {
   const header = [

@@ -5,7 +5,7 @@ import { Compile } from 'typebox/schema'
 import { Type } from 'typebox'
 
 import { createSchemaValidators } from '../../src/lib/validators.js'
-import { registerRuntimeFormats } from '../../src/lib/formaters.js'
+import { registerRuntimeFormats } from '../../src/lib/formats.js'
 
 test('registerRuntimeFormats enforces generated custom formats', () => {
   registerRuntimeFormats()

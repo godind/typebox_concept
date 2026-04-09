@@ -25,6 +25,7 @@ Signal K TypeBox validation library with an internal smoke-test client for manua
 ## Commands
 ```bash
 npm install
+npm run generate:runtime-formats
 npm run typecheck
 npm run build
 npm run smoke
@@ -32,6 +33,55 @@ npm run test
 npm run test:watch
 npm run test:typecheck
 ```
+
+## Runtime format generation (`formats.ts`)
+
+The runtime format registration module is generated, not hand-written.
+
+- Source of truth: `staging/phase3/format-mapping-registry.mjs`
+- Generator: `staging/phase3/generate-runtime-format-module.mjs`
+- Generated output: `src/lib/formats.ts`
+
+### Manual generation command
+
+```bash
+npm run generate:runtime-formats
+```
+
+This writes `src/lib/formats.ts` from `FORMAT_RULES` in the shared registry.
+
+### Automatic generation hooks
+
+The following npm lifecycle hooks regenerate `src/lib/formats.ts` automatically before their main command:
+
+- `prebuild` -> runs before `npm run build`
+- `pretypecheck` -> runs before `npm run typecheck`
+- `pretest` -> runs before `npm run test`
+- `pretest:typecheck` -> runs before `npm run test:typecheck`
+
+This keeps schema-emitted format names and runtime `Format.Set(...)` validators in sync.
+
+### Recommended sequencing
+
+For a clean local verification flow:
+
+```bash
+npm install
+npm run generate:runtime-formats
+npm run typecheck
+npm run test
+npm run build
+```
+
+For quick iteration, you can skip the explicit generation step and run:
+
+```bash
+npm run typecheck
+npm run test
+npm run build
+```
+
+because each command already triggers generation via pre-scripts.
 
 ## Notes
 - This package publishes only the library output under `dist/lib`.
