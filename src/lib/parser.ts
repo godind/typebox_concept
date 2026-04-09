@@ -83,6 +83,13 @@ class SchemaTypeIndex {
   }
 }
 
+export type SchemaTypeIndexView = Pick<SchemaTypeIndex, 'index' | 'lookupValueType' | 'lookupSchemaName'>
+
+// Test-facing constructor for exercising index lookup behavior directly.
+export function createSchemaTypeIndex(): SchemaTypeIndexView {
+  return new SchemaTypeIndex()
+}
+
 function process(
   delta: SkDelta,
   map: SchemaTypeIndex,
