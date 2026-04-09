@@ -7,28 +7,28 @@ import { createSchemaTypeIndex } from '../../src/lib/parser.js'
 // --- Root API behavior ---
 
 test('SchemaTypeIndex indexes meta.type and lookupValueType returns the latest mapping', () => {
-    const schemaTypeIndex = createSchemaTypeIndex()
+  const schemaTypeIndex = createSchemaTypeIndex()
 
-    schemaTypeIndex.index({
-        context: 'vessels.self',
-        updates: [
-            {
-                $source: 'test-source',
-                meta: [
-                    { path: 'environment.depth.belowTransducer', value: { type: 'SomeUnrecognisedType' } },
-                    { path: 'environment.depth.belowTransducer', value: { type: 'Numeric' } },
-                    { path: 'navigation.position', value: { type: 'Position' } }
-                ]
-            }
+  schemaTypeIndex.index({
+    context: 'vessels.self',
+    updates: [
+      {
+        $source: 'test-source',
+        meta: [
+          { path: 'environment.depth.belowTransducer', value: { type: 'SomeUnrecognisedType' } },
+          { path: 'environment.depth.belowTransducer', value: { type: 'Numeric' } },
+          { path: 'navigation.position', value: { type: 'Position' } }
         ]
-    })
+      }
+    ]
+  })
 
-    assert.equal(schemaTypeIndex.lookupValueType('environment.depth.belowTransducer'), 'Numeric')
-    assert.equal(schemaTypeIndex.lookupValueType('navigation.position'), 'Position')
-    assert.equal(schemaTypeIndex.lookupValueType('navigation.speedOverGround'), undefined)
-    assert.equal(schemaTypeIndex.lookupSchemaName('environment.depth.belowTransducer'), 'Numeric')
-    assert.equal(schemaTypeIndex.lookupSchemaName('navigation.position'), 'Position')
-    assert.equal(schemaTypeIndex.lookupSchemaName('navigation.magneticVariation'), undefined)
+  assert.equal(schemaTypeIndex.lookupValueType('environment.depth.belowTransducer'), 'Numeric')
+  assert.equal(schemaTypeIndex.lookupValueType('navigation.position'), 'Position')
+  assert.equal(schemaTypeIndex.lookupValueType('navigation.speedOverGround'), undefined)
+  assert.equal(schemaTypeIndex.lookupSchemaName('environment.depth.belowTransducer'), 'Numeric')
+  assert.equal(schemaTypeIndex.lookupSchemaName('navigation.position'), 'Position')
+  assert.equal(schemaTypeIndex.lookupSchemaName('navigation.magneticVariation'), undefined)
 })
 
 // --- Staged API branch coverage (SchemaTypeIndex + validateValues) ---
@@ -157,30 +157,30 @@ test('validateValues emits ValidatedValue for a valid Numeric after indexSchemaT
 test('validateValues emits ValidatedValue for null Numeric after indexSchemaTypes maps path -> Numeric', () => {
   const runtime = createParserRuntime()
 
-    runtime.indexSchemaTypes({
+  runtime.indexSchemaTypes({
     context: 'vessels.self',
     updates: [
       {
         $source: 'test-source',
-            meta: [{ path: 'environment.depth.belowTransducer', value: { type: 'Numeric' } }]
+        meta: [{ path: 'environment.depth.belowTransducer', value: { type: 'Numeric' } }]
       }
     ]
   })
 
-    const parsed = runtime.validateValues({
+  const parsed = runtime.validateValues({
     context: 'vessels.self',
-      updates: [
-          {
-            $source: 'test-source',
-            values: [{ path: 'environment.depth.belowTransducer', value: null }]
-        }
+    updates: [
+      {
+        $source: 'test-source',
+        values: [{ path: 'environment.depth.belowTransducer', value: null }]
+      }
     ]
   })
 
-    assert.equal(parsed.length, 1)
-    assert.equal(parsed[0]?.validationStatus, 'valid')
-    assert.equal(parsed[0]?.schemaName, 'Numeric')
-    assert.equal(parsed[0]?.value, null)
+  assert.equal(parsed.length, 1)
+  assert.equal(parsed[0]?.validationStatus, 'valid')
+  assert.equal(parsed[0]?.schemaName, 'Numeric')
+  assert.equal(parsed[0]?.value, null)
 })
 
 test('validateValues emits ValidatedValue for null Position after indexSchemaTypes maps path -> Position', () => {
@@ -191,7 +191,7 @@ test('validateValues emits ValidatedValue for null Position after indexSchemaTyp
     updates: [
       {
         $source: 'test-source',
-            meta: [{ path: 'navigation.position', value: { type: 'Position' } }]
+        meta: [{ path: 'navigation.position', value: { type: 'Position' } }]
       }
     ]
   })
@@ -201,15 +201,15 @@ test('validateValues emits ValidatedValue for null Position after indexSchemaTyp
     updates: [
       {
         $source: 'test-source',
-            values: [{ path: 'navigation.position', value: null }]
+        values: [{ path: 'navigation.position', value: null }]
       }
     ]
   })
 
   assert.equal(parsed.length, 1)
-    assert.equal(parsed[0]?.validationStatus, 'valid')
-    assert.equal(parsed[0]?.schemaName, 'Position')
-    assert.equal(parsed[0]?.value, null)
+  assert.equal(parsed[0]?.validationStatus, 'valid')
+  assert.equal(parsed[0]?.schemaName, 'Position')
+  assert.equal(parsed[0]?.value, null)
 })
 
 // NoSchemaTypeValue
@@ -217,27 +217,27 @@ test('validateValues emits ValidatedValue for null Position after indexSchemaTyp
 test('validateValues emits NoSchemaTypeValue when no meta.type has been indexed for the path', () => {
   const runtime = createParserRuntime()
 
-    const parsed = runtime.validateValues({
+  const parsed = runtime.validateValues({
     context: 'vessels.self',
     updates: [
       {
         $source: 'test-source',
-            timestamp: '2026-04-08T00:00:00.000Z',
-            values: [{ path: 'navigation.speedOverGround', value: 3.5 }]
+        timestamp: '2026-04-08T00:00:00.000Z',
+        values: [{ path: 'navigation.speedOverGround', value: 3.5 }]
       }
     ]
   })
 
-    assert.equal(parsed.length, 1)
-    assert.deepEqual(parsed[0], {
-      context: 'vessels.self',
-      $source: 'test-source',
-      path: 'navigation.speedOverGround',
-      timestamp: '2026-04-08T00:00:00.000Z',
-      source: undefined,
-      value: 3.5,
-      valueTypeStatus: 'no-value-type',
-      validationStatus: 'not-validated'
+  assert.equal(parsed.length, 1)
+  assert.deepEqual(parsed[0], {
+    context: 'vessels.self',
+    $source: 'test-source',
+    path: 'navigation.speedOverGround',
+    timestamp: '2026-04-08T00:00:00.000Z',
+    source: undefined,
+    value: 3.5,
+    valueTypeStatus: 'no-value-type',
+    validationStatus: 'not-validated'
   })
 })
 
@@ -251,7 +251,7 @@ test('validateValues emits UnknownSchemaTypeValue when indexSchemaTypes maps pat
     updates: [
       {
         $source: 'test-source',
-            meta: [{ path: 'navigation.magneticVariation', value: { type: 'SomeUnrecognisedType' } }]
+        meta: [{ path: 'navigation.magneticVariation', value: { type: 'SomeUnrecognisedType' } }]
       }
     ]
   })
@@ -261,22 +261,22 @@ test('validateValues emits UnknownSchemaTypeValue when indexSchemaTypes maps pat
     updates: [
       {
         $source: 'test-source',
-            values: [{ path: 'navigation.magneticVariation', value: 0.12 }]
+        values: [{ path: 'navigation.magneticVariation', value: 0.12 }]
       }
     ]
   })
 
   assert.equal(parsed.length, 1)
-    assert.deepEqual(parsed[0], {
-        context: 'vessels.self',
-        $source: 'test-source',
-        path: 'navigation.magneticVariation',
-        source: undefined,
-        value: 0.12,
-        valueType: 'SomeUnrecognisedType',
-        valueTypeStatus: 'unknown-value-type',
-        validationStatus: 'not-validated'
-    })
+  assert.deepEqual(parsed[0], {
+    context: 'vessels.self',
+    $source: 'test-source',
+    path: 'navigation.magneticVariation',
+    source: undefined,
+    value: 0.12,
+    valueType: 'SomeUnrecognisedType',
+    valueTypeStatus: 'unknown-value-type',
+    validationStatus: 'not-validated'
+  })
 })
 
 // --- Iteration and tolerance scenarios ---
