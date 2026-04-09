@@ -15,7 +15,14 @@ Signal K TypeBox validation library with an internal smoke-test client for manua
 - Uses four result branches: `ValidatedValue`, `InvalidValue`, `NoSchemaTypeValue`, and `UnknownSchemaTypeValue`
 - Validates known schemas, preserves structured TypeBox validation errors for invalid values, and keeps missing or unknown `meta.type` fail-open
 
-## Validation mode logs
+## Smoke-test-client
+The smoke-test-client connects to a live Signal K server, subscribes to a configurable set of paths, and logs validation results for every parsed value to the console. It is intended for manual runtime verification of the library's behavior against real server data.
+
+See constants in `smoke-test-client/index.ts` for configuration:
+- TARGET_PATHS (default `['*']`)
+- WS_URL (default `ws://localhost:3000/signalk/v1/stream?subscribe=none&sendMeta=all`) 
+
+### validation mode logs
 Console output includes validation mode markers:
 - `[valid]`
 - `[invalid]`
