@@ -2,7 +2,7 @@
   "phase": "Phase 3",
   "batch": "Batch 2",
   "scope": "navigation",
-  "generatedAt": "2026-04-09T23:02:32.064Z",
+  "generatedAt": "2026-04-10T00:36:51.396Z",
   "upstreamRef": "master",
   "upstreamPaths": [
     "schemas/groups/navigation.json"

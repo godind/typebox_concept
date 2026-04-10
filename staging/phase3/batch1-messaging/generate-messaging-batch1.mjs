@@ -100,6 +100,22 @@ function enrichOneOfBranch(branch, parentSchema) {
   const inferredType = inferImplicitType(next, parentSchema.type)
   if (!next.type && inferredType) next.type = inferredType
 
+  if (!next.type && Array.isArray(next.required) && parentSchema.properties) {
+    next.type = 'object'
+  }
+
+  if ((next.type === 'object' || (!next.type && next.required)) && parentSchema.properties) {
+    const nextProps = { ...(next.properties || {}) }
+    for (const key of next.required || []) {
+      if (nextProps[key] === undefined && parentSchema.properties[key]) {
+        nextProps[key] = parentSchema.properties[key]
+      }
+    }
+    if (Object.keys(nextProps).length > 0) {
+      next.properties = nextProps
+    }
+  }
+
   if ((next.type === 'object' || (!next.type && next.properties)) && parentSchema.properties && next.properties) {
     next.properties = Object.fromEntries(
       Object.entries(next.properties).map(([key, value]) => {
@@ -269,7 +285,8 @@ function toTypebox(schema, context, upstreamPath, indent = 0) {
   if (schema.anyOf) {
     const id = schema['$id']
     const idOpt = id ? `, { $id: ${JSON.stringify(id)} }` : ''
-    const members = schema.anyOf.map(s => innerPad + toTypebox(s, context, upstreamPath, indent + 1))
+    const variantSchemas = schema.anyOf.map(branch => enrichOneOfBranch(branch, schema))
+    const members = variantSchemas.map(s => innerPad + toTypebox(s, context, upstreamPath, indent + 1))
     return `Type.Union([\n${members.join(',\n')}\n${pad}]${idOpt})`
   }
 

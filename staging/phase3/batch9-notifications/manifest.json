@@ -1,0 +1,23 @@
+{
+  "phase": "Phase 3",
+  "batch": "Batch 9",
+  "scope": "notifications",
+  "generatedAt": "2026-04-10T00:36:54.068Z",
+  "upstreamRef": "master",
+  "upstreamPaths": [
+    "schemas/groups/notifications.json"
+  ],
+  "outputs": [
+    {
+      "upstreamPath": "schemas/groups/notifications.json",
+      "outputFile": "notifications.ts",
+      "schemaName": "NotificationsSchema",
+      "typeName": "Notifications"
+    }
+  ],
+  "exceptions": [],
+  "warnings": [],
+  "externalRefAllowlist": [],
+  "formatMappingsApplied": [],
+  "unmappedFormatCandidates": []
+}

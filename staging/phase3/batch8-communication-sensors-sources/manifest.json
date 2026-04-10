@@ -1,0 +1,37 @@
+{
+  "phase": "Phase 3",
+  "batch": "Batch 8",
+  "scope": "communication-sensors-sources",
+  "generatedAt": "2026-04-10T00:36:53.670Z",
+  "upstreamRef": "master",
+  "upstreamPaths": [
+    "schemas/groups/communication.json",
+    "schemas/groups/sensors.json",
+    "schemas/groups/sources.json"
+  ],
+  "outputs": [
+    {
+      "upstreamPath": "schemas/groups/communication.json",
+      "outputFile": "communication.ts",
+      "schemaName": "CommunicationSchema",
+      "typeName": "Communication"
+    },
+    {
+      "upstreamPath": "schemas/groups/sensors.json",
+      "outputFile": "sensors.ts",
+      "schemaName": "SensorsSchema",
+      "typeName": "Sensors"
+    },
+    {
+      "upstreamPath": "schemas/groups/sources.json",
+      "outputFile": "sources.ts",
+      "schemaName": "SourcesSchema",
+      "typeName": "Sources"
+    }
+  ],
+  "exceptions": [],
+  "warnings": [],
+  "externalRefAllowlist": [],
+  "formatMappingsApplied": [],
+  "unmappedFormatCandidates": []
+}

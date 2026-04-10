@@ -1,0 +1,26 @@
+{
+  "phase": "Phase 3",
+  "batch": "Batch 10",
+  "scope": "resources",
+  "generatedAt": "2026-04-10T00:36:54.464Z",
+  "upstreamRef": "master",
+  "upstreamPaths": [
+    "schemas/groups/resources.json"
+  ],
+  "outputs": [
+    {
+      "upstreamPath": "schemas/groups/resources.json",
+      "outputFile": "resources.ts",
+      "schemaName": "ResourcesSchema",
+      "typeName": "Resources"
+    }
+  ],
+  "exceptions": [],
+  "warnings": [],
+  "externalRefAllowlist": [
+    "../external/geojson/geometry.json#/definitions/polygon",
+    "../external/geojson/geometry.json#/definitions/lineString"
+  ],
+  "formatMappingsApplied": [],
+  "unmappedFormatCandidates": []
+}

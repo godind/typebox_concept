@@ -1,0 +1,30 @@
+{
+  "phase": "Phase 3",
+  "batch": "Batch 6",
+  "scope": "tanks-design",
+  "generatedAt": "2026-04-10T00:36:52.889Z",
+  "upstreamRef": "master",
+  "upstreamPaths": [
+    "schemas/groups/tanks.json",
+    "schemas/groups/design.json"
+  ],
+  "outputs": [
+    {
+      "upstreamPath": "schemas/groups/tanks.json",
+      "outputFile": "tanks.ts",
+      "schemaName": "TanksSchema",
+      "typeName": "Tanks"
+    },
+    {
+      "upstreamPath": "schemas/groups/design.json",
+      "outputFile": "design.ts",
+      "schemaName": "DesignSchema",
+      "typeName": "Design"
+    }
+  ],
+  "exceptions": [],
+  "warnings": [],
+  "externalRefAllowlist": [],
+  "formatMappingsApplied": [],
+  "unmappedFormatCandidates": []
+}

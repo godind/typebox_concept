@@ -38,23 +38,23 @@ export const MetaSchema = Type.Object({
     "displayName": Type.Optional(Type.String({"description":"A display name for this value. This is shown on the gauge and should not include units.","title":"DisplayName schema.","examples":["Tachometer, Engine 1"]})),
     "displayScale": Type.Optional(/* oneOf->Union: exclusivity restored via additionalProperties:false on dominated branch(es) 0,1 */ Type.Union([
       Type.Object({
-          "lower": Type.Unknown(),
-          "upper": Type.Unknown()
+          "lower": Type.Number({"description":"The suggested lower limit for the pointer (or equivalent) on the display","title":"Display lower limit.","examples":[0]}),
+          "upper": Type.Number({"description":"The suggested upper limit for the pointer (or equivalent) on the display","title":"Display upper limit.","examples":[4000]})
         }, {"additionalProperties":false}),
       Type.Object({
-          "lower": Type.Unknown(),
+          "lower": Type.Number({"description":"The suggested lower limit for the pointer (or equivalent) on the display","title":"Display lower limit.","examples":[0]}),
           "type": Type.Union([
             Type.Literal("linear"),
             Type.Literal("squareroot"),
             Type.Literal("logarithmic")
           ]),
-          "upper": Type.Unknown()
+          "upper": Type.Number({"description":"The suggested upper limit for the pointer (or equivalent) on the display","title":"Display upper limit.","examples":[4000]})
         }, {"additionalProperties":false}),
       Type.Object({
-          "lower": Type.Unknown(),
-          "power": Type.Unknown(),
+          "lower": Type.Number({"description":"The suggested lower limit for the pointer (or equivalent) on the display","title":"Display lower limit.","examples":[0]}),
+          "power": Type.Number({"description":"The power to use when the displayScale/type is set to 'power'. Can be any numeric value except zero.","title":"Selected power for display scale","examples":[2]}),
           "type": Type.Literal("power"),
-          "upper": Type.Unknown()
+          "upper": Type.Number({"description":"The suggested upper limit for the pointer (or equivalent) on the display","title":"Display upper limit.","examples":[4000]})
         }, {"additionalProperties":false})
     ])),
     "emergencyMethod": Type.Optional(Type.Array(Type.Ref("signalk://schemas/definitions#AlarmMethodEnum"))),

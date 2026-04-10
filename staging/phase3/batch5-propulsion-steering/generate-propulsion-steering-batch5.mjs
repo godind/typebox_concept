@@ -1,6 +1,7 @@
 /**
- * Phase 3 Batch 4 electrical generator.
- * Fetches Signal K schemas/groups/electrical.json and emits a TypeBox module
+ * Phase 3 Batch 5 propulsion+steering generator.
+ * Fetches Signal K schemas/groups/propulsion.json and schemas/groups/steering.json
+ * and emits TypeBox modules for staging review.
  * for staging review.
  */
 import fs from 'fs'
@@ -12,7 +13,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const OUT_DIR = __dirname
 const UPSTREAM_BASE = 'https://raw.githubusercontent.com/SignalK/specification/master'
 const UPSTREAM_REF = 'master'
-const UPSTREAM_PATHS = ['schemas/groups/electrical.json']
+const UPSTREAM_PATHS = ['schemas/groups/propulsion.json', 'schemas/groups/steering.json']
 
 const EXTERNAL_REF_ALLOWLIST = new Set()
 const EXCEPTIONS = []
@@ -426,8 +427,8 @@ async function main() {
 
   const manifest = {
     phase: 'Phase 3',
-    batch: 'Batch 4',
-    scope: 'electrical',
+    batch: 'Batch 5',
+    scope: 'propulsion-steering',
     generatedAt: new Date().toISOString(),
     upstreamRef: UPSTREAM_REF,
     upstreamPaths: UPSTREAM_PATHS,
@@ -440,7 +441,7 @@ async function main() {
   }
   fs.writeFileSync(path.join(OUT_DIR, 'manifest.json'), JSON.stringify(manifest, null, 2), 'utf8')
 
-  console.log(`Wrote ${outputs.length} electrical schema module(s) to ${OUT_DIR}`)
+  console.log(`Wrote ${outputs.length} propulsion/steering schema module(s) to ${OUT_DIR}`)
   console.log(`Exceptions: ${EXCEPTIONS.length}, Warnings: ${WARNINGS.length}`)
   console.log(`Unmapped format candidates: ${FORMAT_TRACE.unmapped.length}`)
   console.log(`Format mappings applied: ${FORMAT_TRACE.applied.length}`)

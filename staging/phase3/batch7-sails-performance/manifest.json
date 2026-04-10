@@ -1,0 +1,30 @@
+{
+  "phase": "Phase 3",
+  "batch": "Batch 7",
+  "scope": "sails-performance",
+  "generatedAt": "2026-04-10T00:36:53.267Z",
+  "upstreamRef": "master",
+  "upstreamPaths": [
+    "schemas/groups/sails.json",
+    "schemas/groups/performance.json"
+  ],
+  "outputs": [
+    {
+      "upstreamPath": "schemas/groups/sails.json",
+      "outputFile": "sails.ts",
+      "schemaName": "SailsSchema",
+      "typeName": "Sails"
+    },
+    {
+      "upstreamPath": "schemas/groups/performance.json",
+      "outputFile": "performance.ts",
+      "schemaName": "PerformanceSchema",
+      "typeName": "Performance"
+    }
+  ],
+  "exceptions": [],
+  "warnings": [],
+  "externalRefAllowlist": [],
+  "formatMappingsApplied": [],
+  "unmappedFormatCandidates": []
+}

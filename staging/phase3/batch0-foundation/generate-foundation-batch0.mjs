@@ -78,6 +78,50 @@ function typeFromName(typeName, opts) {
   }
 }
 
+function inferImplicitType(schema, parentType) {
+  if (schema.type) return schema.type
+  if (schema.pattern || schema.minLength !== undefined || schema.maxLength !== undefined) return 'string'
+  if (schema.items || schema.minItems !== undefined || schema.maxItems !== undefined) return 'array'
+  if (schema.properties || schema.patternProperties || schema.additionalProperties !== undefined) return 'object'
+  if (parentType && ['string', 'array', 'object', 'number', 'integer', 'boolean'].includes(parentType)) return parentType
+  return undefined
+}
+
+function enrichOneOfBranch(branch, parentSchema) {
+  const next = { ...branch }
+  const inferredType = inferImplicitType(next, parentSchema.type)
+  if (!next.type && inferredType) next.type = inferredType
+
+  if (!next.type && Array.isArray(next.required) && parentSchema.properties) {
+    next.type = 'object'
+  }
+
+  if ((next.type === 'object' || (!next.type && next.required)) && parentSchema.properties) {
+    const nextProps = { ...(next.properties || {}) }
+    for (const key of next.required || []) {
+      if (nextProps[key] === undefined && parentSchema.properties[key]) {
+        nextProps[key] = parentSchema.properties[key]
+      }
+    }
+    if (Object.keys(nextProps).length > 0) {
+      next.properties = nextProps
+    }
+  }
+
+  if ((next.type === 'object' || (!next.type && next.properties)) && parentSchema.properties && next.properties) {
+    next.properties = Object.fromEntries(
+      Object.entries(next.properties).map(([key, value]) => {
+        if (value && typeof value === 'object' && Object.keys(value).length === 0 && parentSchema.properties[key]) {
+          return [key, parentSchema.properties[key]]
+        }
+        return [key, value]
+      })
+    )
+  }
+
+  return next
+}
+
 function toTypebox(schema, context, indent = 0) {
   const pad = '  '.repeat(indent)
   const innerPad = '  '.repeat(indent + 1)
@@ -147,7 +191,8 @@ function toTypebox(schema, context, indent = 0) {
   if (schema.anyOf) {
     const id = schema['$id']
     const idOpt = id ? `, { $id: ${JSON.stringify(id)} }` : ''
-    const members = schema.anyOf.map(s => innerPad + toTypebox(s, context, indent + 1))
+    const variantSchemas = schema.anyOf.map(branch => enrichOneOfBranch(branch, schema))
+    const members = variantSchemas.map(s => innerPad + toTypebox(s, context, indent + 1))
     return `Type.Union([\n${members.join(',\n')}\n${pad}]${idOpt})`
   }
 
@@ -164,14 +209,15 @@ function toTypebox(schema, context, indent = 0) {
         const isPlainObjectBranch = s =>
             (s.type === 'object' || (!s.type && s.properties)) &&
             !s['$ref'] && !s.oneOf && !s.anyOf && !s.allOf && !s.enum
-        if (schema.oneOf.every(isPlainObjectBranch)) {
+      const variantSchemas = schema.oneOf.map(branch => enrichOneOfBranch(branch, schema))
+      if (variantSchemas.every(isPlainObjectBranch)) {
             const propKeys = s => Object.keys(s.properties || {})
             const dominated = new Set()
-            for (let i = 0; i < schema.oneOf.length; i++) {
-                const ki = propKeys(schema.oneOf[i])
-                for (let j = 0; j < schema.oneOf.length; j++) {
+          for (let i = 0; i < variantSchemas.length; i++) {
+            const ki = propKeys(variantSchemas[i])
+            for (let j = 0; j < variantSchemas.length; j++) {
                     if (i === j) continue
-                    const kj = propKeys(schema.oneOf[j])
+              const kj = propKeys(variantSchemas[j])
                     // branch i is dominated by branch j when: ki ⊊ kj (strict subset by length, full overlap)
                     if (ki.length < kj.length && ki.every(k => kj.includes(k))) {
                         dominated.add(i)
@@ -180,7 +226,7 @@ function toTypebox(schema, context, indent = 0) {
             }
             if (dominated.size > 0) {
                 // Emit closed branches with additionalProperties:false; leave others untouched.
-                const members = schema.oneOf.map((s, i) => {
+              const members = variantSchemas.map((s, i) => {
                     const patched = dominated.has(i) ? { ...s, additionalProperties: false } : s
                     return innerPad + toTypebox(patched, context, indent + 1)
                 })
@@ -188,7 +234,7 @@ function toTypebox(schema, context, indent = 0) {
             }
         }
         logException('semantic-loss', context, 'oneOf mapped to Type.Union; exclusive single-match not enforced')
-    const members = schema.oneOf.map(s => innerPad + toTypebox(s, context, indent + 1))
+      const members = variantSchemas.map(s => innerPad + toTypebox(s, context, indent + 1))
     return `/* oneOf->Union: exclusive constraint not enforced */ Type.Union([\n${members.join(',\n')}\n${pad}]${idOpt})`
   }
 

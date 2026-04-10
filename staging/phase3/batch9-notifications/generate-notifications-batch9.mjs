@@ -1,6 +1,7 @@
 /**
- * Phase 3 Batch 4 electrical generator.
- * Fetches Signal K schemas/groups/electrical.json and emits a TypeBox module
+ * Phase 3 Batch 9 notifications generator.
+ * Fetches Signal K schemas/groups/notifications.json
+ * and emits TypeBox modules for staging review.
  * for staging review.
  */
 import fs from 'fs'
@@ -12,7 +13,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const OUT_DIR = __dirname
 const UPSTREAM_BASE = 'https://raw.githubusercontent.com/SignalK/specification/master'
 const UPSTREAM_REF = 'master'
-const UPSTREAM_PATHS = ['schemas/groups/electrical.json']
+const UPSTREAM_PATHS = ['schemas/groups/notifications.json']
 
 const EXTERNAL_REF_ALLOWLIST = new Set()
 const EXCEPTIONS = []
@@ -212,6 +213,24 @@ function proveOneOfDisjoint(variantSchemas) {
   return proveTupleDisjoint(variantSchemas) || proveStringPrefixDisjoint(variantSchemas)
 }
 
+function proveRefRecursiveBranchLeafDisjoint(variantSchemas, context, upstreamPath) {
+  if (upstreamPath !== 'schemas/groups/notifications.json') return null
+  if (!context.endsWith('#/definitions/notificationBranch.patternProperties')) return null
+  if (!Array.isArray(variantSchemas) || variantSchemas.length !== 2) return null
+
+  const refs = variantSchemas
+    .map(s => (s && typeof s === 'object' ? s['$ref'] : undefined))
+    .filter(r => typeof r === 'string')
+
+  if (refs.length !== 2) return null
+
+  const hasBranch = refs.includes('#/definitions/notificationBranch')
+  const hasLeaf = refs.includes('#/definitions/notification')
+  if (!hasBranch || !hasLeaf) return null
+
+  return 'notifications recursive branch-vs-leaf oneOf proved disjoint by schema intent (notificationBranch vs notification refs)'
+}
+
 function toTypebox(schema, context, upstreamPath, indent = 0) {
   const pad = '  '.repeat(indent)
   const innerPad = '  '.repeat(indent + 1)
@@ -295,7 +314,9 @@ function toTypebox(schema, context, upstreamPath, indent = 0) {
       }
     }
 
-    const disjointProof = proveOneOfDisjoint(variantSchemas)
+    const disjointProof =
+      proveOneOfDisjoint(variantSchemas) ||
+      proveRefRecursiveBranchLeafDisjoint(variantSchemas, context, upstreamPath)
     if (disjointProof) {
       const members = variantSchemas.map(s => innerPad + toTypebox(s, context, upstreamPath, indent + 1))
       return `/* oneOf->Union: exclusivity restored via disjointness proof (${disjointProof}) */ Type.Union([\n${members.join(',\n')}\n${pad}]${idOpt})`
@@ -307,6 +328,16 @@ function toTypebox(schema, context, upstreamPath, indent = 0) {
   }
 
   const opts = constraintOptions(schema, context)
+
+  // Some upstream group schemas are definition-only containers (no root type/properties).
+  // Keep root as an object container so we can still emit and export local definitions.
+  if (!schema.type && schema.definitions && !schema.properties && !schema.patternProperties && !schema.allOf && !schema.anyOf && !schema.oneOf) {
+    const objOpts = {}
+    if (schema['$id']) objOpts['$id'] = schema['$id']
+    if (schema.description) objOpts.description = schema.description
+    if (schema.title) objOpts.title = schema.title
+    return `Type.Object({}${Object.keys(objOpts).length ? ', ' + JSON.stringify(objOpts) : ''})`
+  }
 
   if (!schema.type && (schema.properties || schema.patternProperties)) {
     return toTypebox({ ...schema, type: 'object' }, context, upstreamPath, indent)
@@ -396,6 +427,21 @@ function emitRootModule(schema, upstreamPath) {
   lines.push('')
   lines.push(`export const ${schemaName} = ${expr}`)
   lines.push(`export type ${typeName} = Type.Static<typeof ${schemaName}>`)
+
+  if (schema.definitions && typeof schema.definitions === 'object') {
+    const entries = Object.entries(schema.definitions).sort(([a], [b]) => a.localeCompare(b))
+    for (const [defName, defSchema] of entries) {
+      const defSchemaName = `${toPascalCase(defName)}Schema`
+      const defTypeName = toPascalCase(defName)
+      const withDefId = {
+        ...(defSchema && typeof defSchema === 'object' ? defSchema : {}),
+        $id: definitionId(upstreamPath, defName)
+      }
+      const defExpr = toTypebox(withDefId, `${upstreamPath}#/definitions/${defName}`, upstreamPath, 0)
+      lines.push(`export const ${defSchemaName} = ${defExpr}`)
+      lines.push(`export type ${defTypeName} = Type.Static<typeof ${defSchemaName}>`)
+    }
+  }
   lines.push('')
 
   return { schemaName, typeName, source: lines.join('\n') }
@@ -426,8 +472,8 @@ async function main() {
 
   const manifest = {
     phase: 'Phase 3',
-    batch: 'Batch 4',
-    scope: 'electrical',
+    batch: 'Batch 9',
+    scope: 'notifications',
     generatedAt: new Date().toISOString(),
     upstreamRef: UPSTREAM_REF,
     upstreamPaths: UPSTREAM_PATHS,
@@ -440,7 +486,7 @@ async function main() {
   }
   fs.writeFileSync(path.join(OUT_DIR, 'manifest.json'), JSON.stringify(manifest, null, 2), 'utf8')
 
-  console.log(`Wrote ${outputs.length} electrical schema module(s) to ${OUT_DIR}`)
+  console.log(`Wrote ${outputs.length} notifications schema module(s) to ${OUT_DIR}`)
   console.log(`Exceptions: ${EXCEPTIONS.length}, Warnings: ${WARNINGS.length}`)
   console.log(`Unmapped format candidates: ${FORMAT_TRACE.unmapped.length}`)
   console.log(`Format mappings applied: ${FORMAT_TRACE.applied.length}`)
