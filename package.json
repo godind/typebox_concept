@@ -36,7 +36,8 @@
     "schemas:verify": "node staging/converter/cli/verify.mjs",
     "verify:phase4:integrity": "node staging/verification/check-phase4-integrity.mjs",
     "verify:phase4:determinism": "node staging/verification/check-generator-determinism.mjs",
-    "verify:phase4": "npm run test:typecheck && npm run test && npm run verify:phase4:integrity && npm run verify:phase4:determinism"
+    "verify:quality-gates": "npm run test:typecheck && npm run test && npm run verify:phase4:integrity && npm run verify:phase4:determinism",
+    "verify:phase4": "npm run verify:quality-gates"
   },
   "keywords": [],
   "author": "",

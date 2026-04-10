@@ -14,3 +14,27 @@ export const TanksSchema = Type.Object({
     "wasteWater": Type.Optional(Type.Ref("signalk://schemas/groups/tanks#TankCollection"))
   }, {"$id":"signalk://schemas/groups/tanks","description":"A tank, named by a unique identifier"})
 export type Tanks = Type.Static<typeof TanksSchema>
+export const TankCollectionSchema = Type.Record(Type.String(), Type.Object({
+      "capacity": Type.Optional(Type.Ref("signalk://schemas/definitions#NumberValue")),
+      "currentLevel": Type.Optional(Type.Ref("signalk://schemas/definitions#NumberValue")),
+      "currentVolume": Type.Optional(Type.Ref("signalk://schemas/definitions#NumberValue")),
+      "extinguishant": Type.Optional(Type.Ref("signalk://schemas/definitions#StringValue")),
+      "name": Type.Optional(Type.String({"description":"The name of the tank. Useful if multiple tanks of a certain type are on board"})),
+      "pressure": Type.Optional(Type.Ref("signalk://schemas/definitions#NumberValue")),
+      "temperature": Type.Optional(Type.Ref("signalk://schemas/definitions#NumberValue")),
+      "type": Type.Optional(Type.Union([
+        Type.Literal("petrol"),
+        Type.Literal("fresh water"),
+        Type.Literal("greywater"),
+        Type.Literal("blackwater"),
+        Type.Literal("holding"),
+        Type.Literal("lpg"),
+        Type.Literal("diesel"),
+        Type.Literal("liveWell"),
+        Type.Literal("baitWell"),
+        Type.Literal("ballast"),
+        Type.Literal("rum")
+      ])),
+      "viscosity": Type.Optional(Type.Ref("signalk://schemas/definitions#NumberValue"))
+    }, {"description":"Tank, one or many, within the vessel"}))
+export type TankCollection = Type.Static<typeof TankCollectionSchema>

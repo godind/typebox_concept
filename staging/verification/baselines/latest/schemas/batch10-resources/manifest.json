@@ -16,7 +16,16 @@
     }
   ],
   "exceptions": [],
-  "warnings": [],
+  "warnings": [
+    {
+      "location": "schemas/groups/resources.json#.regions.patternProperties.feature.id",
+      "detail": "no type field; emitting Type.Unknown for: {\"FIXME\":\"may be there, type not known (string? number?)\"}"
+    },
+    {
+      "location": "schemas/groups/resources.json#.routes.patternProperties.feature.id",
+      "detail": "no type field; emitting Type.Unknown for: {\"FIXME\":\"may be there, type not known (string? number?)\"}"
+    }
+  ],
   "externalRefAllowlist": [
     "../external/geojson/geometry.json#/definitions/polygon",
     "../external/geojson/geometry.json#/definitions/lineString"

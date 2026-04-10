@@ -23,3 +23,18 @@ export const PerformanceSchema = Type.Object({
     "velocityMadeGoodToWaypoint": Type.Optional(Type.Ref("signalk://schemas/definitions#NumberValue"))
   }, {"$id":"signalk://schemas/groups/performance","description":"Schema describing the performance child-object of a Vessel.","title":"performance"})
 export type Performance = Type.Static<typeof PerformanceSchema>
+export const PolarSchema = Type.Object({
+    "description": Type.Optional(Type.String()),
+    "id": Type.String(),
+    "name": Type.String(),
+    "source": Type.Optional(Type.Ref("signalk://schemas/definitions#Source")),
+    "windData": Type.Array(Type.Object({
+        "angleData": Type.Array(Type.Tuple([Type.Number({"description":"The true wind angle for the best upwind velocity made good"}), Type.Number({"description":"The optimal beating speed"}), Type.Number({"description":"Velocity made good calculated for the wind angle and boat speed combination"})], {"minItems":2,"maxItems":3})),
+        "optimalBeats": Type.Optional(Type.Array(Type.Tuple([Type.Number({"description":"The true wind angle for the best upwind velocity made good"}), Type.Number({"description":"The optimal beating speed"})], {"minItems":2,"maxItems":2}), {"maxItems":2})),
+        "optimalGybes": Type.Optional(Type.Array(Type.Tuple([Type.Number({"description":"The true wind angle for the best downwind velocity made good"}), Type.Number({"description":"The optimal gybe speed"})], {"minItems":2,"maxItems":2}), {"maxItems":2})),
+        "trueWindSpeed": Type.Number({"description":"The true wind speed for the polar values"})
+      }, {"additionalProperties":false}))
+  }, {"$id":"signalk://schemas/groups/performance#Polar","title":"polar","additionalProperties":false})
+export type Polar = Type.Static<typeof PolarSchema>
+export const PolarUuidSchema = Type.Record(Type.String({"pattern":"^[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-4[0-9A-Fa-f]{3}-[89ABab][0-9A-Fa-f]{3}-[0-9A-Fa-f]{12}$"}), Type.Ref("signalk://schemas/groups/performance#Polar"))
+export type PolarUuid = Type.Static<typeof PolarUuidSchema>

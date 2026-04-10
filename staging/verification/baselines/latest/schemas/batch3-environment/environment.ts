@@ -87,3 +87,14 @@ export const EnvironmentSchema = Type.Object({
       }, {"description":"Wind data.","title":"wind"}))
   }, {"$id":"signalk://schemas/groups/environment","description":"Schema describing the environmental child-object of a Vessel.","title":"environment"})
 export type Environment = Type.Static<typeof EnvironmentSchema>
+export const ZoneObjectSchema = Type.Object({
+    "airDensity": Type.Optional(Type.Ref("signalk://schemas/definitions#NumberValue")),
+    "dewPoint": Type.Optional(Type.Ref("signalk://schemas/definitions#NumberValue")),
+    "dewPointTemperature": Type.Optional(Type.Ref("signalk://schemas/definitions#NumberValue")),
+    "heatIndexTemperature": Type.Optional(Type.Ref("signalk://schemas/definitions#NumberValue")),
+    "illuminance": Type.Optional(Type.Ref("signalk://schemas/definitions#NumberValue")),
+    "pressure": Type.Optional(Type.Ref("signalk://schemas/definitions#NumberValue")),
+    "relativeHumidity": Type.Optional(Type.Ref("signalk://schemas/definitions#NumberValue")),
+    "temperature": Type.Optional(Type.Ref("signalk://schemas/definitions#NumberValue"))
+  }, {"$id":"signalk://schemas/groups/environment#ZoneObject"})
+export type ZoneObject = Type.Static<typeof ZoneObjectSchema>

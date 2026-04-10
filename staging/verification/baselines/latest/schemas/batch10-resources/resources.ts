@@ -48,17 +48,17 @@ export const ResourcesSchema = Type.Object({
         }, {"description":"A note about a region, named with a UUID. Notes might include navigation or cruising info, images, or anything"}))),
     "regions": Type.Optional(Type.Record(Type.String({"pattern":"^urn:mrn:signalk:uuid:[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-4[0-9A-Fa-f]{3}-[89ABab][0-9A-Fa-f]{3}-[0-9A-Fa-f]{12}$"}), Type.Object({
           "feature": Type.Optional(Type.Object({
-              "geometry": /* oneOf->Union: exclusivity restored via discriminator requirement (object branches are disjoint by distinct type discriminator literals (Polygon, MultiPolygon)) */ Type.Union([
+              "geometry": /* oneOf->Union: exclusivity restored via disjointness proof (resources geometry oneOf branches are disjoint by GeoJSON type enum literals (Polygon, MultiPolygon)) */ Type.Union([
                 Type.Object({
                     "coordinates": Type.Optional(Type.Array(Type.Array(Type.Tuple([Type.Number(), Type.Number()]), {"minItems":4})) /* external ref resolved: ../external/geojson/geometry.json#/definitions/polygon */),
-                    "type": Type.Literal("Polygon")
+                    "type": Type.Optional(Type.Literal("Polygon"))
                   }, {"title":"Polygon"}),
                 Type.Object({
                     "coordinates": Type.Optional(Type.Array(Type.Array(Type.Array(Type.Tuple([Type.Number(), Type.Number()]), {"minItems":4})) /* external ref resolved: ../external/geojson/geometry.json#/definitions/polygon */)),
-                    "type": Type.Literal("MultiPolygon")
+                    "type": Type.Optional(Type.Literal("MultiPolygon"))
                   }, {"title":"MultiPolygon"})
               ]),
-              "id": Type.Optional(Type.Union([Type.String(), Type.Number()]) /* inferred from upstream FIXME */),
+              "id": Type.Optional(Type.Unknown()),
               "properties": Type.Union([Type.Object({}, {"description":"Additional data of any type"}), Type.Null()]),
               "type": Type.Optional(Type.Literal("Feature"))
             }, {"description":"A Geo JSON feature object which describes the regions boundary","title":"Feature"})),
@@ -75,7 +75,7 @@ export const ResourcesSchema = Type.Object({
                   "coordinates": Type.Optional(Type.Array(Type.Tuple([Type.Number(), Type.Number()]), {"minItems":2}) /* external ref resolved: ../external/geojson/geometry.json#/definitions/lineString */),
                   "type": Type.Optional(Type.Literal("LineString"))
                 }, {"title":"LineString"}),
-              "id": Type.Optional(Type.Union([Type.String(), Type.Number()]) /* inferred from upstream FIXME */),
+              "id": Type.Optional(Type.Unknown()),
               "properties": Type.Union([Type.Object({}, {"description":"Additional data of any type"}), Type.Null()]),
               "type": Type.Optional(Type.Literal("Feature"))
             }, {"description":"A Geo JSON feature object which describes the route between the waypoints","title":"Feature"})),

@@ -196,3 +196,41 @@ export const NavigationSchema = Type.Object({
       }, {"description":"Trip data"}))
   }, {"$id":"signalk://schemas/groups/navigation","description":"Schema describing the navigation child-object of a Vessel.","title":"navigation"})
 export type Navigation = Type.Static<typeof NavigationSchema>
+export const CourseSchema = Type.Object({
+    "activeRoute": Type.Optional(Type.Object({
+        "estimatedTimeOfArrival": Type.Optional(Type.Ref("signalk://schemas/definitions#DatetimeValue")),
+        "href": Type.Optional(Type.String({"description":"A reference (URL) to the presently active route, in resources.","examples":["/resources/routes/urn:mrn:signalk:uuid:3dd34dcc-36bf-4d61-ba80-233799b25672"]})),
+        "startTime": Type.Optional(Type.Ref("signalk://schemas/definitions#DatetimeValue"))
+      }, {"description":"Data required if sailing to an active route, defined in resources."})),
+    "bearingTrackMagnetic": Type.Optional(Type.Ref("signalk://schemas/definitions#NumberValue")),
+    "bearingTrackTrue": Type.Optional(Type.Ref("signalk://schemas/definitions#NumberValue")),
+    "crossTrackError": Type.Optional(Type.Ref("signalk://schemas/definitions#NumberValue")),
+    "nextPoint": Type.Optional(Type.Union([
+      Type.Ref("signalk://schemas/definitions#CommonValueFields"),
+      Type.Object({
+          "bearingMagnetic": Type.Optional(Type.Ref("signalk://schemas/definitions#NumberValue")),
+          "bearingTrue": Type.Optional(Type.Ref("signalk://schemas/definitions#NumberValue")),
+          "distance": Type.Optional(Type.Ref("signalk://schemas/definitions#NumberValue")),
+          "estimatedTimeOfArrival": Type.Optional(Type.Ref("signalk://schemas/definitions#DatetimeValue")),
+          "position": Type.Optional(Type.Ref("signalk://schemas/definitions#Position")),
+          "timeToGo": Type.Optional(Type.Ref("signalk://schemas/definitions#NumberValue")),
+          "value": Type.Optional(Type.Object({
+              "href": Type.Optional(Type.String({"description":"A reference (URL) to an object (under resources) this point is related to"})),
+              "type": Type.Optional(Type.String({"description":"The type of the next point (e.g. Waypoint, POI, Race Mark, etc)"}))
+            })),
+          "velocityMadeGood": Type.Optional(Type.Ref("signalk://schemas/definitions#NumberValue"))
+        })
+    ])),
+    "previousPoint": Type.Optional(Type.Intersect([
+      Type.Ref("signalk://schemas/definitions#CommonValueFields"),
+      Type.Object({
+          "distance": Type.Optional(Type.Ref("signalk://schemas/definitions#NumberValue")),
+          "position": Type.Optional(Type.Ref("signalk://schemas/definitions#Position")),
+          "value": Type.Optional(Type.Object({
+              "href": Type.Optional(Type.String({"description":"A reference (URL) to an object (under resources) this point is related to"})),
+              "type": Type.Optional(Type.String({"description":"The type of the previous point (e.g. Waypoint, POI, Race Mark, etc)"}))
+            }))
+        })
+    ]))
+  }, {"$id":"signalk://schemas/groups/navigation#Course","description":"The currently active course (can be a route, or just a point one is navigating towards)","title":"Course"})
+export type Course = Type.Static<typeof CourseSchema>
