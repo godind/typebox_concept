@@ -1,0 +1,62 @@
+{
+  "phase": "Phase 3",
+  "batch": "Batch 1",
+  "scope": "messaging",
+  "generatedAt": "1970-01-01T00:00:00.000Z",
+  "upstreamRef": "master",
+  "upstreamPaths": [
+    "schemas/delta.json",
+    "schemas/discovery.json",
+    "schemas/hello.json"
+  ],
+  "outputs": [
+    {
+      "upstreamPath": "schemas/delta.json",
+      "outputFile": "delta.ts",
+      "schemaName": "DeltaSchema",
+      "typeName": "Delta"
+    },
+    {
+      "upstreamPath": "schemas/discovery.json",
+      "outputFile": "discovery.ts",
+      "schemaName": "DiscoverySchema",
+      "typeName": "Discovery"
+    },
+    {
+      "upstreamPath": "schemas/hello.json",
+      "outputFile": "hello.ts",
+      "schemaName": "HelloSchema",
+      "typeName": "Hello"
+    }
+  ],
+  "exceptions": [],
+  "warnings": [],
+  "externalRefAllowlist": [],
+  "formatMappingsApplied": [
+    {
+      "location": "schemas/hello.json#.self",
+      "format": "signalk-self-vessel-id",
+      "rule": "hello-self-vessel",
+      "pattern": "^vessels.(urn:mrn:(imo:mmsi:[2-7][0-9]{8}$|signalk:uuid:[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-4[0-9A-Fa-f]{3}-[89ABab][0-9A-Fa-f]{3}-[0-9A-Fa-f]{12}$))|(http(s?):.*|mailto:.*|tel:(\\+?)[0-9]{4,})$"
+    },
+    {
+      "location": "schemas/hello.json#.self",
+      "format": "signalk-self-aircraft-id",
+      "rule": "hello-self-aircraft",
+      "pattern": "^aircraft.(urn:mrn:(imo:mmsi:1[0-9]{8}$|signalk:uuid:[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-4[0-9A-Fa-f]{3}-[89ABab][0-9A-Fa-f]{3}-[0-9A-Fa-f]{12}$))|(http(s?):.*|mailto:.*|tel:(\\+?)[0-9]{4,})$"
+    },
+    {
+      "location": "schemas/hello.json#.self",
+      "format": "signalk-self-aton-id",
+      "rule": "hello-self-aton",
+      "pattern": "^aton.(urn:mrn:(imo:mmsi:99[0-9]{7}$|signalk:uuid:[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-4[0-9A-Fa-f]{3}-[89ABab][0-9A-Fa-f]{3}-[0-9A-Fa-f]{12}$))|(http(s?):.*|mailto:.*|tel:(\\+?)[0-9]{4,})$"
+    },
+    {
+      "location": "schemas/hello.json#.self",
+      "format": "signalk-self-sar-id",
+      "rule": "hello-self-sar",
+      "pattern": "^sar.(urn:mrn:(imo:mmsi:97[0-9]{7}$|signalk:uuid:[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-4[0-9A-Fa-f]{3}-[89ABab][0-9A-Fa-f]{3}-[0-9A-Fa-f]{12}$))|(http(s?):.*|mailto:.*|tel:(\\+?)[0-9]{4,})$"
+    }
+  ],
+  "unmappedFormatCandidates": []
+}

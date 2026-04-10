@@ -73,7 +73,7 @@ test('validateValues emits ValidatedValue for a valid Position after indexSchema
     source: undefined,
     schemaName: 'Position',
     valueType: 'Position',
-    valueTypeStatus: 'known-value-type',
+    schemaTypeStatus: 'known-schema-type',
     validationStatus: 'valid',
     value: { latitude: 37.7749, longitude: -122.4194 }
   })
@@ -112,7 +112,7 @@ test('validateValues emits InvalidValue with validationErrors after indexSchemaT
   assert.equal(parsed.length, 1)
   const result = parsed[0]
   assert.equal(result?.validationStatus, 'invalid')
-  assert.equal(result?.valueTypeStatus, 'known-value-type')
+  assert.equal(result?.schemaTypeStatus, 'known-schema-type')
   assert.equal(result?.valueType, 'Position')
   assert.equal(result?.schemaName, 'Position')
   assert.deepEqual(result?.value, { latitude: 123, longitude: -122.4194 })
@@ -236,7 +236,7 @@ test('validateValues emits NoSchemaTypeValue when no meta.type has been indexed 
     timestamp: '2026-04-08T00:00:00.000Z',
     source: undefined,
     value: 3.5,
-    valueTypeStatus: 'no-value-type',
+    schemaTypeStatus: 'no-schema-type',
     validationStatus: 'not-validated'
   })
 })
@@ -274,7 +274,7 @@ test('validateValues emits UnknownSchemaTypeValue when indexSchemaTypes maps pat
     source: undefined,
     value: 0.12,
     valueType: 'SomeUnrecognisedType',
-    valueTypeStatus: 'unknown-value-type',
+    schemaTypeStatus: 'unknown-schema-type',
     validationStatus: 'not-validated'
   })
 })
@@ -320,9 +320,9 @@ test('validateValues emits a result for every value entry in a single delta', ()
   assert.equal(parsed[0]?.schemaName, 'Numeric')
   assert.equal(parsed[1]?.validationStatus, 'valid')
   assert.equal(parsed[1]?.schemaName, 'Position')
-  assert.equal(parsed[2]?.valueTypeStatus, 'unknown-value-type')
+  assert.equal(parsed[2]?.schemaTypeStatus, 'unknown-schema-type')
   assert.equal(parsed[2]?.valueType, 'SomeUnrecognisedType')
-  assert.equal(parsed[3]?.valueTypeStatus, 'no-value-type')
+  assert.equal(parsed[3]?.schemaTypeStatus, 'no-schema-type')
 })
 
 // Malformed transport payload tolerance (global final test)
@@ -371,7 +371,7 @@ test('validateValues skips malformed and partial transport entries while preserv
     source: undefined,
     schemaName: 'Numeric',
     valueType: 'Numeric',
-    valueTypeStatus: 'known-value-type',
+    schemaTypeStatus: 'known-schema-type',
     validationStatus: 'valid',
     value: 9.8
   })
@@ -381,7 +381,7 @@ test('validateValues skips malformed and partial transport entries while preserv
     path: 'navigation.speedOverGround',
     source: undefined,
     value: 2.7,
-    valueTypeStatus: 'no-value-type',
+    schemaTypeStatus: 'no-schema-type',
     validationStatus: 'not-validated'
   })
 })

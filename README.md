@@ -38,8 +38,8 @@ npm run test:typecheck
 
 The runtime format registration module is generated, not hand-written.
 
-- Source of truth: `staging/phase3/format-mapping-registry.mjs`
-- Generator: `staging/phase3/generate-runtime-format-module.mjs`
+- Source of truth: `staging/schemas/format-mapping-registry.mjs`
+- Generator: `staging/schemas/generate-runtime-format-module.mjs`
 - Generated output: `src/lib/formats.ts`
 
 ### Manual generation command

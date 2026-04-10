@@ -21,7 +21,7 @@ test('processValues parses a realistic Signal K fixture end to end', () => {
     source: undefined,
     schemaName: 'Position',
     valueType: 'Position',
-    valueTypeStatus: 'known-value-type',
+    schemaTypeStatus: 'known-schema-type',
     validationStatus: 'valid',
     value: {
       latitude: 48.8584,
@@ -36,7 +36,7 @@ test('processValues parses a realistic Signal K fixture end to end', () => {
     source: undefined,
     schemaName: 'Numeric',
     valueType: 'Numeric',
-    valueTypeStatus: 'known-value-type',
+    schemaTypeStatus: 'known-schema-type',
     validationStatus: 'valid',
     value: null
   })
@@ -48,7 +48,7 @@ test('processValues parses a realistic Signal K fixture end to end', () => {
     source: undefined,
     value: 0.07,
     valueType: 'Angle',
-    valueTypeStatus: 'unknown-value-type',
+    schemaTypeStatus: 'unknown-schema-type',
     validationStatus: 'not-validated'
   })
   assert.deepEqual(parsed[3], {
@@ -58,7 +58,7 @@ test('processValues parses a realistic Signal K fixture end to end', () => {
     timestamp: '2026-04-09T12:00:01.000Z',
     source: undefined,
     value: 4.3,
-    valueTypeStatus: 'no-value-type',
+    schemaTypeStatus: 'no-schema-type',
     validationStatus: 'not-validated'
   })
 })
