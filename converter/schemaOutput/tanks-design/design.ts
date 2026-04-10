@@ -13,84 +13,318 @@ export const DesignSchema = Type.Object({
                 "name": Type.Optional(Type.String({"description":"The ship type name"}))
               }),
             Type.Union([
-              Type.Literal({"id":20,"name":"Wing In Ground"}),
-              Type.Literal({"id":21,"name":"Wing In Ground hazard cat A"}),
-              Type.Literal({"id":22,"name":"Wing In Ground hazard cat B"}),
-              Type.Literal({"id":23,"name":"Wing In Ground hazard cat C"}),
-              Type.Literal({"id":24,"name":"Wing In Ground hazard cat D"}),
-              Type.Literal({"id":25,"name":"Wing In Ground"}),
-              Type.Literal({"id":26,"name":"Wing In Ground"}),
-              Type.Literal({"id":27,"name":"Wing In Ground"}),
-              Type.Literal({"id":28,"name":"Wing In Ground"}),
-              Type.Literal({"id":29,"name":"Wing In Ground (no other information)"}),
-              Type.Literal({"id":30,"name":"Fishing"}),
-              Type.Literal({"id":31,"name":"Towing"}),
-              Type.Literal({"id":32,"name":"Towing exceeds 200m or wider than 25m"}),
-              Type.Literal({"id":33,"name":"Engaged in dredging or underwater operations"}),
-              Type.Literal({"id":34,"name":"Engaged in diving operations"}),
-              Type.Literal({"id":35,"name":"Engaged in military operations"}),
-              Type.Literal({"id":36,"name":"Sailing"}),
-              Type.Literal({"id":37,"name":"Pleasure"}),
-              Type.Literal({"id":40,"name":"High speed craft"}),
-              Type.Literal({"id":41,"name":"High speed craft carrying dangerous goods"}),
-              Type.Literal({"id":42,"name":"High speed craft hazard cat B"}),
-              Type.Literal({"id":43,"name":"High speed craft hazard cat C"}),
-              Type.Literal({"id":44,"name":"High speed craft hazard cat D"}),
-              Type.Literal({"id":45,"name":"High speed craft"}),
-              Type.Literal({"id":46,"name":"High speed craft"}),
-              Type.Literal({"id":47,"name":"High speed craft"}),
-              Type.Literal({"id":48,"name":"High speed craft"}),
-              Type.Literal({"id":49,"name":"High speed craft (no additional information)"}),
-              Type.Literal({"id":50,"name":"Pilot vessel"}),
-              Type.Literal({"id":51,"name":"SAR"}),
-              Type.Literal({"id":52,"name":"Tug"}),
-              Type.Literal({"id":53,"name":"Port tender"}),
-              Type.Literal({"id":54,"name":"Anti-pollution"}),
-              Type.Literal({"id":55,"name":"Law enforcement"}),
-              Type.Literal({"id":56,"name":"Spare"}),
-              Type.Literal({"id":57,"name":"Spare #2"}),
-              Type.Literal({"id":58,"name":"Medical"}),
-              Type.Literal({"id":59,"name":"RR Resolution No.18"}),
-              Type.Literal({"id":60,"name":"Passenger ship"}),
-              Type.Literal({"id":61,"name":"Passenger ship hazard cat A"}),
-              Type.Literal({"id":62,"name":"Passenger ship hazard cat B"}),
-              Type.Literal({"id":63,"name":"Passenger ship hazard cat C"}),
-              Type.Literal({"id":64,"name":"Passenger ship hazard cat D"}),
-              Type.Literal({"id":65,"name":"Passenger ship"}),
-              Type.Literal({"id":66,"name":"Passenger ship"}),
-              Type.Literal({"id":67,"name":"Passenger ship"}),
-              Type.Literal({"id":68,"name":"Passenger ship"}),
-              Type.Literal({"id":69,"name":"Passenger ship (no additional information)"}),
-              Type.Literal({"id":70,"name":"Cargo ship"}),
-              Type.Literal({"id":71,"name":"Cargo ship carrying dangerous goods"}),
-              Type.Literal({"id":72,"name":"Cargo ship hazard cat B"}),
-              Type.Literal({"id":73,"name":"Cargo ship hazard cat C"}),
-              Type.Literal({"id":74,"name":"Cargo ship hazard cat D"}),
-              Type.Literal({"id":75,"name":"Cargo ship"}),
-              Type.Literal({"id":76,"name":"Cargo ship"}),
-              Type.Literal({"id":77,"name":"Cargo ship"}),
-              Type.Literal({"id":78,"name":"Cargo ship"}),
-              Type.Literal({"id":79,"name":"Cargo ship (no additional information)"}),
-              Type.Literal({"id":80,"name":"Tanker"}),
-              Type.Literal({"id":81,"name":"Tanker carrying dangerous goods"}),
-              Type.Literal({"id":82,"name":"Tanker hazard cat B"}),
-              Type.Literal({"id":83,"name":"Tanker hazard cat C"}),
-              Type.Literal({"id":84,"name":"Tanker hazard cat D"}),
-              Type.Literal({"id":85,"name":"Tanker"}),
-              Type.Literal({"id":86,"name":"Tanker"}),
-              Type.Literal({"id":87,"name":"Tanker"}),
-              Type.Literal({"id":88,"name":"Tanker"}),
-              Type.Literal({"id":89,"name":"Tanker (no additional information)"}),
-              Type.Literal({"id":90,"name":"Other"}),
-              Type.Literal({"id":91,"name":"Other carrying dangerous goods"}),
-              Type.Literal({"id":92,"name":"Other hazard cat B"}),
-              Type.Literal({"id":93,"name":"Other hazard cat C"}),
-              Type.Literal({"id":94,"name":"Other hazard cat D"}),
-              Type.Literal({"id":95,"name":"Other"}),
-              Type.Literal({"id":96,"name":"Other"}),
-              Type.Literal({"id":97,"name":"Other"}),
-              Type.Literal({"id":98,"name":"Other"}),
-              Type.Literal({"id":99,"name":"Other (no additional information)"})
+              Type.Object({
+                "id": Type.Literal(20),
+                "name": Type.Literal("Wing In Ground")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(21),
+                "name": Type.Literal("Wing In Ground hazard cat A")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(22),
+                "name": Type.Literal("Wing In Ground hazard cat B")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(23),
+                "name": Type.Literal("Wing In Ground hazard cat C")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(24),
+                "name": Type.Literal("Wing In Ground hazard cat D")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(25),
+                "name": Type.Literal("Wing In Ground")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(26),
+                "name": Type.Literal("Wing In Ground")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(27),
+                "name": Type.Literal("Wing In Ground")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(28),
+                "name": Type.Literal("Wing In Ground")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(29),
+                "name": Type.Literal("Wing In Ground (no other information)")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(30),
+                "name": Type.Literal("Fishing")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(31),
+                "name": Type.Literal("Towing")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(32),
+                "name": Type.Literal("Towing exceeds 200m or wider than 25m")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(33),
+                "name": Type.Literal("Engaged in dredging or underwater operations")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(34),
+                "name": Type.Literal("Engaged in diving operations")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(35),
+                "name": Type.Literal("Engaged in military operations")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(36),
+                "name": Type.Literal("Sailing")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(37),
+                "name": Type.Literal("Pleasure")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(40),
+                "name": Type.Literal("High speed craft")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(41),
+                "name": Type.Literal("High speed craft carrying dangerous goods")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(42),
+                "name": Type.Literal("High speed craft hazard cat B")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(43),
+                "name": Type.Literal("High speed craft hazard cat C")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(44),
+                "name": Type.Literal("High speed craft hazard cat D")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(45),
+                "name": Type.Literal("High speed craft")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(46),
+                "name": Type.Literal("High speed craft")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(47),
+                "name": Type.Literal("High speed craft")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(48),
+                "name": Type.Literal("High speed craft")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(49),
+                "name": Type.Literal("High speed craft (no additional information)")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(50),
+                "name": Type.Literal("Pilot vessel")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(51),
+                "name": Type.Literal("SAR")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(52),
+                "name": Type.Literal("Tug")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(53),
+                "name": Type.Literal("Port tender")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(54),
+                "name": Type.Literal("Anti-pollution")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(55),
+                "name": Type.Literal("Law enforcement")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(56),
+                "name": Type.Literal("Spare")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(57),
+                "name": Type.Literal("Spare #2")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(58),
+                "name": Type.Literal("Medical")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(59),
+                "name": Type.Literal("RR Resolution No.18")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(60),
+                "name": Type.Literal("Passenger ship")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(61),
+                "name": Type.Literal("Passenger ship hazard cat A")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(62),
+                "name": Type.Literal("Passenger ship hazard cat B")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(63),
+                "name": Type.Literal("Passenger ship hazard cat C")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(64),
+                "name": Type.Literal("Passenger ship hazard cat D")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(65),
+                "name": Type.Literal("Passenger ship")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(66),
+                "name": Type.Literal("Passenger ship")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(67),
+                "name": Type.Literal("Passenger ship")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(68),
+                "name": Type.Literal("Passenger ship")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(69),
+                "name": Type.Literal("Passenger ship (no additional information)")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(70),
+                "name": Type.Literal("Cargo ship")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(71),
+                "name": Type.Literal("Cargo ship carrying dangerous goods")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(72),
+                "name": Type.Literal("Cargo ship hazard cat B")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(73),
+                "name": Type.Literal("Cargo ship hazard cat C")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(74),
+                "name": Type.Literal("Cargo ship hazard cat D")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(75),
+                "name": Type.Literal("Cargo ship")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(76),
+                "name": Type.Literal("Cargo ship")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(77),
+                "name": Type.Literal("Cargo ship")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(78),
+                "name": Type.Literal("Cargo ship")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(79),
+                "name": Type.Literal("Cargo ship (no additional information)")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(80),
+                "name": Type.Literal("Tanker")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(81),
+                "name": Type.Literal("Tanker carrying dangerous goods")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(82),
+                "name": Type.Literal("Tanker hazard cat B")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(83),
+                "name": Type.Literal("Tanker hazard cat C")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(84),
+                "name": Type.Literal("Tanker hazard cat D")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(85),
+                "name": Type.Literal("Tanker")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(86),
+                "name": Type.Literal("Tanker")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(87),
+                "name": Type.Literal("Tanker")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(88),
+                "name": Type.Literal("Tanker")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(89),
+                "name": Type.Literal("Tanker (no additional information)")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(90),
+                "name": Type.Literal("Other")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(91),
+                "name": Type.Literal("Other carrying dangerous goods")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(92),
+                "name": Type.Literal("Other hazard cat B")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(93),
+                "name": Type.Literal("Other hazard cat C")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(94),
+                "name": Type.Literal("Other hazard cat D")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(95),
+                "name": Type.Literal("Other")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(96),
+                "name": Type.Literal("Other")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(97),
+                "name": Type.Literal("Other")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(98),
+                "name": Type.Literal("Other")
+              }, {"additionalProperties":false}),
+              Type.Object({
+                "id": Type.Literal(99),
+                "name": Type.Literal("Other (no additional information)")
+              }, {"additionalProperties":false})
             ])
           ]))
         })

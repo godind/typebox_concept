@@ -314,6 +314,31 @@ export function createConverterContext({ extraProvers = [], externalRefTypeOverr
     )
   }
 
+  function enumValueToTypebox(value, indent = 0) {
+    const pad = '  '.repeat(indent)
+    const innerPad = '  '.repeat(indent + 1)
+
+    if (value === null) return 'Type.Null()'
+
+    if (typeof value === 'string') return `Type.Literal(${JSON.stringify(value)})`
+    if (typeof value === 'number') return `Type.Literal(${value})`
+    if (typeof value === 'boolean') return `Type.Literal(${value})`
+
+    if (Array.isArray(value)) {
+      const members = value.map((item) => enumValueToTypebox(item, indent + 1))
+      return `Type.Tuple([\n${members.map((m) => `${innerPad}${m}`).join(',\n')}\n${pad}])`
+    }
+
+    if (typeof value === 'object') {
+      const entries = Object.entries(value).sort(([a], [b]) => a.localeCompare(b))
+      if (entries.length === 0) return 'Type.Object({}, {"additionalProperties":false})'
+      const props = entries.map(([key, item]) => `${innerPad}${JSON.stringify(key)}: ${enumValueToTypebox(item, indent + 1)}`)
+      return `Type.Object({\n${props.join(',\n')}\n${pad}}, {"additionalProperties":false})`
+    }
+
+    return 'Type.Unknown()'
+  }
+
   function toTypebox(schema, context, upstreamPath, indent = 0) {
     const pad = '  '.repeat(indent)
     const innerPad = '  '.repeat(indent + 1)
@@ -347,11 +372,7 @@ export function createConverterContext({ extraProvers = [], externalRefTypeOverr
     if (schema.enum) {
       const id = schema['$id']
       const idOpt = id ? `, { $id: ${JSON.stringify(id)} }` : ''
-      const literals = schema.enum.map(v => {
-        if (typeof v === 'string') return `Type.Literal(${JSON.stringify(v)})`
-        if (typeof v === 'number') return `Type.Literal(${v})`
-        return `Type.Literal(${JSON.stringify(v)})`
-      })
+      const literals = schema.enum.map(v => enumValueToTypebox(v, indent + 1))
       if (literals.length === 0) {
         logWarning(context, 'empty enum encountered; emitted Type.Never()')
         return 'Type.Never()'
