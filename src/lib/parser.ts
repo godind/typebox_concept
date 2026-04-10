@@ -8,46 +8,56 @@ import { asSkMetaArray, asSkUpdateArray, asSkValueArray, isObject, type SkDelta 
 import { createSchemaValidators, type KnownSchemaValidators } from './validators.js'
 import { KnownSchemaRegistry, type SignalKSchemaName, type KnownSchemaTypeMap, type NormalizedBaseDelta } from './schemas.js'
 
-export type ValueTypeStatus = 'no-value-type' | 'unknown-value-type' | 'known-value-type'
+/** Indicates whether and how a path's Signal K schema type was resolved from the meta index. */
+export type SchemaTypeStatus = 'no-schema-type' | 'unknown-schema-type' | 'known-schema-type'
+
+/** Overall outcome of schema validation for a parsed value. */
 export type ValidationStatus = 'not-validated' | 'valid' | 'invalid'
+
+/** A structured TypeBox error entry from a failed schema validation. */
 export type ValidationError = ReturnType<KnownSchemaValidators[SignalKSchemaName]['Errors']> extends Iterable<infer T>
   ? T
   : never
 
+/** Value that passed schema validation; `value` is typed to the resolved schema. */
 export type ValidatedValue = {
   [K in SignalKSchemaName]: KnownSchemaTypeMap[K] & {
     schemaName: K
     valueType: K
-    valueTypeStatus: 'known-value-type'
+    schemaTypeStatus: 'known-schema-type'
     validationStatus: 'valid'
   }
 }[SignalKSchemaName]
 
+/** Value that failed schema validation; `value` is preserved and `validationErrors` holds structured TypeBox errors. */
 export type InvalidValue = NormalizedBaseDelta & {
   value: unknown
   schemaName: SignalKSchemaName
   valueType: SignalKSchemaName
-  valueTypeStatus: 'known-value-type'
+  schemaTypeStatus: 'known-schema-type'
   validationStatus: 'invalid'
   validationErrors: ValidationError[]
 }
 
+/** Value whose path has no schema type recorded in the meta index; passes through unvalidated. */
 export type NoSchemaTypeValue = NormalizedBaseDelta & {
   value: unknown
   schemaName?: undefined
   valueType?: undefined
-  valueTypeStatus: 'no-value-type'
+  schemaTypeStatus: 'no-schema-type'
   validationStatus: 'not-validated'
 }
 
+/** Value whose path has a schema type string in the meta index that does not match any registered known schema. */
 export type UnknownSchemaTypeValue = NormalizedBaseDelta & {
   value: unknown
   schemaName?: undefined
   valueType: string
-  valueTypeStatus: 'unknown-value-type'
+  schemaTypeStatus: 'unknown-schema-type'
   validationStatus: 'not-validated'
 }
 
+/** Discriminated union of all possible outcomes for a single parsed Signal K value entry. Narrow by `validationStatus` then `schemaTypeStatus`. */
 export type ParsedValue = ValidatedValue | InvalidValue | NoSchemaTypeValue | UnknownSchemaTypeValue
 
 class SchemaTypeIndex {
@@ -122,7 +132,7 @@ function process(
         accepted.push({
           ...base,
           value: valueEntry.value,
-          valueTypeStatus: 'no-value-type',
+          schemaTypeStatus: 'no-schema-type',
           validationStatus: 'not-validated'
         })
         continue
@@ -134,7 +144,7 @@ function process(
           ...base,
           value: valueEntry.value,
           valueType,
-          valueTypeStatus: 'unknown-value-type',
+          schemaTypeStatus: 'unknown-schema-type',
           validationStatus: 'not-validated'
         })
         continue
@@ -146,7 +156,7 @@ function process(
         accepted.push({
           ...candidate,
           valueType: schemaName,
-          valueTypeStatus: 'known-value-type',
+          schemaTypeStatus: 'known-schema-type',
           schemaName,
           validationStatus: 'valid'
         } as ValidatedValue)
@@ -157,7 +167,7 @@ function process(
           value: valueEntry.value,
           schemaName,
           valueType: schemaName,
-          valueTypeStatus: 'known-value-type',
+          schemaTypeStatus: 'known-schema-type',
           validationStatus: 'invalid',
           validationErrors
         })

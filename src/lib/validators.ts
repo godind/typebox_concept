@@ -9,8 +9,10 @@ import { registerRuntimeFormats } from './formats.js'
 
 export type KnownSchemaValidators = Record<SignalKSchemaName, ReturnType<typeof Compile>>
 
-// Compile all known schemas once so parser logic can consume ready-to-use
-// validators without rebuilding them for each incoming delta message.
+/**
+ * Compile all known Signal K schemas once into reusable runtime validators.
+ * Pass the result to `createParserRuntime()` to avoid recompiling on every call.
+ */
 export function createSchemaValidators(): KnownSchemaValidators {
   registerRuntimeFormats()
   const compiled = {} as KnownSchemaValidators

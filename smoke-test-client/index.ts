@@ -56,7 +56,7 @@ function logParsedValue(v: ParsedValue): void {
         return
     }
 
-    if (v.valueTypeStatus === 'unknown-value-type') {
+    if (v.valueType === 'unknown-value-type') {
         console.log(colorize(ANSI.yellow, `[unknown-value-type] type=${formatType(v)} path=${v.path}`))
         return
     }

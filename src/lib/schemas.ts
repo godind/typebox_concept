@@ -31,8 +31,10 @@ const PositionValueSchema = Type.Object({
     additionalProperties: false
 })
 
+/** TypeBox runtime schema for a Signal K position value: `{ latitude, longitude, altitude? }` object or `null`. */
 export const PositionSchema = Type.Union([PositionValueSchema, Type.Null()])
 
+/** TypeBox runtime schema for a Signal K numeric value: a `number` or `null`. */
 export const NumericSchema = Type.Union([Type.Number(), Type.Null()])
 
 // Single source of truth for known delta-value schemas.

@@ -16,7 +16,7 @@ export { createSchemaValidators } from './validators.js'
 export {
     createParserRuntime,
     type ParserRuntime,
-    type ValueTypeStatus,
+    type SchemaTypeStatus,
     type ValidationStatus,
     type ParsedValue,
     type ValidatedValue,
