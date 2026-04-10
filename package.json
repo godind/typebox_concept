@@ -17,12 +17,12 @@
   "sideEffects": false,
   "scripts": {
     "clean": "rm -rf dist",
-    "build": "npm run clean && node staging/schemas/generate-runtime-format-module.mjs && tsc -p tsconfig.json",
+    "build": "npm run clean && node converter/app/processors/generate-runtime-format-module.mjs && tsc -p tsconfig.json",
     "test": "tsc -p tsconfig.test.json --noEmit && node --import tsx --test",
-    "schemas:build": "node staging/converter/cli/build.mjs",
-    "schemas:snapshot": "node staging/converter/cli/snapshot.mjs",
-    "schemas:compare": "node staging/converter/cli/build-compare.mjs",
-    "schemas:verify": "node staging/converter/cli/verify.mjs"
+    "schemas:build": "node converter/app/cli/build.mjs",
+    "schemas:snapshot": "node converter/app/cli/snapshot.mjs",
+    "schemas:compare": "node converter/app/cli/build-compare.mjs",
+    "schemas:verify": "node converter/app/cli/verify.mjs"
   },
   "keywords": [],
   "author": "",

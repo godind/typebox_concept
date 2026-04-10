@@ -1,6 +1,6 @@
 import path from 'node:path'
 
-const SCHEMAS_DIR = path.resolve('staging/schemas')
+const SCHEMAS_DIR = path.resolve('converter/app/processors')
 
 export const GROUPS = [
   {

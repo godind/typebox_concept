@@ -2,7 +2,7 @@ import assert from 'node:assert/strict'
 import test from 'node:test'
 
 // @ts-ignore staging converter module is JS-only and intentionally imported for behavior tests
-import { proveEnumPropertyDiscriminatorDisjoint, proveResourcesGeometryDisjoint } from '../../staging/schemas/shared/typebox-converter.mjs'
+import { proveEnumPropertyDiscriminatorDisjoint, proveResourcesGeometryDisjoint } from '../../converter/app/processors/shared/typebox-converter.mjs'
 
 test('proveEnumPropertyDiscriminatorDisjoint returns null when discriminator is not required', () => {
   const variantSchemas = [

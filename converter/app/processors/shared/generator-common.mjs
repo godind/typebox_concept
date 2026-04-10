@@ -13,6 +13,7 @@ export function deterministicGeneratedAt() {
 }
 
 export function writeManifest(outDir, manifest) {
+  fs.mkdirSync(outDir, { recursive: true })
   const manifestPath = path.join(outDir, 'manifest.json')
   fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 2), 'utf8')
 }

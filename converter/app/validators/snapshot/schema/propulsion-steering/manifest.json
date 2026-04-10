@@ -1,0 +1,35 @@
+{
+  "phase": "Phase 3",
+  "batch": "Batch 5",
+  "scope": "propulsion-steering",
+  "generatedAt": "1970-01-01T00:00:00.000Z",
+  "upstreamRef": "master",
+  "upstreamPaths": [
+    "schemas/groups/propulsion.json",
+    "schemas/groups/steering.json"
+  ],
+  "outputs": [
+    {
+      "upstreamPath": "schemas/groups/propulsion.json",
+      "outputFile": "propulsion.ts",
+      "schemaName": "PropulsionSchema",
+      "typeName": "Propulsion"
+    },
+    {
+      "upstreamPath": "schemas/groups/steering.json",
+      "outputFile": "steering.ts",
+      "schemaName": "SteeringSchema",
+      "typeName": "Steering"
+    }
+  ],
+  "exceptions": [],
+  "warnings": [
+    {
+      "location": "schemas/groups/propulsion.json#.patternProperties.drive.propeller",
+      "detail": "no type field; emitting Type.Unknown for: {\"description\":\"Data about the drive's propeller (pitch and slip)\",\"pitch\":{\"des"
+    }
+  ],
+  "externalRefAllowlist": [],
+  "formatMappingsApplied": [],
+  "unmappedFormatCandidates": []
+}

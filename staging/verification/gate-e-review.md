@@ -16,11 +16,11 @@ Gate E - Approve with changes - Accept Batch 0 and Batch 5 warnings as staged de
 
 ## Accepted Staging Debt
 
-- Batch 0 warning in [staging/schemas/generated/foundation/manifest.json](staging/schemas/generated/foundation/manifest.json)
+- Batch 0 warning in [converter/schemaOutput/foundation/manifest.json](converter/schemaOutput/foundation/manifest.json)
   Location: `schemas/definitions.json#/definitions/waypoint.feature.id`
   Rationale: upstream node is explicitly marked `FIXME` with ambiguous type (`string? number?`), so the current `Type.Unknown` emission is conservative and traceable.
 
-- Batch 5 warning in [staging/schemas/generated/propulsion-steering/manifest.json](staging/schemas/generated/propulsion-steering/manifest.json)
+- Batch 5 warning in [converter/schemaOutput/propulsion-steering/manifest.json](converter/schemaOutput/propulsion-steering/manifest.json)
   Location: `schemas/groups/propulsion.json#.patternProperties.drive.propeller`
   Rationale: upstream node omits an explicit `type` while describing nested object members, so the current warning preserves traceability until a targeted inference rule is approved.
 

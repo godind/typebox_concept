@@ -5,7 +5,7 @@ import { runNodeScript } from '../core/runtime.mjs'
 await captureBaselineSnapshot()
 console.log('Baseline snapshot captured. Running full schema build...')
 
-runNodeScript('staging/converter/cli/build.mjs')
+runNodeScript('converter/app/cli/build.mjs')
 
 const hasDiff = await diffAgainstBaseline()
 if (!hasDiff) {

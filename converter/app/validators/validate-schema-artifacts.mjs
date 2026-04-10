@@ -2,12 +2,12 @@ import { readdir, readFile, stat } from 'node:fs/promises'
 import path from 'node:path'
 import process from 'node:process'
 import { fileURLToPath } from 'node:url'
-import { GROUPS } from '../converter/config/groups.mjs'
+import { GROUPS } from '../config/groups.mjs'
 
 const scriptDir = path.dirname(fileURLToPath(import.meta.url))
-const repoRoot = path.resolve(scriptDir, '../..')
-const phase3Dir = path.join(repoRoot, 'staging/schemas/generated')
-const runtimeFormatsFile = path.join(repoRoot, 'src/lib/formats.ts')
+const repoRoot = path.resolve(scriptDir, '../../..')
+const phase3Dir = path.join(repoRoot, 'converter/schemaOutput')
+const runtimeFormatsFile = path.join(repoRoot, 'converter/app/formatsOutput/formats.ts')
 
 async function pathExists(targetPath) {
   try {
@@ -98,14 +98,14 @@ async function main() {
   }
 
   if (failures.length > 0) {
-    console.error('Phase 4 integrity check failed:')
+    console.error('Schema artifact integrity check failed:')
     for (const failure of failures) {
       console.error(`- ${failure}`)
     }
     process.exit(1)
   }
 
-  console.log(`Phase 4 integrity check passed for ${groups.length} group directories.`)
+  console.log(`Schema artifact integrity check passed for ${groups.length} group directories.`)
   if (warningSummary.length > 0) {
     console.log('Manifest warnings remain visible:')
     for (const line of warningSummary) {

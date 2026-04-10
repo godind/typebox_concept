@@ -1,0 +1,37 @@
+{
+  "phase": "Phase 3",
+  "batch": "Batch 11",
+  "scope": "non-vessel-variants",
+  "generatedAt": "1970-01-01T00:00:00.000Z",
+  "upstreamRef": "master",
+  "upstreamPaths": [
+    "schemas/aircraft.json",
+    "schemas/aton.json",
+    "schemas/sar.json"
+  ],
+  "outputs": [
+    {
+      "upstreamPath": "schemas/aircraft.json",
+      "outputFile": "aircraft.ts",
+      "schemaName": "AircraftSchema",
+      "typeName": "Aircraft"
+    },
+    {
+      "upstreamPath": "schemas/aton.json",
+      "outputFile": "aton.ts",
+      "schemaName": "AtonSchema",
+      "typeName": "Aton"
+    },
+    {
+      "upstreamPath": "schemas/sar.json",
+      "outputFile": "sar.ts",
+      "schemaName": "SarSchema",
+      "typeName": "Sar"
+    }
+  ],
+  "exceptions": [],
+  "warnings": [],
+  "externalRefAllowlist": [],
+  "formatMappingsApplied": [],
+  "unmappedFormatCandidates": []
+}

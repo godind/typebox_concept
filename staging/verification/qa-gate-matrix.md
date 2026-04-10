@@ -21,8 +21,8 @@ This phase defines the verification contract for staged Signal K schema generati
 
 The integrity check validates the staged generation surface for:
 
-- manifest presence for every configured schema group output directory under `staging/schemas/generated`
-- generator presence for every configured schema group in `staging/converter/config/groups.mjs`
+- manifest presence for every configured schema group output directory under `converter/schemaOutput`
+- generator presence for every configured schema group in `converter/app/config/groups.mjs`
 - output artifact existence for every manifest-declared file
 - duplicate staged output path detection
 - schema and type export presence in generated output modules

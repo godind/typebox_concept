@@ -1,11 +1,11 @@
 import { execFileSync } from 'node:child_process'
 import { cp, mkdir, readdir, rm, stat } from 'node:fs/promises'
 import path from 'node:path'
-import { baselineRoot, repoRoot, schemaArtifactsRoot } from './runtime.mjs'
+import { baselineRoot, repoRoot, runtimeFormatsOutputFile, schemaArtifactsRoot } from './runtime.mjs'
 
-const SNAPSHOT_SCHEMA_DIR = path.join(baselineRoot, 'schemas')
+const SNAPSHOT_SCHEMA_DIR = path.join(baselineRoot, 'schema')
 const SNAPSHOT_RUNTIME_FORMATS_FILE = path.join(baselineRoot, 'formats.ts')
-const CURRENT_RUNTIME_FORMATS_FILE = path.join(repoRoot, 'src/lib/formats.ts')
+const CURRENT_RUNTIME_FORMATS_FILE = runtimeFormatsOutputFile
 
 async function pathExists(targetPath) {
   try {
@@ -43,6 +43,8 @@ function gitDiff(fromPath, toPath) {
 }
 
 export async function captureBaselineSnapshot() {
+  await mkdir(schemaArtifactsRoot, { recursive: true })
+  await mkdir(path.dirname(CURRENT_RUNTIME_FORMATS_FILE), { recursive: true })
   await rm(baselineRoot, { recursive: true, force: true })
   await mkdir(baselineRoot, { recursive: true })
 
@@ -51,6 +53,7 @@ export async function captureBaselineSnapshot() {
 }
 
 export async function diffAgainstBaseline() {
+  await mkdir(schemaArtifactsRoot, { recursive: true })
   const baselineExists = await pathExists(SNAPSHOT_SCHEMA_DIR)
   if (!baselineExists) {
     throw new Error('No baseline snapshot found. Run schemas:snapshot first.')

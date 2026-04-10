@@ -1,3 +1,3 @@
 import { runNodeScript } from '../core/runtime.mjs'
 
-runNodeScript('staging/converter/cli/check.mjs')
+runNodeScript('converter/app/cli/check.mjs')

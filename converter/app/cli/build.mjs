@@ -1,5 +1,6 @@
 import { GROUPS, RUNTIME_FORMAT_GENERATOR } from '../config/groups.mjs'
 import { parseRequestedGroups, resolveGroups, runNodeScript } from '../core/runtime.mjs'
+import { writeSchemaDiagnostics } from '../core/schema-diagnostics.mjs'
 
 const requested = parseRequestedGroups(process.argv.slice(2))
 const selected = resolveGroups(requested)
@@ -12,6 +13,7 @@ for (const group of selected) {
 
 if (selected.length > 0) {
   runNodeScript(RUNTIME_FORMAT_GENERATOR)
+  await writeSchemaDiagnostics()
 }
 
 console.log(`Completed schema build for ${selected.length} group(s).`)

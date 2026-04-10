@@ -38,11 +38,12 @@ npm run schemas:compare
 
 The runtime format registration module is generated, not hand-written.
 
-- Source of truth: `staging/schemas/format-mapping-registry.mjs`
-- Generator: `staging/schemas/generate-runtime-format-module.mjs`
-- Generated output: `src/lib/formats.ts`
+- Source of truth: `converter/app/processors/format-mapping-registry.mjs`
+- Generator: `converter/app/processors/generate-runtime-format-module.mjs`
+- Canonical generated output: `converter/app/formatsOutput/formats.ts`
 
-This writes `src/lib/formats.ts` from `FORMAT_RULES` in the shared registry.
+This writes `converter/app/formatsOutput/formats.ts` from `FORMAT_RULES` in the shared registry.
+Library sync for `src/lib/formats.ts` is planned as part of a future pack command in Phase 6.
 
 ### Automatic generation behavior
 
@@ -50,7 +51,7 @@ Generation is embedded in the build and schema commands (no separate `pre*` npm 
 
 - `npm run build` runs clean -> format generation -> TypeScript build
 - `npm run test` runs test TypeScript check -> test execution
-- `npm run schemas:build` runs schema generation and regenerates runtime formats
+- `npm run schemas:build` runs schema generation to `converter/schemaOutput` and refreshes schema diagnostics in `converter/schemaDiagnostic`
 - `npm run schemas:verify` runs schema build -> integrity -> determinism
 
 This keeps schema-emitted format names and runtime `Format.Set(...)` validators in sync.

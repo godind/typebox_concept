@@ -1,4 +1,5 @@
 import { execFileSync } from 'node:child_process'
+import { mkdirSync } from 'node:fs'
 import path from 'node:path'
 import process from 'node:process'
 import { fileURLToPath } from 'node:url'
@@ -6,8 +7,10 @@ import { GROUPS } from '../config/groups.mjs'
 
 const scriptDir = path.dirname(fileURLToPath(import.meta.url))
 export const repoRoot = path.resolve(scriptDir, '../../..')
-export const schemaArtifactsRoot = path.join(repoRoot, 'staging/schemas/generated')
-export const baselineRoot = path.join(repoRoot, 'staging/verification/baselines/latest')
+export const schemaArtifactsRoot = path.join(repoRoot, 'converter/schemaOutput')
+export const schemaDiagnosticsRoot = path.join(repoRoot, 'converter/schemaDiagnostic')
+export const baselineRoot = path.join(repoRoot, 'converter/app/validators/snapshot')
+export const runtimeFormatsOutputFile = path.join(repoRoot, 'converter/app/formatsOutput/formats.ts')
 
 const groupIndex = new Map()
 for (const group of GROUPS) {
@@ -46,6 +49,11 @@ export function resolveGroups(requestedNames) {
 }
 
 export function runNodeScript(filePath) {
+  mkdirSync(schemaArtifactsRoot, { recursive: true })
+  mkdirSync(schemaDiagnosticsRoot, { recursive: true })
+  mkdirSync(baselineRoot, { recursive: true })
+  mkdirSync(path.dirname(runtimeFormatsOutputFile), { recursive: true })
+
   execFileSync(process.execPath, [filePath], {
     cwd: repoRoot,
     env: {

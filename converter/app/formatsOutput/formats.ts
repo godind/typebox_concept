@@ -1,4 +1,4 @@
-// Generated from staging/schemas/format-mapping-registry.mjs - do not edit manually
+// Generated from converter/app/processors/format-mapping-registry.mjs - do not edit manually
 import Format from 'typebox/format'
 
 let _registered = false

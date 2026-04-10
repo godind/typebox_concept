@@ -9,11 +9,11 @@ import { fileURLToPath } from 'url'
 import { FORMAT_RULES } from './format-mapping-registry.mjs'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
-const OUT_FILE = path.resolve(__dirname, '../../src/lib/formats.ts')
+const OUT_FILE = path.resolve(__dirname, '../formatsOutput/formats.ts')
 
 function toFileContent() {
   const header = [
-    '// Generated from staging/schemas/format-mapping-registry.mjs - do not edit manually',
+     '// Generated from converter/app/processors/format-mapping-registry.mjs - do not edit manually',
     "import Format from 'typebox/format'",
     '',
     'let _registered = false',
@@ -37,7 +37,9 @@ function toFileContent() {
 }
 
 function main() {
-  fs.writeFileSync(OUT_FILE, toFileContent(), 'utf8')
+  const content = toFileContent()
+  fs.mkdirSync(path.dirname(OUT_FILE), { recursive: true })
+  fs.writeFileSync(OUT_FILE, content, 'utf8')
   console.log(`Wrote ${OUT_FILE}`)
   console.log(`Runtime formats: ${FORMAT_RULES.length}`)
 }

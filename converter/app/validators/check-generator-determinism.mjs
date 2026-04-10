@@ -4,12 +4,12 @@ import path from 'node:path'
 import process from 'node:process'
 import { createHash } from 'node:crypto'
 import { fileURLToPath } from 'node:url'
-import { GROUPS } from '../converter/config/groups.mjs'
+import { GROUPS } from '../config/groups.mjs'
 
 const scriptDir = path.dirname(fileURLToPath(import.meta.url))
-const repoRoot = path.resolve(scriptDir, '../..')
-const phase3Dir = path.join(repoRoot, 'staging/schemas/generated')
-const runtimeFormatsFile = path.join(repoRoot, 'src/lib/formats.ts')
+const repoRoot = path.resolve(scriptDir, '../../..')
+const phase3Dir = path.join(repoRoot, 'converter/schemaOutput')
+const runtimeFormatsFile = path.join(repoRoot, 'converter/app/formatsOutput/formats.ts')
 
 async function readJson(filePath) {
   return JSON.parse(await readFile(filePath, 'utf8'))
@@ -50,7 +50,7 @@ function runFullGeneration(generatorFiles) {
   for (const generatorFile of generatorFiles) {
     runGenerator(generatorFile)
   }
-  runGenerator(path.join(repoRoot, 'staging/schemas/generate-runtime-format-module.mjs'))
+  runGenerator(path.join(repoRoot, 'converter/app/processors/generate-runtime-format-module.mjs'))
 }
 
 async function hashFiles(filePaths) {
