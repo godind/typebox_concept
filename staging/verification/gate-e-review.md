@@ -10,8 +10,7 @@ Gate E - Approve with changes - Accept Batch 0 and Batch 5 warnings as staged de
 
 ## Evidence
 
-- `npm run test:typecheck`: passed
-- `npm test`: passed with 13 of 13 tests green
+- `npm run test`: passed with test typecheck and 13 of 13 tests green
 - `npm run schemas:verify`: passed with 0 integrity failures and matching determinism hashes
 - Determinism hash: `645ef86ec8d4ce21eaa40bcff1cf385208a247d9713e5a257b0e8e89f4cb8c16`
 

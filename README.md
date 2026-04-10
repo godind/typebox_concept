@@ -25,16 +25,13 @@ Signal K TypeBox validation library with an internal smoke-test client for manua
 ## Commands
 ```bash
 npm install
-npm run generate:runtime-formats
+npm run clean
+npm run build
+npm run test
+npm run schemas:snapshot
 npm run schemas:build
 npm run schemas:verify
-npm run schemas:build:compare
-npm run typecheck
-npm run build
-npm run smoke
-npm run test
-npm run test:watch
-npm run test:typecheck
+npm run schemas:compare
 ```
 
 ## Runtime format generation (`formats.ts`)
@@ -45,21 +42,16 @@ The runtime format registration module is generated, not hand-written.
 - Generator: `staging/schemas/generate-runtime-format-module.mjs`
 - Generated output: `src/lib/formats.ts`
 
-### Manual generation command
-
-```bash
-npm run generate:runtime-formats
-```
-
 This writes `src/lib/formats.ts` from `FORMAT_RULES` in the shared registry.
 
 ### Automatic generation behavior
 
-Generation is now embedded directly in the commands themselves (no separate `pre*` npm hooks):
+Generation is embedded in the build and schema commands (no separate `pre*` npm hooks and no standalone npm wrapper command):
 
 - `npm run build` runs clean -> format generation -> TypeScript build
-- `npm run typecheck` runs format generation -> TypeScript no-emit check
-- `npm run test` and `npm run test:typecheck` both run format generation first
+- `npm run test` runs test TypeScript check -> test execution
+- `npm run schemas:build` runs schema generation and regenerates runtime formats
+- `npm run schemas:verify` runs schema build -> integrity -> determinism
 
 This keeps schema-emitted format names and runtime `Format.Set(...)` validators in sync.
 
@@ -69,21 +61,19 @@ For a clean local verification flow:
 
 ```bash
 npm install
-npm run generate:runtime-formats
-npm run typecheck
-npm run test
 npm run build
+npm run test
+npm run schemas:verify
 ```
 
-For quick iteration, you can skip the explicit generation step and run:
+For schema-only iteration:
 
 ```bash
-npm run typecheck
-npm run test
-npm run build
+npm run schemas:build
+npm run schemas:verify
 ```
 
-because each command already includes generation directly.
+because each command already includes what it needs.
 
 ## Notes
 - This package publishes only the library output under `dist/lib`.

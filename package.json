@@ -17,18 +17,12 @@
   "sideEffects": false,
   "scripts": {
     "clean": "rm -rf dist",
-    "generate:runtime-formats": "node staging/schemas/generate-runtime-format-module.mjs",
-    "build": "npm run clean && npm run generate:runtime-formats && tsc -p tsconfig.json",
-    "typecheck": "npm run generate:runtime-formats && tsc -p tsconfig.json --noEmit",
-    "smoke": "tsx smoke-test-client/index.ts",
-    "test": "npm run generate:runtime-formats && node --import tsx --test",
-    "test:watch": "npm run generate:runtime-formats && node --import tsx --test --watch",
-    "test:typecheck": "npm run generate:runtime-formats && tsc -p tsconfig.test.json --noEmit",
+    "build": "npm run clean && node staging/schemas/generate-runtime-format-module.mjs && tsc -p tsconfig.json",
+    "test": "tsc -p tsconfig.test.json --noEmit && node --import tsx --test",
     "schemas:build": "node staging/converter/cli/build.mjs",
     "schemas:snapshot": "node staging/converter/cli/snapshot.mjs",
-    "schemas:diff": "node staging/converter/cli/diff.mjs",
-    "schemas:build:compare": "node staging/converter/cli/build-compare.mjs",
-    "schemas:verify": "npm run test:typecheck && npm run test && node staging/converter/cli/check.mjs"
+    "schemas:compare": "node staging/converter/cli/build-compare.mjs",
+    "schemas:verify": "node staging/converter/cli/verify.mjs"
   },
   "keywords": [],
   "author": "",

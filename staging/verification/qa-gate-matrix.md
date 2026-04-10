@@ -13,8 +13,7 @@ This phase defines the verification contract for staged Signal K schema generati
 
 | Check | Command | Threshold | Current Intent |
 | --- | --- | --- | --- |
-| Test TypeScript surface | `npm run test:typecheck` | 0 errors | Required |
-| Runtime/unit integration | `npm test` | All tests pass | Required |
+| Parser TypeScript + runtime/unit integration | `npm run test` | 0 test TS errors + all tests pass | Required |
 | Staging manifest and artifact integrity + generator determinism | `npm run schemas:verify` | 0 integrity failures + identical hash across two consecutive full regen passes | Required |
 | Performance baseline | manual timing during Gate E review | no enforced threshold yet | Advisory |
 
