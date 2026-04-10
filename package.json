@@ -27,7 +27,10 @@
     "test": "node --import tsx --test",
     "test:watch": "node --import tsx --test --watch",
     "pretest:typecheck": "npm run generate:runtime-formats",
-    "test:typecheck": "tsc -p tsconfig.test.json --noEmit"
+    "test:typecheck": "tsc -p tsconfig.test.json --noEmit",
+    "verify:phase4:integrity": "node staging/phase4/check-phase4-integrity.mjs",
+    "verify:phase4:determinism": "node staging/phase4/check-generator-determinism.mjs",
+    "verify:phase4": "npm run test:typecheck && npm run test && npm run verify:phase4:integrity && npm run verify:phase4:determinism"
   },
   "keywords": [],
   "author": "",

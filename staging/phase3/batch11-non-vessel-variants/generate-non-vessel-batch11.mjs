@@ -488,7 +488,9 @@ async function main() {
     phase: 'Phase 3',
     batch: 'Batch 11',
     scope: 'non-vessel-variants',
-    generatedAt: new Date().toISOString(),
+    generatedAt: process.env.SOURCE_DATE_EPOCH
+      ? new Date(Number(process.env.SOURCE_DATE_EPOCH) * 1000).toISOString()
+      : '1970-01-01T00:00:00.000Z',
     upstreamRef: UPSTREAM_REF,
     upstreamPaths: UPSTREAM_PATHS,
     outputs,

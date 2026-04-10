@@ -402,7 +402,9 @@ async function main() {
     phase: 'Phase 3',
     batch: 'Batch 0',
     scope: 'foundation',
-    generatedAt: new Date().toISOString(),
+    generatedAt: process.env.SOURCE_DATE_EPOCH
+      ? new Date(Number(process.env.SOURCE_DATE_EPOCH) * 1000).toISOString()
+      : '1970-01-01T00:00:00.000Z',
     upstreamRef: UPSTREAM_REF,
     upstreamPath: UPSTREAM_PATH,
     definitionCount: orderedKeys.length,
