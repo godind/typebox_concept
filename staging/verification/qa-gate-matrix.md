@@ -15,21 +15,20 @@ This phase defines the verification contract for staged Signal K schema generati
 | --- | --- | --- | --- |
 | Test TypeScript surface | `npm run test:typecheck` | 0 errors | Required |
 | Runtime/unit integration | `npm test` | All tests pass | Required |
-| Staging manifest and artifact integrity | `npm run verify:quality-gates:integrity` | 0 integrity failures | Required |
-| Generator determinism | `npm run verify:quality-gates:determinism` | identical hash across two consecutive full regen passes | Required |
+| Staging manifest and artifact integrity + generator determinism | `npm run schemas:verify` | 0 integrity failures + identical hash across two consecutive full regen passes | Required |
 | Performance baseline | manual timing during Gate E review | no enforced threshold yet | Advisory |
 
 ## Integrity Coverage
 
 The integrity check validates the staged generation surface for:
 
-- manifest presence for every Phase 3 batch directory
-- generator presence for every Phase 3 batch directory
+- manifest presence for every configured schema group output directory under `staging/schemas/generated`
+- generator presence for every configured schema group in `staging/converter/config/groups.mjs`
 - output artifact existence for every manifest-declared file
 - duplicate staged output path detection
 - schema and type export presence in generated output modules
 - runtime format module presence and registration entrypoint
-- zero manifest exceptions across all Phase 3 batches
+- zero manifest exceptions across all configured schema groups
 
 Warnings are reported, but they are not treated as integrity failures. This keeps the check aligned with the current staged state while making unresolved warning debt explicit.
 

@@ -1,5 +1,5 @@
-import { runNodeScript, runNpmScript } from '../core/runtime.mjs'
+import { runNodeScript } from '../core/runtime.mjs'
 
 runNodeScript('staging/converter/cli/build.mjs')
-runNpmScript('verify:quality-gates:integrity')
-runNpmScript('verify:quality-gates:determinism')
+runNodeScript('staging/verification/check-phase4-integrity.mjs')
+runNodeScript('staging/verification/check-generator-determinism.mjs')
