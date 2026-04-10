@@ -4,24 +4,12 @@ import path from 'node:path'
 import process from 'node:process'
 import { createHash } from 'node:crypto'
 import { fileURLToPath } from 'node:url'
+import { GROUPS } from '../converter/config/groups.mjs'
 
 const scriptDir = path.dirname(fileURLToPath(import.meta.url))
 const repoRoot = path.resolve(scriptDir, '../..')
-const phase3Dir = path.join(repoRoot, 'staging/schemas')
+const phase3Dir = path.join(repoRoot, 'staging/schemas/generated')
 const runtimeFormatsFile = path.join(repoRoot, 'src/lib/formats.ts')
-
-function compareBatchDirs(left, right) {
-  return Number.parseInt(left.match(/^batch(\d+)/)?.[1] ?? '0', 10)
-    - Number.parseInt(right.match(/^batch(\d+)/)?.[1] ?? '0', 10)
-}
-
-async function getBatchDirs() {
-  const entries = await readdir(phase3Dir, { withFileTypes: true })
-  return entries
-    .filter((entry) => entry.isDirectory() && /^batch\d+/.test(entry.name))
-    .map((entry) => entry.name)
-    .sort(compareBatchDirs)
-}
 
 async function readJson(filePath) {
   return JSON.parse(await readFile(filePath, 'utf8'))
@@ -29,8 +17,8 @@ async function readJson(filePath) {
 
 async function buildGeneratedFileList() {
   const files = []
-  for (const batchDirName of await getBatchDirs()) {
-    const batchDir = path.join(phase3Dir, batchDirName)
+  for (const group of GROUPS) {
+    const batchDir = path.join(phase3Dir, group.name)
     const manifestPath = path.join(batchDir, 'manifest.json')
     files.push(manifestPath)
 
@@ -39,7 +27,7 @@ async function buildGeneratedFileList() {
       for (const output of manifest.outputs) {
         files.push(path.join(batchDir, output.outputFile))
       }
-    } else if (batchDirName === 'batch0-foundation') {
+    } else if (group.name === 'foundation') {
       files.push(path.join(batchDir, 'foundation-definitions.ts'))
     }
   }
@@ -50,6 +38,10 @@ async function buildGeneratedFileList() {
 function runGenerator(filePath) {
   execFileSync(process.execPath, [filePath], {
     cwd: repoRoot,
+    env: {
+      ...process.env,
+      SCHEMA_OUTPUT_ROOT: phase3Dir,
+    },
     stdio: 'inherit'
   })
 }
@@ -73,19 +65,7 @@ async function hashFiles(filePaths) {
 }
 
 async function main() {
-  const batchDirs = await getBatchDirs()
-  const generatorFiles = batchDirs.map((batchDirName) => {
-    const batchDir = path.join(phase3Dir, batchDirName)
-    return readdir(batchDir).then((entries) => {
-      const generatorFile = entries.find((name) => /^generate-.*\.mjs$/.test(name))
-      if (!generatorFile) {
-        throw new Error(`Missing generator in ${path.relative(repoRoot, batchDir)}`)
-      }
-      return path.join(batchDir, generatorFile)
-    })
-  })
-
-  const resolvedGeneratorFiles = await Promise.all(generatorFiles)
+  const resolvedGeneratorFiles = GROUPS.map((group) => group.generator)
   runFullGeneration(resolvedGeneratorFiles)
   const generatedFiles = await buildGeneratedFileList()
   const pass1Hash = await hashFiles(generatedFiles)

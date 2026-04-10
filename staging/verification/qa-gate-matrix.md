@@ -15,8 +15,8 @@ This phase defines the verification contract for staged Signal K schema generati
 | --- | --- | --- | --- |
 | Test TypeScript surface | `npm run test:typecheck` | 0 errors | Required |
 | Runtime/unit integration | `npm test` | All tests pass | Required |
-| Staging manifest and artifact integrity | `npm run verify:phase4:integrity` | 0 integrity failures | Required |
-| Generator determinism | `npm run verify:phase4:determinism` | identical hash across two consecutive full regen passes | Required |
+| Staging manifest and artifact integrity | `npm run verify:quality-gates:integrity` | 0 integrity failures | Required |
+| Generator determinism | `npm run verify:quality-gates:determinism` | identical hash across two consecutive full regen passes | Required |
 | Performance baseline | manual timing during Gate E review | no enforced threshold yet | Advisory |
 
 ## Integrity Coverage

@@ -12,8 +12,8 @@ Gate E - Approve with changes - Accept Batch 0 and Batch 5 warnings as staged de
 
 - `npm run test:typecheck`: passed
 - `npm test`: passed with 13 of 13 tests green
-- `npm run verify:phase4:integrity`: passed with 0 integrity failures
-- `npm run verify:phase4:determinism`: passed with matching hashes
+- `npm run verify:quality-gates:integrity`: passed with 0 integrity failures
+- `npm run verify:quality-gates:determinism`: passed with matching hashes
 - Determinism hash: `645ef86ec8d4ce21eaa40bcff1cf385208a247d9713e5a257b0e8e89f4cb8c16`
 
 ## Accepted Staging Debt

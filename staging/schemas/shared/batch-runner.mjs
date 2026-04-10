@@ -60,13 +60,18 @@ async function loadSchema(upstreamPath) {
  */
 export async function runGroupBatch({ outDir, scope, batch, label, upstreamPaths, converterCtx }) {
   const { toTypebox, EXTERNAL_REF_ALLOWLIST, EXCEPTIONS, WARNINGS, FORMAT_TRACE } = converterCtx
+  const targetOutDir = process.env.SCHEMA_OUTPUT_ROOT
+    ? path.join(process.env.SCHEMA_OUTPUT_ROOT, scope)
+    : outDir
+
+  fs.mkdirSync(targetOutDir, { recursive: true })
 
   const outputs = []
   for (const upstreamPath of upstreamPaths) {
     const schema = await loadSchema(upstreamPath)
     const emitted = emitRootModule(schema, upstreamPath, toTypebox)
     const fileName = `${schemaBaseName(upstreamPath)}.ts`
-    fs.writeFileSync(path.join(outDir, fileName), emitted.source, 'utf8')
+    fs.writeFileSync(path.join(targetOutDir, fileName), emitted.source, 'utf8')
     outputs.push({ upstreamPath, outputFile: fileName, schemaName: emitted.schemaName, typeName: emitted.typeName })
   }
 
@@ -75,7 +80,7 @@ export async function runGroupBatch({ outDir, scope, batch, label, upstreamPaths
       `export { ${schemaName} } from './${outputFile.replace('.ts', '.js')}'\n` +
       `export type { ${typeName} } from './${outputFile.replace('.ts', '.js')}'`)
     .join('\n\n') + '\n'
-  fs.writeFileSync(path.join(outDir, 'index.ts'), barrel, 'utf8')
+  fs.writeFileSync(path.join(targetOutDir, 'index.ts'), barrel, 'utf8')
 
   const manifest = {
     phase: 'Phase 3',
@@ -91,9 +96,9 @@ export async function runGroupBatch({ outDir, scope, batch, label, upstreamPaths
     formatMappingsApplied: FORMAT_TRACE.applied,
     unmappedFormatCandidates: FORMAT_TRACE.unmapped
   }
-  writeManifest(outDir, manifest)
+  writeManifest(targetOutDir, manifest)
 
-  console.log(`Wrote ${outputs.length} ${label} to ${outDir}`)
+  console.log(`Wrote ${outputs.length} ${label} to ${targetOutDir}`)
   console.log(`Exceptions: ${EXCEPTIONS.length}, Warnings: ${WARNINGS.length}`)
   console.log(`Unmapped format candidates: ${FORMAT_TRACE.unmapped.length}`)
   console.log(`Format mappings applied: ${FORMAT_TRACE.applied.length}`)

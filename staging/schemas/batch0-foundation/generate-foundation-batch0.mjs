@@ -9,7 +9,9 @@ import { applyFormatMapping, createFormatTrace } from '../format-mapping-registr
 import { deterministicGeneratedAt, writeManifest } from '../shared/generator-common.mjs'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
-const OUT_DIR = __dirname
+const OUT_DIR = process.env.SCHEMA_OUTPUT_ROOT
+  ? path.join(process.env.SCHEMA_OUTPUT_ROOT, 'foundation')
+  : __dirname
 const UPSTREAM_BASE = 'https://raw.githubusercontent.com/SignalK/specification/master'
 const UPSTREAM_REF = 'master'
 const UPSTREAM_PATH = 'schemas/definitions.json'
@@ -391,6 +393,7 @@ function emitDefinitionsModule(schema) {
 }
 
 async function main() {
+  fs.mkdirSync(OUT_DIR, { recursive: true })
   const resp = await fetch(`${UPSTREAM_BASE}/${UPSTREAM_PATH}`)
   if (!resp.ok) throw new Error(`fetch failed: ${resp.status}`)
   const schema = await resp.json()

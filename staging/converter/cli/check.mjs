@@ -1,5 +1,5 @@
 import { runNodeScript, runNpmScript } from '../core/runtime.mjs'
 
 runNodeScript('staging/converter/cli/build.mjs')
-runNpmScript('verify:phase4:integrity')
-runNpmScript('verify:phase4:determinism')
+runNpmScript('verify:quality-gates:integrity')
+runNpmScript('verify:quality-gates:determinism')

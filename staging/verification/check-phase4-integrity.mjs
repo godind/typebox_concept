@@ -2,16 +2,12 @@ import { readdir, readFile, stat } from 'node:fs/promises'
 import path from 'node:path'
 import process from 'node:process'
 import { fileURLToPath } from 'node:url'
+import { GROUPS } from '../converter/config/groups.mjs'
 
 const scriptDir = path.dirname(fileURLToPath(import.meta.url))
 const repoRoot = path.resolve(scriptDir, '../..')
-const phase3Dir = path.join(repoRoot, 'staging/schemas')
+const phase3Dir = path.join(repoRoot, 'staging/schemas/generated')
 const runtimeFormatsFile = path.join(repoRoot, 'src/lib/formats.ts')
-
-function compareBatchDirs(left, right) {
-  return Number.parseInt(left.match(/^batch(\d+)/)?.[1] ?? '0', 10)
-    - Number.parseInt(right.match(/^batch(\d+)/)?.[1] ?? '0', 10)
-}
 
 async function pathExists(targetPath) {
   try {
@@ -28,25 +24,17 @@ function assert(condition, message, failures) {
   }
 }
 
-async function getBatchDirs() {
-  const entries = await readdir(phase3Dir, { withFileTypes: true })
-  return entries
-    .filter((entry) => entry.isDirectory() && /^batch\d+/.test(entry.name))
-    .map((entry) => entry.name)
-    .sort(compareBatchDirs)
-}
-
 async function readJson(filePath) {
   return JSON.parse(await readFile(filePath, 'utf8'))
 }
 
-async function verifyBatch(batchDirName, duplicateOutputs, failures, warningSummary) {
-  const batchDir = path.join(phase3Dir, batchDirName)
+async function verifyBatch(group, duplicateOutputs, failures, warningSummary) {
+  const batchDir = path.join(phase3Dir, group.name)
   const manifestPath = path.join(batchDir, 'manifest.json')
-  const generatorFiles = (await readdir(batchDir)).filter((name) => /^generate-.*\.mjs$/.test(name))
+  const generatorFileExists = await pathExists(group.generator)
 
   assert(await pathExists(manifestPath), `Missing manifest: ${path.relative(repoRoot, manifestPath)}`, failures)
-  assert(generatorFiles.length === 1, `Expected 1 generator in ${path.relative(repoRoot, batchDir)}, found ${generatorFiles.length}`, failures)
+  assert(generatorFileExists, `Missing generator for group '${group.name}': ${path.relative(repoRoot, group.generator)}`, failures)
 
   if (!(await pathExists(manifestPath))) {
     return
@@ -65,7 +53,7 @@ async function verifyBatch(batchDirName, duplicateOutputs, failures, warningSumm
   }
 
   const outputs = Array.isArray(manifest.outputs) ? manifest.outputs : []
-  if (outputs.length === 0 && batchDirName === 'batch0-foundation') {
+  if (outputs.length === 0 && group.name === 'foundation') {
     const foundationFile = path.join(batchDir, 'foundation-definitions.ts')
     assert(await pathExists(foundationFile), `Missing generated foundation file: ${path.relative(repoRoot, foundationFile)}`, failures)
     duplicateOutputs.add(path.relative(repoRoot, foundationFile))
@@ -94,12 +82,12 @@ async function main() {
   const failures = []
   const warningSummary = []
   const duplicateOutputs = new Set()
-  const batchDirs = await getBatchDirs()
+  const groups = GROUPS
 
-  assert(batchDirs.length === 12, `Expected 12 Phase 3 batch directories, found ${batchDirs.length}`, failures)
+  assert(groups.length === 12, `Expected 12 Phase 3 groups, found ${groups.length}`, failures)
 
-  for (const batchDir of batchDirs) {
-    await verifyBatch(batchDir, duplicateOutputs, failures, warningSummary)
+  for (const group of groups) {
+    await verifyBatch(group, duplicateOutputs, failures, warningSummary)
   }
 
   const runtimeFormatsPresent = await pathExists(runtimeFormatsFile)
@@ -117,7 +105,7 @@ async function main() {
     process.exit(1)
   }
 
-  console.log(`Phase 4 integrity check passed for ${batchDirs.length} batch directories.`)
+  console.log(`Phase 4 integrity check passed for ${groups.length} group directories.`)
   if (warningSummary.length > 0) {
     console.log('Manifest warnings remain visible:')
     for (const line of warningSummary) {

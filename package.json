@@ -34,10 +34,9 @@
     "schemas:build:compare": "node staging/converter/cli/build-compare.mjs",
     "schemas:check": "node staging/converter/cli/check.mjs",
     "schemas:verify": "node staging/converter/cli/verify.mjs",
-    "verify:phase4:integrity": "node staging/verification/check-phase4-integrity.mjs",
-    "verify:phase4:determinism": "node staging/verification/check-generator-determinism.mjs",
-    "verify:quality-gates": "npm run test:typecheck && npm run test && npm run verify:phase4:integrity && npm run verify:phase4:determinism",
-    "verify:phase4": "npm run verify:quality-gates"
+    "verify:quality-gates:integrity": "node staging/verification/check-phase4-integrity.mjs",
+    "verify:quality-gates:determinism": "node staging/verification/check-generator-determinism.mjs",
+    "verify:quality-gates": "npm run test:typecheck && npm run test && npm run verify:quality-gates:integrity && npm run verify:quality-gates:determinism"
   },
   "keywords": [],
   "author": "",

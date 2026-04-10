@@ -6,7 +6,7 @@ import { GROUPS } from '../config/groups.mjs'
 
 const scriptDir = path.dirname(fileURLToPath(import.meta.url))
 export const repoRoot = path.resolve(scriptDir, '../../..')
-export const schemaArtifactsRoot = path.join(repoRoot, 'staging/schemas')
+export const schemaArtifactsRoot = path.join(repoRoot, 'staging/schemas/generated')
 export const baselineRoot = path.join(repoRoot, 'staging/verification/baselines/latest')
 
 const groupIndex = new Map()
@@ -48,6 +48,10 @@ export function resolveGroups(requestedNames) {
 export function runNodeScript(filePath) {
   execFileSync(process.execPath, [filePath], {
     cwd: repoRoot,
+    env: {
+      ...process.env,
+      SCHEMA_OUTPUT_ROOT: schemaArtifactsRoot,
+    },
     stdio: 'inherit'
   })
 }
