@@ -10,7 +10,7 @@ export const repoRoot = path.resolve(scriptDir, '../../..')
 export const schemaArtifactsRoot = path.join(repoRoot, 'converter/schemaOutput')
 export const schemaDiagnosticsRoot = path.join(repoRoot, 'converter/schemaDiagnostic')
 export const baselineRoot = path.join(repoRoot, 'converter/app/validators/snapshot')
-export const runtimeFormatsOutputFile = path.join(repoRoot, 'converter/app/formatsOutput/formats.ts')
+export const runtimeFormatsOutputFile = path.join(repoRoot, 'converter/formatOutput/formats.ts')
 
 const groupIndex = new Map()
 for (const group of GROUPS) {

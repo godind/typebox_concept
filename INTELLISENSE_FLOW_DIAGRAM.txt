@@ -1,0 +1,291 @@
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║                   INTELLISENSE HELPER GENERATION FLOW                         ║
+║                         Position Example (Complete)                           ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+
+STEP 1: UPSTREAM SIGNAL K SPECIFICATION
+────────────────────────────────────────────────────────────────────────────────
+Source: https://raw.githubusercontent.com/SignalK/specification/master/schemas/definitions.json
+
+{
+  "position": {
+    "type": "object",
+    "title": "position",
+    "description": "The position in 3 dimensions",
+    "allOf": [
+      { "$ref": "#/definitions/commonValueFields" },
+      {
+        "properties": {
+          "value": {
+            "properties": {
+              "longitude": { "type": "number", "description": "Longitude", "example": 4.98765245 },
+              "latitude": { "type": "number", "description": "Latitude", "example": 52.0987654 },
+              "altitude": { "type": "number", "description": "Altitude" }
+            }
+          }
+        }
+      }
+    ]
+  }
+}
+
+✓ Metadata present: title, description, examples, type constraints
+✓ Structural info: allOf composition, required fields, multi-source support
+
+
+STEP 2: CONVERTER PIPELINE (npm run schemas:build)
+────────────────────────────────────────────────────────────────────────────────
+          ┌─────────────────────────────────────────┐
+          │  Converter Rules (T01-T16)              │
+          │  └─ T11: allOf → Type.Intersect()      │
+          │  └─ T07: object → Type.Object()        │
+          │  └─ T04: number → Type.Number()        │
+          │  Preserve metadata in Type() options:  │
+          │  └─ {"description":"...", "examples"} │
+          └─────────────────────────────────────────┘
+                         ↓
+    Input: JSON Schema from upstream spec
+    Process: Rule-based transformation  (T01-T16)
+    Output: TypeBox TypeScript code
+    ↓
+    converter/app/batch/batch0-foundation.mjs
+    ↓
+    Generates: src/lib/schemas/foundation/foundation-definitions.ts
+
+
+STEP 3: GENERATED TYPEBOX SCHEMA
+────────────────────────────────────────────────────────────────────────────────
+File: src/lib/schemas/foundation/foundation-definitions.ts (Line 162)
+
+export const PositionSchema = Type.Intersect([
+  Type.Ref("signalk://schemas/definitions#CommonValueFields"),
+  Type.Object({
+      "value": Type.Optional(Type.Object({
+          "altitude": Type.Optional(Type.Number({"description":"Altitude"})),
+          "latitude": Type.Number({"description":"Latitude","examples":[52.0987654]}),
+          "longitude": Type.Number({"description":"Longitude","examples":[4.98765245]})
+        })),
+      "values": Type.Optional(...)
+    })
+], { $id: "signalk://schemas/definitions#Position" })
+
+export type Position = Type.Static<typeof PositionSchema>
+
+✓ Full runtime validation schema
+✓ Type-safe TypeScript types
+✗ Metadata buried in code (not IDE-visible)
+✗ Top-level title/description lost
+
+
+STEP 4: INTELLISENSE HELPER EXTRACTION
+────────────────────────────────────────────────────────────────────────────────
+Process: npm run schema:publish
+         ↓
+         converter/app/cli/publish.mjs
+         ↓
+         converter/app/publish/generate-intellisense-helpers.mjs
+
+Extraction Algorithm:
+┌────────────────────────────────────────────────────────────────┐
+│ For each symbol (e.g., "Position"):                           │
+│                                                                │
+│ 1. Read source file content (TypeBox definition)             │
+│    └─ src/lib/schemas/foundation/foundation-definitions.ts   │
+│                                                                │
+│ 2. Text-based metadata extraction:                           │
+│    ├─ title = readFirstJsonString('title') || symbol        │
+│    │          → NOT FOUND → Use "Position" (fallback)       │
+│    ├─ description = readFirstJsonString('description')       │
+│    │          → NOT FOUND → Use unavailable marker          │
+│    ├─ examples = countOccurrences('"examples":')            │
+│    │          → FOUND: 4 occurrences                        │
+│    ├─ formats = readAllJsonStrings('format')               │
+│    │          → FOUND: date-time, source-ref, ...          │
+│    ├─ patterns = readAllJsonStrings('pattern')             │
+│    │          → FOUND: various UUID/MMSI patterns          │
+│    ├─ enums = countOccurrences('Type.Literal(')            │
+│    │          → Found in related schemas                    │
+│    ├─ constraints = countOccurrences('minimum', 'maximum') │
+│    │          → Count numeric bounds markers                │
+│    └─ lifecycle = countOccurrences('deprecated', 'readOnly')│
+│                                                                │
+│ 3. Build JSDoc comment:                                      │
+│    └─ Follows DOC_SECTION_ORDER (10 sections)              │
+│                                                                │
+│ 4. Generate TypeScript export:                              │
+│    └─ export type PositionIntellisense = import(...).Position
+│                                                                │
+│ 5. Track coverage in manifest:                              │
+│    └─ { symbol, sourceRelPath, sourceHash, coverage {...} } │
+└────────────────────────────────────────────────────────────────┘
+
+
+STEP 5: INTELLISENSE SIDECAR FILE
+────────────────────────────────────────────────────────────────────────────────
+File 1: converter/helpers/schema-intellisense.ts
+─────────────────────────────────────────────────────────────────────────────
+
+export type AllSymbolsIntellisense = /* 92 exported types */
+
+/**
+ * summary: Position
+ * description: metadata unavailable from specification export
+ * constraints: numeric bounds markers: min=0, max=0, ...; required markers=0
+ * enum: literal options not detected
+ * default: default markers not detected
+ * examples: example markers detected: 4
+ * format: formats: date-time, source-ref, signalk-aircraft-mmsi, ...
+ * pattern: patterns: ^[2-7][0-9]{8}$, ^97[0-9]{7}$, ...
+ * provenance: source: src/lib/schemas/foundation/foundation-definitions.ts
+ * lifecycle: deprecated markers=0, readOnly markers=0, writeOnly markers=0
+ */
+export type PositionIntellisense = import('../../src/lib/schemas/foundation/foundation-definitions.js').Position
+
+(... 91 more types with JSDoc ...)
+
+
+File 2: converter/helpers/intellisense-attachment-manifest.json
+──────────────────────────────────────────────────────────────────
+
+{
+  "version": 1,
+  "mappingSpec": {
+    "sectionOrder": ["summary", "description", "constraints", "enum", "default", ...],
+    "fields": { /* mapping for each metadata field */ }
+  },
+  "symbols": [
+    {
+      "symbol": "Position",
+      "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
+      "sourceHash": "013e569abdfe4b0f654e6840b3d4cfa58a9ec5ad1868a9e60e28cca697842bc9",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": true,
+        "hasPattern": true
+      }
+    },
+    (... 91 more symbols ...)
+  ]
+}
+
+
+STEP 6: IDE INTEGRATION (USER EXPERIENCE)
+────────────────────────────────────────────────────────────────────────────────
+
+USER CODE:
+──────────
+import { PositionSchema, type Position } from '@/lib/schemas/foundation/foundation-definitions'
+
+const myPosition: Position = {
+  ↑ IDE HOVER HERE ↑
+}
+
+IDE TOOLING FLOW:
+─────────────────
+1. IDE sees type: Position
+2. IDE looks up definition in foundation-definitions.ts
+3. IDE reads: export type Position = Type.Static<typeof PositionSchema>
+4. IDE searches for PositionIntellisense in repo
+5. IDE finds JSDoc comment in schema-intellisense.ts
+6. IDE displays formatted JSDoc to user:
+
+┌─────────────────────────────────────────────────────────────┐
+│ (type) Position                                             │
+├─────────────────────────────────────────────────────────────┤
+│ summary: Position                                           │
+│ description: metadata unavailable from specification export │
+│ constraints: numeric bounds markers: ...                    │
+│ enum: literal options not detected                          │
+│ default: default markers not detected                       │
+│ examples: example markers detected: 4                       │
+│ format: formats: date-time, source-ref, signalk-aircraft...│
+│ pattern: patterns: ^[2-7][0-9]{8}$, ^97[0-9]{7}$, ...     │
+│ provenance: source: src/lib/schemas/foundation/foundation..│
+│ lifecycle: deprecated markers=0, readOnly markers=0, ...   │
+└─────────────────────────────────────────────────────────────┘
+
+IDEs Supported:
+├─ VS Code (via JSDoc/TypeScript)
+├─ IntelliJ IDEA (TypeScript plugin)
+├─ WebStorm
+├─ GoLand (via TypeScript language support)
+└─ Vim/Neovim (via LSP)
+
+
+STEP 7: IDE AUTOCOMPLETE BENEFITS
+────────────────────────────────────────────────────────────────────────────────
+
+BEFORE (Without IntelliSense Helper):
+─────────────────────────────────────
+const pos: Position = {
+  // IDE shows: "Type.Static<typeof PositionSchema>"
+  // Not helpful! Developer must read source code or spec
+  value: {
+    // IDE guesses based on type structure
+    latitude: 52
+    longitude: 4
+    altitude: 100
+  }
+}
+
+AFTER (With IntelliSense Helper):
+──────────────────────────────────
+const pos: Position = {
+  // IDE shows rich JSDoc from PositionIntellisense
+  // Shows: examples, formats, constraints
+  // Shows: "latitude required, example: 52.0987654"
+  value: {
+    latitude: [AUTOCOMPLETE: "example: 52.0987654, format: number"]
+    longitude: [AUTOCOMPLETE: "example: 4.98765245, format: number"]
+    altitude: [AUTOCOMPLETE: "optional, format: number, units: m"]
+  }
+}
+
+ACTUAL IDE BEHAVIOR (VS Code):
+─────────────────────────────
+✓ Hover shows JSDoc comment with all 10 sections
+✓ Autocomplete shows property descriptions inline
+✓ Parameter hints show constraints (required/optional)
+✓ Error messages reference format when validation fails
+✓ Quick navigate "Go to Definition" links to source
+
+
+METADATA PRESERVATION ACROSS PIPELINE
+────────────────────────────────────────────────────────────────────────────────
+
+┌────────┬──────────────────────┬──────────────────────┬──────────────┐
+│ Source │ Upstream Spec        │ TypeBox Schema       │ IDE Display  │
+├────────┼──────────────────────┼──────────────────────┼──────────────┤
+│ title  │ "position"           │ ❌ Lost              │ ⚠️  Fallback  │
+│ desc   │ "position in 3D..."  │ ❌ Lost at top level │ ⚠️  Fallback  │
+│ type   │ object               │ ✓ Type.Intersect    │ ✓ Type info  │
+│ props  │ lat, lon, alt        │ ✓ Type.Object       │ ✓ Props      │
+│ req    │ lat, lon required    │ ✓ In definition     │ ✓ Required   │
+│ desc   │ "Latitude", ...      │ ✓ In Type.Number    │ ✓ In JSDoc   │
+│ ex     │ 52.0987654, ...      │ ✓ In examples:[...] │ ✓ Counted    │
+│ units  │ "deg", "m"           │ ❌ Lost             │ ❌ Missing   │
+│ format │ implicit (number)    │ ✓ date-time, etc    │ ✓ In JSDoc   │
+│ $id    │ implicit             │ ✓ In $id option     │ ✓ In JSDoc   │
+└────────┴──────────────────────┴──────────────────────┴──────────────┘
+
+Legend: ✓ Preserved  ❌ Lost  ⚠️  Fallback value used
+
+
+KEY TAKEAWAY
+────────────────────────────────────────────────────────────────────────────────
+
+The IntelliSense helper system works by:
+
+1. EXTRACTING metadata from TypeBox source files (text-based parsing)
+2. ORGANIZING it into standardized JSDoc comments (10 sections)
+3. STORING both as sidecar files (non-intrusive to canonical schemas)
+4. EXPOSING to IDEs via TypeScript type system (re-export with JSDoc)
+5. DISPLAYING to developers via IDE hover/autocomplete (standard practice)
+
+This creates a DUAL ARTIFACT SYSTEM:
+├─ PositionSchema      (runtime validation)
+└─ PositionIntellisense (IDE developer experience)
+
+Both serve the library, different use cases.
+

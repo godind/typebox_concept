@@ -24,3 +24,10 @@ export {
     type NoSchemaTypeValue,
     type UnknownSchemaTypeValue
 } from './parser.js'
+
+/**
+ * Facade re-exports: grouped API surfaces organized by semantic domain.
+ * Users can import directly from these facades: import { ... } from '@/lib/facades/transport'
+ * Or import from the unified barrel: import { ... } from '@/lib'
+ */
+export * from './facades/index.js'

@@ -1,14 +1,42 @@
 {
-  "name": "typebox_concept",
+  "name": "@signalk/types",
   "version": "1.0.0",
   "description": "Signal K TypeBox validation library with smoke-test client",
   "type": "module",
-  "main": "dist/lib/index.js",
-  "types": "dist/lib/index.d.ts",
+  "main": "dist/lib/package-types.js",
+  "types": "dist/lib/package-types.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/lib/package-types.d.ts",
+      "import": "./dist/lib/package-types.js"
+    },
+    "./runtime": {
       "types": "./dist/lib/index.d.ts",
       "import": "./dist/lib/index.js"
+    },
+    "./transport": {
+      "types": "./dist/lib/intellisense/transport.d.ts",
+      "import": "./dist/lib/intellisense/transport.js"
+    },
+    "./values": {
+      "types": "./dist/lib/intellisense/values.d.ts",
+      "import": "./dist/lib/intellisense/values.js"
+    },
+    "./meta": {
+      "types": "./dist/lib/intellisense/meta.d.ts",
+      "import": "./dist/lib/intellisense/meta.js"
+    },
+    "./spatial": {
+      "types": "./dist/lib/intellisense/spatial.d.ts",
+      "import": "./dist/lib/intellisense/spatial.js"
+    },
+    "./identity": {
+      "types": "./dist/lib/intellisense/identity.d.ts",
+      "import": "./dist/lib/intellisense/identity.js"
+    },
+    "./protocol": {
+      "types": "./dist/lib/intellisense/protocol.d.ts",
+      "import": "./dist/lib/intellisense/protocol.js"
     }
   },
   "files": [
@@ -22,7 +50,9 @@
     "schemas:build": "node converter/app/cli/build.mjs",
     "schemas:snapshot": "node converter/app/cli/snapshot.mjs",
     "schemas:compare": "node converter/app/cli/build-compare.mjs",
-    "schemas:verify": "node converter/app/cli/verify.mjs"
+    "schemas:verify": "node converter/app/cli/verify.mjs",
+    "schemas:typehelpers": "node converter/app/cli/typehelpers.mjs",
+    "schema:publish": "node converter/app/cli/publish.mjs"
   },
   "keywords": [],
   "author": "",

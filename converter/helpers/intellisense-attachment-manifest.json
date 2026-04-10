@@ -1,0 +1,653 @@
+{
+  "version": 1,
+  "generatedAt": "1970-01-01T00:00:00.000Z",
+  "mappingSpec": {
+    "sectionOrder": [
+      "summary",
+      "description",
+      "constraints",
+      "enum",
+      "default",
+      "examples",
+      "format",
+      "pattern",
+      "provenance",
+      "lifecycle"
+    ],
+    "fields": {
+      "title": {
+        "target": "summary",
+        "rule": "Use as first-line summary. Fallback to symbol name."
+      },
+      "description": {
+        "target": "description",
+        "rule": "Use as main hover text. Fallback to explicit unavailable marker."
+      },
+      "enum": {
+        "target": "enum",
+        "rule": "List literal values and count when detectable."
+      },
+      "const": {
+        "target": "enum",
+        "rule": "Treat as a one-value enum."
+      },
+      "default": {
+        "target": "default",
+        "rule": "Show default hint when present."
+      },
+      "examples": {
+        "target": "examples",
+        "rule": "Render deterministic subset ordered by source appearance."
+      },
+      "format": {
+        "target": "format",
+        "rule": "Show semantic format hints and runtime validation linkage."
+      },
+      "pattern": {
+        "target": "pattern",
+        "rule": "Show regex expectation and pattern count."
+      },
+      "numericBounds": {
+        "target": "constraints",
+        "rule": "Summarize minimum/maximum and exclusive variants."
+      },
+      "sizeBounds": {
+        "target": "constraints",
+        "rule": "Summarize minLength/maxLength/minItems/maxItems."
+      },
+      "required": {
+        "target": "constraints",
+        "rule": "Show required marker availability where detectable."
+      },
+      "deprecated": {
+        "target": "lifecycle",
+        "rule": "Mark deprecated usage and suggested migration if available."
+      },
+      "readOnly": {
+        "target": "lifecycle",
+        "rule": "Show readOnly semantics when present."
+      },
+      "writeOnly": {
+        "target": "lifecycle",
+        "rule": "Show writeOnly semantics when present."
+      },
+      "provenance": {
+        "target": "provenance",
+        "rule": "Include source schema path and generated file location."
+      }
+    },
+    "missingMetadataText": "metadata unavailable from specification export"
+  },
+  "entries": [
+    {
+      "symbol": "_attr",
+      "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
+      "sourceHash": "013e569abdfe4b0f654e6840b3d4cfa58a9ec5ad1868a9e60e28cca697842bc9",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": true,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "AcQualities",
+      "sourceRelPath": "src/lib/schemas/electrical/electrical.ts",
+      "sourceHash": "0175b5f56b7908057e6ffcf624dcdcd58ec10087381376dc10980ca0cf722f7e",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": false,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "Aircraft",
+      "sourceRelPath": "src/lib/schemas/non-vessel-variants/aircraft.ts",
+      "sourceHash": "2fd4420c3d672f4823b054f0eef901676add6a2e06ab9b41588a64cdde23d2b0",
+      "coverage": {
+        "hasDescription": false,
+        "hasFormat": false,
+        "hasPattern": false
+      }
+    },
+    {
+      "symbol": "AircraftMmsi",
+      "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
+      "sourceHash": "013e569abdfe4b0f654e6840b3d4cfa58a9ec5ad1868a9e60e28cca697842bc9",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": true,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "AlarmMethodEnum",
+      "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
+      "sourceHash": "013e569abdfe4b0f654e6840b3d4cfa58a9ec5ad1868a9e60e28cca697842bc9",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": true,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "AlarmState",
+      "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
+      "sourceHash": "013e569abdfe4b0f654e6840b3d4cfa58a9ec5ad1868a9e60e28cca697842bc9",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": true,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "Aton",
+      "sourceRelPath": "src/lib/schemas/non-vessel-variants/aton.ts",
+      "sourceHash": "d081aeec1eedbbb4f04817d595c18da75b8788d205a0ceeaabe4335bf1a320b0",
+      "coverage": {
+        "hasDescription": false,
+        "hasFormat": false,
+        "hasPattern": false
+      }
+    },
+    {
+      "symbol": "AtonMmsi",
+      "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
+      "sourceHash": "013e569abdfe4b0f654e6840b3d4cfa58a9ec5ad1868a9e60e28cca697842bc9",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": true,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "ChargerQualities",
+      "sourceRelPath": "src/lib/schemas/electrical/electrical.ts",
+      "sourceHash": "0175b5f56b7908057e6ffcf624dcdcd58ec10087381376dc10980ca0cf722f7e",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": false,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "CommonValueFields",
+      "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
+      "sourceHash": "013e569abdfe4b0f654e6840b3d4cfa58a9ec5ad1868a9e60e28cca697842bc9",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": true,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "Communication",
+      "sourceRelPath": "src/lib/schemas/communication-sensors-sources/communication.ts",
+      "sourceHash": "55a6457e3472a428244ebbb9eff5b00c5b2cd0b36032ab67ed97406341c878d9",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": false,
+        "hasPattern": false
+      }
+    },
+    {
+      "symbol": "Course",
+      "sourceRelPath": "src/lib/schemas/navigation/navigation.ts",
+      "sourceHash": "e5150982a866b53bf43a0fa38e7aac00be1b09c0386dbb7bbf4ff1f859e644dc",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": true,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "DatetimeValue",
+      "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
+      "sourceHash": "013e569abdfe4b0f654e6840b3d4cfa58a9ec5ad1868a9e60e28cca697842bc9",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": true,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "DcQualities",
+      "sourceRelPath": "src/lib/schemas/electrical/electrical.ts",
+      "sourceHash": "0175b5f56b7908057e6ffcf624dcdcd58ec10087381376dc10980ca0cf722f7e",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": false,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "Delta",
+      "sourceRelPath": "src/lib/schemas/messaging/delta.ts",
+      "sourceHash": "900c34d914ab7adc14cb8ec402500f090256c1aa897bec2e5e1346760ce99fee",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": false,
+        "hasPattern": false
+      }
+    },
+    {
+      "symbol": "Design",
+      "sourceRelPath": "src/lib/schemas/tanks-design/design.ts",
+      "sourceHash": "35b9fefce5cca6643f6bfec4b6b527fe0bd6a64b013d947eb20503a74c48591b",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": false,
+        "hasPattern": false
+      }
+    },
+    {
+      "symbol": "Discovery",
+      "sourceRelPath": "src/lib/schemas/messaging/discovery.ts",
+      "sourceHash": "ef074e261a42f9de694186f813dd2927ff44f3894dcc4610ae171153834aa552",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": false,
+        "hasPattern": false
+      }
+    },
+    {
+      "symbol": "Electrical",
+      "sourceRelPath": "src/lib/schemas/electrical/electrical.ts",
+      "sourceHash": "0175b5f56b7908057e6ffcf624dcdcd58ec10087381376dc10980ca0cf722f7e",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": false,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "Environment",
+      "sourceRelPath": "src/lib/schemas/environment/environment.ts",
+      "sourceHash": "35862c1a8f464b18854e9f6411f29356cb238bfa9af0c83680cb8a43229d2c2b",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": false,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "Geohash",
+      "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
+      "sourceHash": "013e569abdfe4b0f654e6840b3d4cfa58a9ec5ad1868a9e60e28cca697842bc9",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": true,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "Hello",
+      "sourceRelPath": "src/lib/schemas/messaging/hello.ts",
+      "sourceHash": "346c23301a5862fed8b23d29e5a6dee42b419bc5e1dbda1e9173542ce2b494b7",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": true,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "Identity",
+      "sourceRelPath": "src/lib/schemas/electrical/electrical.ts",
+      "sourceHash": "0175b5f56b7908057e6ffcf624dcdcd58ec10087381376dc10980ca0cf722f7e",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": false,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "Meta",
+      "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
+      "sourceHash": "013e569abdfe4b0f654e6840b3d4cfa58a9ec5ad1868a9e60e28cca697842bc9",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": true,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "Mmsi",
+      "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
+      "sourceHash": "013e569abdfe4b0f654e6840b3d4cfa58a9ec5ad1868a9e60e28cca697842bc9",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": true,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "Navigation",
+      "sourceRelPath": "src/lib/schemas/navigation/navigation.ts",
+      "sourceHash": "e5150982a866b53bf43a0fa38e7aac00be1b09c0386dbb7bbf4ff1f859e644dc",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": true,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "Notification",
+      "sourceRelPath": "src/lib/schemas/notifications/notifications.ts",
+      "sourceHash": "6c55a6bef2a0d4a64738f7f058473882e476a667077ee5b2912c85cddff867fc",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": false,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "NotificationBranch",
+      "sourceRelPath": "src/lib/schemas/notifications/notifications.ts",
+      "sourceHash": "6c55a6bef2a0d4a64738f7f058473882e476a667077ee5b2912c85cddff867fc",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": false,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "Notifications",
+      "sourceRelPath": "src/lib/schemas/notifications/notifications.ts",
+      "sourceHash": "6c55a6bef2a0d4a64738f7f058473882e476a667077ee5b2912c85cddff867fc",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": false,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "NullValue",
+      "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
+      "sourceHash": "013e569abdfe4b0f654e6840b3d4cfa58a9ec5ad1868a9e60e28cca697842bc9",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": true,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "NumberValue",
+      "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
+      "sourceHash": "013e569abdfe4b0f654e6840b3d4cfa58a9ec5ad1868a9e60e28cca697842bc9",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": true,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "Performance",
+      "sourceRelPath": "src/lib/schemas/sails-performance/performance.ts",
+      "sourceHash": "6eaaca435d97abba956665d67ec0f53ed2424e75835951029fa6cd1ce5ced397",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": false,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "Polar",
+      "sourceRelPath": "src/lib/schemas/sails-performance/performance.ts",
+      "sourceHash": "6eaaca435d97abba956665d67ec0f53ed2424e75835951029fa6cd1ce5ced397",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": false,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "PolarUuid",
+      "sourceRelPath": "src/lib/schemas/sails-performance/performance.ts",
+      "sourceHash": "6eaaca435d97abba956665d67ec0f53ed2424e75835951029fa6cd1ce5ced397",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": false,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "Position",
+      "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
+      "sourceHash": "013e569abdfe4b0f654e6840b3d4cfa58a9ec5ad1868a9e60e28cca697842bc9",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": true,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "Propulsion",
+      "sourceRelPath": "src/lib/schemas/propulsion-steering/propulsion.ts",
+      "sourceHash": "7625f4c78879a79b84839c014854e2a1c2969f4f046943bc7063796ede3024ff",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": false,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "Resources",
+      "sourceRelPath": "src/lib/schemas/resources/resources.ts",
+      "sourceHash": "49038b5dc1e2ec1dac1c19110507afe9b477e0972954d64904eb5d27dab998da",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": false,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "Sails",
+      "sourceRelPath": "src/lib/schemas/sails-performance/sails.ts",
+      "sourceHash": "f430e093b0a51853ad6be7ef359dd9914f5956a73755c6396da886a2b2869d9e",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": false,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "Sar",
+      "sourceRelPath": "src/lib/schemas/non-vessel-variants/sar.ts",
+      "sourceHash": "41446bbac9c8e2bb298d5a296d38cb04561007d9957a4cfb8ffcfc448381396f",
+      "coverage": {
+        "hasDescription": false,
+        "hasFormat": false,
+        "hasPattern": false
+      }
+    },
+    {
+      "symbol": "SarMmsi",
+      "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
+      "sourceHash": "013e569abdfe4b0f654e6840b3d4cfa58a9ec5ad1868a9e60e28cca697842bc9",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": true,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "Sensors",
+      "sourceRelPath": "src/lib/schemas/communication-sensors-sources/sensors.ts",
+      "sourceHash": "a0cfba86094f603b886c9099cb9e55c6a0d00fa5182ed0c06fc9a1f294632ff8",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": false,
+        "hasPattern": false
+      }
+    },
+    {
+      "symbol": "Source",
+      "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
+      "sourceHash": "013e569abdfe4b0f654e6840b3d4cfa58a9ec5ad1868a9e60e28cca697842bc9",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": true,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "SourceRef",
+      "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
+      "sourceHash": "013e569abdfe4b0f654e6840b3d4cfa58a9ec5ad1868a9e60e28cca697842bc9",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": true,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "Sources",
+      "sourceRelPath": "src/lib/schemas/communication-sensors-sources/sources.ts",
+      "sourceHash": "1014a6ec34a95fdfd47366c82fd02a2789128e14716ca24e75a7179de22b5197",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": false,
+        "hasPattern": false
+      }
+    },
+    {
+      "symbol": "Steering",
+      "sourceRelPath": "src/lib/schemas/propulsion-steering/steering.ts",
+      "sourceHash": "5c306b272b548105de8dad37b6720c6eb3b386e6ea561b1546015fb16bc3c190",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": false,
+        "hasPattern": false
+      }
+    },
+    {
+      "symbol": "StringValue",
+      "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
+      "sourceHash": "013e569abdfe4b0f654e6840b3d4cfa58a9ec5ad1868a9e60e28cca697842bc9",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": true,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "TankCollection",
+      "sourceRelPath": "src/lib/schemas/tanks-design/tanks.ts",
+      "sourceHash": "be485a324598bfe38cdca6b066de20a9d1a106fe817034b0f2a3cb9841b30cb0",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": false,
+        "hasPattern": false
+      }
+    },
+    {
+      "symbol": "Tanks",
+      "sourceRelPath": "src/lib/schemas/tanks-design/tanks.ts",
+      "sourceHash": "be485a324598bfe38cdca6b066de20a9d1a106fe817034b0f2a3cb9841b30cb0",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": false,
+        "hasPattern": false
+      }
+    },
+    {
+      "symbol": "Timestamp",
+      "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
+      "sourceHash": "013e569abdfe4b0f654e6840b3d4cfa58a9ec5ad1868a9e60e28cca697842bc9",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": true,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "Units",
+      "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
+      "sourceHash": "013e569abdfe4b0f654e6840b3d4cfa58a9ec5ad1868a9e60e28cca697842bc9",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": true,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "Url",
+      "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
+      "sourceHash": "013e569abdfe4b0f654e6840b3d4cfa58a9ec5ad1868a9e60e28cca697842bc9",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": true,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "Uuid",
+      "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
+      "sourceHash": "013e569abdfe4b0f654e6840b3d4cfa58a9ec5ad1868a9e60e28cca697842bc9",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": true,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "ValuesDatetimeValue",
+      "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
+      "sourceHash": "013e569abdfe4b0f654e6840b3d4cfa58a9ec5ad1868a9e60e28cca697842bc9",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": true,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "ValuesNumberValue",
+      "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
+      "sourceHash": "013e569abdfe4b0f654e6840b3d4cfa58a9ec5ad1868a9e60e28cca697842bc9",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": true,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "ValuesStringValue",
+      "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
+      "sourceHash": "013e569abdfe4b0f654e6840b3d4cfa58a9ec5ad1868a9e60e28cca697842bc9",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": true,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "Version",
+      "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
+      "sourceHash": "013e569abdfe4b0f654e6840b3d4cfa58a9ec5ad1868a9e60e28cca697842bc9",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": true,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "Waypoint",
+      "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
+      "sourceHash": "013e569abdfe4b0f654e6840b3d4cfa58a9ec5ad1868a9e60e28cca697842bc9",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": true,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "ZoneObject",
+      "sourceRelPath": "src/lib/schemas/environment/environment.ts",
+      "sourceHash": "35862c1a8f464b18854e9f6411f29356cb238bfa9af0c83680cb8a43229d2c2b",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": false,
+        "hasPattern": true
+      }
+    }
+  ]
+}

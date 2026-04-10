@@ -1,0 +1,35 @@
+{
+  "phase": "Phase 3",
+  "batch": "Batch 10",
+  "scope": "resources",
+  "generatedAt": "1970-01-01T00:00:00.000Z",
+  "upstreamRef": "master",
+  "upstreamPaths": [
+    "schemas/groups/resources.json"
+  ],
+  "outputs": [
+    {
+      "upstreamPath": "schemas/groups/resources.json",
+      "outputFile": "resources.ts",
+      "schemaName": "ResourcesSchema",
+      "typeName": "Resources"
+    }
+  ],
+  "exceptions": [],
+  "warnings": [
+    {
+      "location": "schemas/groups/resources.json#.regions.patternProperties.feature.id",
+      "detail": "no type field; emitting Type.Unknown for: {\"FIXME\":\"may be there, type not known (string? number?)\"}"
+    },
+    {
+      "location": "schemas/groups/resources.json#.routes.patternProperties.feature.id",
+      "detail": "no type field; emitting Type.Unknown for: {\"FIXME\":\"may be there, type not known (string? number?)\"}"
+    }
+  ],
+  "externalRefAllowlist": [
+    "../external/geojson/geometry.json#/definitions/polygon",
+    "../external/geojson/geometry.json#/definitions/lineString"
+  ],
+  "formatMappingsApplied": [],
+  "unmappedFormatCandidates": []
+}

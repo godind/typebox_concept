@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "generatedAt": "1970-01-01T00:00:00.000Z",
+  "strictGate": "fail-on-warnings-and-exceptions",
+  "sources": {
+    "schemaArtifactsRoot": "converter/schemaOutput",
+    "runtimeFormatsOutputFile": "converter/formatOutput/formats.ts"
+  },
+  "targets": {
+    "librarySchemasRoot": "src/lib/schemas",
+    "libraryFormatsFile": "src/lib/formats.ts",
+    "intellisenseRoot": "src/lib/intellisense"
+  },
+  "promotedGroups": [
+    "foundation",
+    "messaging",
+    "navigation",
+    "environment",
+    "electrical",
+    "propulsion-steering",
+    "tanks-design",
+    "sails-performance",
+    "communication-sensors-sources",
+    "notifications",
+    "resources",
+    "non-vessel-variants"
+  ],
+  "facades": [
+    "transport",
+    "values",
+    "meta",
+    "spatial",
+    "identity",
+    "protocol"
+  ],
+  "intellisense": {
+    "groups": [
+      "transport",
+      "values",
+      "meta",
+      "spatial",
+      "identity",
+      "protocol"
+    ],
+    "manifestFile": "converter/intellisenseDiagnostic/intellisense-manifest.json",
+    "manifestHash": "065ed92e4b842807736ba74db257719ab4596246733bd649063be7b05a3b0d87",
+    "symbolCount": 27,
+    "groupCount": 6,
+    "unresolvedMetadata": 0
+  }
+}

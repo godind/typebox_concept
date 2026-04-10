@@ -1,12 +1,12 @@
 # Gate E Review
 
-Gate E - Approve with changes - Accept Batch 0 and Batch 5 warnings as staged debt; proceed without active-runtime promotion changes.
+Gate E - Approved and closed - Accepted staging warning debt remains tracked.
 
 ## Verdict
 
-- Decision: Approve with changes
+- Decision: Approved (closed)
 - Scope reviewed: Phase 4 QA matrix and current staged Phase 3 artifact set
-- Review date: 2026-04-09
+- Review date: 2026-04-10
 
 ## Evidence
 
@@ -29,3 +29,11 @@ Gate E - Approve with changes - Accept Batch 0 and Batch 5 warnings as staged de
 - This approval covers the QA matrix and staged verification baseline only.
 - No active-runtime promotion is implied by this review.
 - The two accepted warnings remain open quality debt and should stay visible in future manifest diffs until resolved.
+
+## Next Phase
+
+- Phase 6 - Packaging and promotion automation.
+- Scope item 1: add pack command automation to sync library runtime formats from converter/app/formatsOutput/formats.ts into src/lib/formats.ts.
+- Scope item 2: implement compatibility-safe promotion flow from converter outputs into publishable library surfaces.
+- Scope item 3: refresh docs and coverage artifacts from manifests/verification outputs to keep release evidence current.
+- Execution checklist: see staging/verification/phase6-checklist.md.

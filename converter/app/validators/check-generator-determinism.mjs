@@ -9,7 +9,7 @@ import { GROUPS } from '../config/groups.mjs'
 const scriptDir = path.dirname(fileURLToPath(import.meta.url))
 const repoRoot = path.resolve(scriptDir, '../../..')
 const phase3Dir = path.join(repoRoot, 'converter/schemaOutput')
-const runtimeFormatsFile = path.join(repoRoot, 'converter/app/formatsOutput/formats.ts')
+const runtimeFormatsFile = path.join(repoRoot, 'converter/formatOutput/formats.ts')
 
 async function readJson(filePath) {
   return JSON.parse(await readFile(filePath, 'utf8'))

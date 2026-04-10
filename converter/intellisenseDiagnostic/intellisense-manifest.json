@@ -1,0 +1,353 @@
+{
+  "version": 1,
+  "generatedAt": "1970-01-01T00:00:00.000Z",
+  "mappingSpec": {
+    "sectionOrder": [
+      "summary",
+      "description",
+      "constraints",
+      "enum",
+      "default",
+      "examples",
+      "format",
+      "pattern",
+      "provenance",
+      "lifecycle"
+    ],
+    "fields": {
+      "title": {
+        "target": "summary",
+        "rule": "Use as first-line summary. Fallback to symbol name."
+      },
+      "description": {
+        "target": "description",
+        "rule": "Use as main hover text. Fallback to explicit unavailable marker."
+      },
+      "enum": {
+        "target": "enum",
+        "rule": "List literal values and count when detectable."
+      },
+      "const": {
+        "target": "enum",
+        "rule": "Treat as a one-value enum."
+      },
+      "default": {
+        "target": "default",
+        "rule": "Show default hint when present."
+      },
+      "examples": {
+        "target": "examples",
+        "rule": "Render deterministic subset ordered by source appearance."
+      },
+      "format": {
+        "target": "format",
+        "rule": "Show semantic format hints and runtime validation linkage."
+      },
+      "pattern": {
+        "target": "pattern",
+        "rule": "Show regex expectation and pattern count."
+      },
+      "numericBounds": {
+        "target": "constraints",
+        "rule": "Summarize minimum/maximum and exclusive variants."
+      },
+      "sizeBounds": {
+        "target": "constraints",
+        "rule": "Summarize minLength/maxLength/minItems/maxItems."
+      },
+      "required": {
+        "target": "constraints",
+        "rule": "Show required marker availability where detectable."
+      },
+      "deprecated": {
+        "target": "lifecycle",
+        "rule": "Mark deprecated usage and suggested migration if available."
+      },
+      "readOnly": {
+        "target": "lifecycle",
+        "rule": "Show readOnly semantics when present."
+      },
+      "writeOnly": {
+        "target": "lifecycle",
+        "rule": "Show writeOnly semantics when present."
+      },
+      "provenance": {
+        "target": "provenance",
+        "rule": "Include source schema path and generated file location."
+      }
+    },
+    "missingMetadataText": "metadata unavailable from specification export"
+  },
+  "entries": [
+    {
+      "symbol": "AircraftMmsi",
+      "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
+      "sourceHash": "013e569abdfe4b0f654e6840b3d4cfa58a9ec5ad1868a9e60e28cca697842bc9",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": true,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "AlarmMethodEnum",
+      "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
+      "sourceHash": "013e569abdfe4b0f654e6840b3d4cfa58a9ec5ad1868a9e60e28cca697842bc9",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": true,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "AlarmState",
+      "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
+      "sourceHash": "013e569abdfe4b0f654e6840b3d4cfa58a9ec5ad1868a9e60e28cca697842bc9",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": true,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "AtonMmsi",
+      "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
+      "sourceHash": "013e569abdfe4b0f654e6840b3d4cfa58a9ec5ad1868a9e60e28cca697842bc9",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": true,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "DatetimeValue",
+      "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
+      "sourceHash": "013e569abdfe4b0f654e6840b3d4cfa58a9ec5ad1868a9e60e28cca697842bc9",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": true,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "Delta",
+      "sourceRelPath": "src/lib/schemas/messaging/delta.ts",
+      "sourceHash": "900c34d914ab7adc14cb8ec402500f090256c1aa897bec2e5e1346760ce99fee",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": false,
+        "hasPattern": false
+      }
+    },
+    {
+      "symbol": "Discovery",
+      "sourceRelPath": "src/lib/schemas/messaging/discovery.ts",
+      "sourceHash": "ef074e261a42f9de694186f813dd2927ff44f3894dcc4610ae171153834aa552",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": false,
+        "hasPattern": false
+      }
+    },
+    {
+      "symbol": "Geohash",
+      "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
+      "sourceHash": "013e569abdfe4b0f654e6840b3d4cfa58a9ec5ad1868a9e60e28cca697842bc9",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": true,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "Hello",
+      "sourceRelPath": "src/lib/schemas/messaging/hello.ts",
+      "sourceHash": "346c23301a5862fed8b23d29e5a6dee42b419bc5e1dbda1e9173542ce2b494b7",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": true,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "Meta",
+      "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
+      "sourceHash": "013e569abdfe4b0f654e6840b3d4cfa58a9ec5ad1868a9e60e28cca697842bc9",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": true,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "Mmsi",
+      "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
+      "sourceHash": "013e569abdfe4b0f654e6840b3d4cfa58a9ec5ad1868a9e60e28cca697842bc9",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": true,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "NullValue",
+      "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
+      "sourceHash": "013e569abdfe4b0f654e6840b3d4cfa58a9ec5ad1868a9e60e28cca697842bc9",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": true,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "NumberValue",
+      "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
+      "sourceHash": "013e569abdfe4b0f654e6840b3d4cfa58a9ec5ad1868a9e60e28cca697842bc9",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": true,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "Position",
+      "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
+      "sourceHash": "013e569abdfe4b0f654e6840b3d4cfa58a9ec5ad1868a9e60e28cca697842bc9",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": true,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "SarMmsi",
+      "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
+      "sourceHash": "013e569abdfe4b0f654e6840b3d4cfa58a9ec5ad1868a9e60e28cca697842bc9",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": true,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "Source",
+      "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
+      "sourceHash": "013e569abdfe4b0f654e6840b3d4cfa58a9ec5ad1868a9e60e28cca697842bc9",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": true,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "SourceRef",
+      "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
+      "sourceHash": "013e569abdfe4b0f654e6840b3d4cfa58a9ec5ad1868a9e60e28cca697842bc9",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": true,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "StringValue",
+      "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
+      "sourceHash": "013e569abdfe4b0f654e6840b3d4cfa58a9ec5ad1868a9e60e28cca697842bc9",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": true,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "Timestamp",
+      "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
+      "sourceHash": "013e569abdfe4b0f654e6840b3d4cfa58a9ec5ad1868a9e60e28cca697842bc9",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": true,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "Units",
+      "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
+      "sourceHash": "013e569abdfe4b0f654e6840b3d4cfa58a9ec5ad1868a9e60e28cca697842bc9",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": true,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "Url",
+      "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
+      "sourceHash": "013e569abdfe4b0f654e6840b3d4cfa58a9ec5ad1868a9e60e28cca697842bc9",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": true,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "Uuid",
+      "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
+      "sourceHash": "013e569abdfe4b0f654e6840b3d4cfa58a9ec5ad1868a9e60e28cca697842bc9",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": true,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "ValuesDatetimeValue",
+      "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
+      "sourceHash": "013e569abdfe4b0f654e6840b3d4cfa58a9ec5ad1868a9e60e28cca697842bc9",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": true,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "ValuesNumberValue",
+      "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
+      "sourceHash": "013e569abdfe4b0f654e6840b3d4cfa58a9ec5ad1868a9e60e28cca697842bc9",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": true,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "ValuesStringValue",
+      "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
+      "sourceHash": "013e569abdfe4b0f654e6840b3d4cfa58a9ec5ad1868a9e60e28cca697842bc9",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": true,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "Version",
+      "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
+      "sourceHash": "013e569abdfe4b0f654e6840b3d4cfa58a9ec5ad1868a9e60e28cca697842bc9",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": true,
+        "hasPattern": true
+      }
+    },
+    {
+      "symbol": "Waypoint",
+      "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
+      "sourceHash": "013e569abdfe4b0f654e6840b3d4cfa58a9ec5ad1868a9e60e28cca697842bc9",
+      "coverage": {
+        "hasDescription": true,
+        "hasFormat": true,
+        "hasPattern": true
+      }
+    }
+  ]
+}

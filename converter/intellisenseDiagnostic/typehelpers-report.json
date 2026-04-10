@@ -1,0 +1,17 @@
+{
+  "outputDir": "/Users/godind/Documents/GitHub/typebox_concept/converter/intellisenseOutput",
+  "manifestFile": "/Users/godind/Documents/GitHub/typebox_concept/converter/intellisenseDiagnostic/intellisense-manifest.json",
+  "groupHashes": {
+    "transport": "94b73831114a4e0cc7431f3fb525d965923266c22e63ed5f3885ff00b92f58df",
+    "values": "9f93fdd635c40384956f0e4fb1a1300a1e8a8cfa58a0c55330ae3c944de26e66",
+    "meta": "77da3675df36482d350b73246b8fad964455705a7cfe184f4874c9369f6c97ad",
+    "spatial": "982a8f84fb55e6a0a8bb0c321903d0d1c4130067e279e08b2adab8e024076bf4",
+    "identity": "d036932e53e8c1e759545e535ec3c49720150621347c95dfa799bc41bb6ddd6a",
+    "protocol": "457327598505a8897db6801022faf4306beb2466e3904382a3dca9b607eaa63c"
+  },
+  "indexHash": "baffd5fee25f5a38fd14325722023fa360ccd571ce8b24b78c73f392f5be1a13",
+  "manifestHash": "065ed92e4b842807736ba74db257719ab4596246733bd649063be7b05a3b0d87",
+  "symbolCount": 27,
+  "groupCount": 6,
+  "unresolvedMetadata": 0
+}

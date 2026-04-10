@@ -7,7 +7,7 @@ This phase defines the verification contract for staged Signal K schema generati
 - Goal: prove staged artifacts are reproducible, internally consistent, and safe to promote.
 - Promotion boundary: Phase 4 validates staging only; it does not move staged schemas into active runtime imports.
 - Current known staging debt: Batch 0 and Batch 5 each still report one warning in their manifests. Those warnings are visible quality debt, not hidden failures.
-- Current Gate E review status: approved with accepted staging debt documented in gate-e-review.md.
+- Current Gate E review status: approved and closed, with accepted staging debt documented in gate-e-review.md.
 
 ## Gate E Checks
 
@@ -40,3 +40,11 @@ The determinism check runs every batch generator plus runtime format generation 
 - Required commands all pass.
 - Remaining warnings are either resolved or explicitly accepted in the Gate E review note.
 - No active-runtime imports are changed until Gate E approval is recorded.
+
+## Next Phase
+
+- Phase 6 - Packaging and promotion automation.
+- Scope item 1: pack command automation for library sync of formats output during packaging.
+- Scope item 2: compatibility-safe promotion workflow from converter artifacts to publishable library modules.
+- Scope item 3: docs and coverage refresh from generated manifests and verification evidence.
+- Execution checklist: see staging/verification/phase6-checklist.md.
