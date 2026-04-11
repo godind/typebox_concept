@@ -5,6 +5,7 @@ let _registered = false
 
 export function registerRuntimeFormats(): void {
   if (_registered) return
+  Format.Set("date-time", (value) => typeof value === 'string' && new RegExp("^(\\d{4})-(\\d{2})-(\\d{2})T(\\d{2}):(\\d{2}):(\\d{2}(?:\\.\\d*)?)((-(\\d{2}):(\\d{2})|Z)?)$").test(value))
   Format.Set("signalk-vessel-mmsi", (value) => typeof value === 'string' && new RegExp("^[2-7][0-9]{8}$").test(value))
   Format.Set("signalk-aircraft-mmsi", (value) => typeof value === 'string' && new RegExp("^1[0-9]{8}$").test(value))
   Format.Set("signalk-aton-mmsi", (value) => typeof value === 'string' && new RegExp("^99[0-9]{7}$").test(value))

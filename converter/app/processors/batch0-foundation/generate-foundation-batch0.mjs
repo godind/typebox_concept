@@ -403,11 +403,23 @@ function emitDefinitionsModule(schema) {
   return { source: lines.join('\n'), orderedKeys }
 }
 
+function applyFoundationOverrides(schema) {
+  if (!schema || typeof schema !== 'object') return schema
+  if (!schema.definitions || typeof schema.definitions !== 'object') return schema
+
+  const meta = schema.definitions.meta
+  if (!meta || typeof meta !== 'object') return schema
+  if (!Array.isArray(meta.required)) return schema
+
+  meta.required = meta.required.filter((name) => name !== 'description')
+  return schema
+}
+
 async function main() {
   fs.mkdirSync(OUT_DIR, { recursive: true })
   const resp = await fetch(`${UPSTREAM_BASE}/${UPSTREAM_PATH}`)
   if (!resp.ok) throw new Error(`fetch failed: ${resp.status}`)
-  const schema = await resp.json()
+  const schema = applyFoundationOverrides(await resp.json())
 
   const { source, orderedKeys } = emitDefinitionsModule(schema)
   const outFile = path.join(OUT_DIR, 'foundation-definitions.ts')

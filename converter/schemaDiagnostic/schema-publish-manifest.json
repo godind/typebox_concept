@@ -43,7 +43,7 @@
       "protocol"
     ],
     "manifestFile": "converter/intellisenseDiagnostic/intellisense-manifest.json",
-    "manifestHash": "065ed92e4b842807736ba74db257719ab4596246733bd649063be7b05a3b0d87",
+    "manifestHash": "0ee629b59bdde28fecc87b79ab210e78156b5f925777e6ec66411eb9cc645902",
     "symbolCount": 27,
     "groupCount": 6,
     "unresolvedMetadata": 0

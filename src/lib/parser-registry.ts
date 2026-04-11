@@ -51,12 +51,52 @@
          value: Type.Union([PositionValueSchema, Type.Null()])
      })
  ])
- 
+
+const NotificationStatusSchema = Type.Object({
+    acknowledged: Type.Boolean(),
+    canAcknowledge: Type.Boolean(),
+    canClear: Type.Boolean(),
+    canSilence: Type.Boolean(),
+    silenced: Type.Boolean()
+}, {
+    additionalProperties: false
+})
+
+const NotificationValueSchema = Type.Object({
+    state: Type.Union([
+        Type.Literal('nominal'),
+        Type.Literal('normal'),
+        Type.Literal('alert'),
+        Type.Literal('warn'),
+        Type.Literal('alarm'),
+        Type.Literal('emergency')
+    ]),
+    method: Type.Array(Type.Union([
+        Type.Literal('visual'),
+        Type.Literal('sound')
+    ])),
+    message: Type.String(),
+    status: Type.Optional(NotificationStatusSchema),
+    position: Type.Optional(PositionValueSchema),
+    createdAt: Type.Optional(Type.String({ format: 'date-time' })),
+    id: Type.Optional(Type.String())
+}, {
+    additionalProperties: false
+})
+
+const NotificationDeltaSchema = Type.Intersect([
+    NormalizedBaseDeltaSchema,
+    Type.Object({
+        value: Type.Union([NotificationValueSchema, Type.Null()])
+    })
+])
+
  // Single source of truth for known delta-value schemas.
  // Each entry maps a schema name to its validation schema.
  const DeclaredKnownDeltaValueSchemas = {
      Numeric: NumericDeltaSchema,
-     Position: PositionDeltaSchema
+     Position: PositionDeltaSchema,
+     Notification: NotificationDeltaSchema
  } as const satisfies Record<string, TSchema>
 
 // Registry is derived from the declared schema source so we cannot forget to sync it.

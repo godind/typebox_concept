@@ -212,6 +212,89 @@ test('validateValues emits ValidatedValue for null Position after indexSchemaTyp
   assert.equal(parsed[0]?.value, null)
 })
 
+test('validateValues emits ValidatedValue for Notification with required fields', () => {
+  const runtime = createParserRuntime()
+
+  runtime.indexSchemaTypes({
+    context: 'vessels.self',
+    updates: [
+      {
+        $source: 'test-source',
+        meta: [{ path: 'notifications.engine.overtemp', value: { type: 'Notification' } }]
+      }
+    ]
+  })
+
+  const parsed = runtime.validateValues({
+    context: 'vessels.self',
+    updates: [
+      {
+        $source: 'test-source',
+        values: [{
+          path: 'notifications.engine.overtemp',
+          value: {
+            state: 'alarm',
+            method: ['visual', 'sound'],
+            message: 'Engine over-temperature'
+          }
+        }]
+      }
+    ]
+  })
+
+  assert.equal(parsed.length, 1)
+  assert.equal(parsed[0]?.validationStatus, 'valid')
+  assert.equal(parsed[0]?.schemaName, 'Notification')
+})
+
+test('validateValues emits ValidatedValue for Notification with optional extended fields', () => {
+  const runtime = createParserRuntime()
+
+  runtime.indexSchemaTypes({
+    context: 'vessels.self',
+    updates: [
+      {
+        $source: 'test-source',
+        meta: [{ path: 'notifications.anchor.dragging', value: { type: 'Notification' } }]
+      }
+    ]
+  })
+
+  const parsed = runtime.validateValues({
+    context: 'vessels.self',
+    updates: [
+      {
+        $source: 'test-source',
+        values: [{
+          path: 'notifications.anchor.dragging',
+          value: {
+            state: 'warn',
+            method: ['sound'],
+            message: 'Anchor dragging',
+            createdAt: '2026-04-11T12:00:00.000Z',
+            id: 'ac3a3b2d-07e8-4f25-92bc-98e7c92f7f1a',
+            position: {
+              latitude: 37.7749,
+              longitude: -122.4194
+            },
+            status: {
+              silenced: false,
+              acknowledged: true,
+              canSilence: true,
+              canAcknowledge: true,
+              canClear: true
+            }
+          }
+        }]
+      }
+    ]
+  })
+
+  assert.equal(parsed.length, 1)
+  assert.equal(parsed[0]?.validationStatus, 'valid')
+  assert.equal(parsed[0]?.schemaName, 'Notification')
+})
+
 // NoSchemaTypeValue
 
 test('validateValues emits NoSchemaTypeValue when no meta.type has been indexed for the path', () => {

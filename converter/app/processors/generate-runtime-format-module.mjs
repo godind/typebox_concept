@@ -6,7 +6,7 @@
 import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
-import { FORMAT_RULES } from './format-mapping-registry.mjs'
+import { FORMAT_RULES, STANDARD_RUNTIME_FORMATS } from './format-mapping-registry.mjs'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const OUT_FILE = path.resolve(__dirname, '../../formatOutput/formats.ts')
@@ -22,6 +22,11 @@ function toFileContent() {
     '  if (_registered) return'
   ]
 
+  const standardLines = STANDARD_RUNTIME_FORMATS.map(rule => {
+    const escapedRegex = JSON.stringify(rule.runtimeRegex)
+    return `  Format.Set(${JSON.stringify(rule.format)}, (value) => typeof value === 'string' && new RegExp(${escapedRegex}).test(value))`
+  })
+
   const lines = FORMAT_RULES.map(rule => {
     const escapedRegex = JSON.stringify(rule.runtimeRegex)
     return `  Format.Set(${JSON.stringify(rule.format)}, (value) => typeof value === 'string' && new RegExp(${escapedRegex}).test(value))`
@@ -33,7 +38,7 @@ function toFileContent() {
     ''
   ]
 
-  return [...header, ...lines, ...footer].join('\n')
+  return [...header, ...standardLines, ...lines, ...footer].join('\n')
 }
 
 function main() {
@@ -41,7 +46,7 @@ function main() {
   fs.mkdirSync(path.dirname(OUT_FILE), { recursive: true })
   fs.writeFileSync(OUT_FILE, content, 'utf8')
   console.log(`Wrote ${OUT_FILE}`)
-  console.log(`Runtime formats: ${FORMAT_RULES.length}`)
+  console.log(`Runtime formats: ${STANDARD_RUNTIME_FORMATS.length + FORMAT_RULES.length}`)
 }
 
 main()

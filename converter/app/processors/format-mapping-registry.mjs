@@ -96,6 +96,17 @@ export const FORMAT_RULES = [
   }
 ]
 
+// Runtime-only standard JSON Schema formats required by generated schemas.
+// These are registered regardless of whether we map custom Signal K patterns.
+export const STANDARD_RUNTIME_FORMATS = [
+  {
+    id: 'date-time',
+    format: 'date-time',
+    // RFC 3339 date-time (allows Z or explicit offset).
+    runtimeRegex: '^(\\d{4})-(\\d{2})-(\\d{2})T(\\d{2}):(\\d{2}):(\\d{2}(?:\\.\\d*)?)((-(\\d{2}):(\\d{2})|Z)?)$'
+  }
+]
+
 function matchesRule(rule, schema) {
   if (rule.match.kind === 'exact-pattern') return schema.pattern === rule.match.value
   return false

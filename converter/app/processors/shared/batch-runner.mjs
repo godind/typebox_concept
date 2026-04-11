@@ -72,8 +72,9 @@ async function loadSchema(upstreamPath) {
  * @param {string}   options.label         - human-readable label for console output
  * @param {string[]} options.upstreamPaths - Signal K schema paths relative to upstream base
  * @param {object}   options.converterCtx  - result of createConverterContext()
+ * @param {(schema: any, upstreamPath: string) => any} [options.schemaMutator]
  */
-export async function runGroupBatch({ outDir, scope, batch, label, upstreamPaths, converterCtx }) {
+export async function runGroupBatch({ outDir, scope, batch, label, upstreamPaths, converterCtx, schemaMutator }) {
   const { toTypebox, EXTERNAL_REF_ALLOWLIST, EXCEPTIONS, WARNINGS, FORMAT_TRACE } = converterCtx
   const targetOutDir = process.env.SCHEMA_OUTPUT_ROOT
     ? path.join(process.env.SCHEMA_OUTPUT_ROOT, scope)
@@ -83,7 +84,10 @@ export async function runGroupBatch({ outDir, scope, batch, label, upstreamPaths
 
   const outputs = []
   for (const upstreamPath of upstreamPaths) {
-    const schema = await loadSchema(upstreamPath)
+    const loadedSchema = await loadSchema(upstreamPath)
+    const schema = typeof schemaMutator === 'function'
+      ? schemaMutator(loadedSchema, upstreamPath)
+      : loadedSchema
     const emitted = emitRootModule(schema, upstreamPath, toTypebox)
     const fileName = `${schemaBaseName(upstreamPath)}.ts`
     fs.writeFileSync(path.join(targetOutDir, fileName), emitted.source, 'utf8')

@@ -34,7 +34,7 @@ export type AtonMmsi = Type.Static<typeof AtonMmsiSchema>
 export const MetaSchema = Type.Object({
     "alarmMethod": Type.Optional(Type.Array(Type.Ref("signalk://schemas/definitions#AlarmMethodEnum"))),
     "alertMethod": Type.Optional(Type.Array(Type.Ref("signalk://schemas/definitions#AlarmMethodEnum"))),
-    "description": Type.String({"description":"Description of the SK path.","title":"Description schema.","examples":["Engine revolutions (x60 for RPM)"]}),
+    "description": Type.Optional(Type.String({"description":"Description of the SK path.","title":"Description schema.","examples":["Engine revolutions (x60 for RPM)"]})),
     "displayName": Type.Optional(Type.String({"description":"A display name for this value. This is shown on the gauge and should not include units.","title":"DisplayName schema.","examples":["Tachometer, Engine 1"]})),
     "displayScale": Type.Optional(/* oneOf->Union: exclusivity restored via additionalProperties:false on dominated branch(es) 0,1 */ Type.Union([
       Type.Object({

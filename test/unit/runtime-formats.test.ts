@@ -10,6 +10,10 @@ import { registerRuntimeFormats } from '../../src/lib/formats/formats.js'
 test('registerRuntimeFormats enforces generated custom formats', () => {
   registerRuntimeFormats()
 
+  const dateTimeValidator = Compile(Type.String({ format: 'date-time' }))
+  assert.equal(dateTimeValidator.Check('2026-04-11T19:02:31.507Z'), true)
+  assert.equal(dateTimeValidator.Check('2026-04-11 19:02:31'), false)
+
   const uuidValidator = Compile(Type.String({ format: 'signalk-uuid-urn' }))
   assert.equal(uuidValidator.Check('urn:mrn:signalk:uuid:b7590868-1d62-47d9-989c-32321b349fb9'), true)
   assert.equal(uuidValidator.Check('urn:mrn:signalk:uuid:not-a-uuid'), false)

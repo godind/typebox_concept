@@ -8,9 +8,19 @@ export const NotificationSchema = Type.Intersect([
   Type.Ref("signalk://schemas/definitions#CommonValueFields"),
   Type.Object({
       "value": Type.Optional(Type.Object({
+          "createdAt": Type.Optional(Type.Ref("signalk://schemas/definitions#Timestamp")),
+          "id": Type.Optional(Type.String()),
           "message": Type.String({"description":"Message to display or speak"}),
           "method": Type.Array(Type.Ref("signalk://schemas/definitions#AlarmMethodEnum")),
-          "state": Type.Ref("signalk://schemas/definitions#AlarmState")
+          "position": Type.Optional(Type.Ref("signalk://schemas/definitions#Position")),
+          "state": Type.Ref("signalk://schemas/definitions#AlarmState"),
+          "status": Type.Optional(Type.Object({
+              "acknowledged": Type.Boolean(),
+              "canAcknowledge": Type.Boolean(),
+              "canClear": Type.Boolean(),
+              "canSilence": Type.Boolean(),
+              "silenced": Type.Boolean()
+            }))
         }))
     })
 ], { $id: "signalk://schemas/groups/notifications#Notification" })
