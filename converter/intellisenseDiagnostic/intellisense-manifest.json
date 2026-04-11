@@ -82,7 +82,7 @@
     {
       "symbol": "AircraftMmsi",
       "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
-      "sourceHash": "4d3c4f7ae3c4f761cdbb9ea456b0b196d8d9f828c90d42f39599e2cd99ddda51",
+      "sourceHash": "21584394df5bc3b4c9af18af25f8b81a557acb6833928f9b9269a5d6c610cf81",
       "coverage": {
         "hasDescription": true,
         "hasFormat": true,
@@ -92,7 +92,7 @@
     {
       "symbol": "AlarmMethodEnum",
       "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
-      "sourceHash": "4d3c4f7ae3c4f761cdbb9ea456b0b196d8d9f828c90d42f39599e2cd99ddda51",
+      "sourceHash": "21584394df5bc3b4c9af18af25f8b81a557acb6833928f9b9269a5d6c610cf81",
       "coverage": {
         "hasDescription": true,
         "hasFormat": true,
@@ -102,7 +102,7 @@
     {
       "symbol": "AlarmState",
       "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
-      "sourceHash": "4d3c4f7ae3c4f761cdbb9ea456b0b196d8d9f828c90d42f39599e2cd99ddda51",
+      "sourceHash": "21584394df5bc3b4c9af18af25f8b81a557acb6833928f9b9269a5d6c610cf81",
       "coverage": {
         "hasDescription": true,
         "hasFormat": true,
@@ -112,7 +112,7 @@
     {
       "symbol": "AtonMmsi",
       "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
-      "sourceHash": "4d3c4f7ae3c4f761cdbb9ea456b0b196d8d9f828c90d42f39599e2cd99ddda51",
+      "sourceHash": "21584394df5bc3b4c9af18af25f8b81a557acb6833928f9b9269a5d6c610cf81",
       "coverage": {
         "hasDescription": true,
         "hasFormat": true,
@@ -122,7 +122,7 @@
     {
       "symbol": "DatetimeValue",
       "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
-      "sourceHash": "4d3c4f7ae3c4f761cdbb9ea456b0b196d8d9f828c90d42f39599e2cd99ddda51",
+      "sourceHash": "21584394df5bc3b4c9af18af25f8b81a557acb6833928f9b9269a5d6c610cf81",
       "coverage": {
         "hasDescription": true,
         "hasFormat": true,
@@ -152,7 +152,7 @@
     {
       "symbol": "Geohash",
       "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
-      "sourceHash": "4d3c4f7ae3c4f761cdbb9ea456b0b196d8d9f828c90d42f39599e2cd99ddda51",
+      "sourceHash": "21584394df5bc3b4c9af18af25f8b81a557acb6833928f9b9269a5d6c610cf81",
       "coverage": {
         "hasDescription": true,
         "hasFormat": true,
@@ -172,7 +172,7 @@
     {
       "symbol": "Meta",
       "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
-      "sourceHash": "4d3c4f7ae3c4f761cdbb9ea456b0b196d8d9f828c90d42f39599e2cd99ddda51",
+      "sourceHash": "21584394df5bc3b4c9af18af25f8b81a557acb6833928f9b9269a5d6c610cf81",
       "coverage": {
         "hasDescription": true,
         "hasFormat": true,
@@ -182,7 +182,7 @@
     {
       "symbol": "Mmsi",
       "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
-      "sourceHash": "4d3c4f7ae3c4f761cdbb9ea456b0b196d8d9f828c90d42f39599e2cd99ddda51",
+      "sourceHash": "21584394df5bc3b4c9af18af25f8b81a557acb6833928f9b9269a5d6c610cf81",
       "coverage": {
         "hasDescription": true,
         "hasFormat": true,
@@ -192,7 +192,7 @@
     {
       "symbol": "NullValue",
       "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
-      "sourceHash": "4d3c4f7ae3c4f761cdbb9ea456b0b196d8d9f828c90d42f39599e2cd99ddda51",
+      "sourceHash": "21584394df5bc3b4c9af18af25f8b81a557acb6833928f9b9269a5d6c610cf81",
       "coverage": {
         "hasDescription": true,
         "hasFormat": true,
@@ -202,7 +202,7 @@
     {
       "symbol": "NumberValue",
       "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
-      "sourceHash": "4d3c4f7ae3c4f761cdbb9ea456b0b196d8d9f828c90d42f39599e2cd99ddda51",
+      "sourceHash": "21584394df5bc3b4c9af18af25f8b81a557acb6833928f9b9269a5d6c610cf81",
       "coverage": {
         "hasDescription": true,
         "hasFormat": true,
@@ -212,7 +212,7 @@
     {
       "symbol": "Position",
       "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
-      "sourceHash": "4d3c4f7ae3c4f761cdbb9ea456b0b196d8d9f828c90d42f39599e2cd99ddda51",
+      "sourceHash": "21584394df5bc3b4c9af18af25f8b81a557acb6833928f9b9269a5d6c610cf81",
       "coverage": {
         "hasDescription": true,
         "hasFormat": true,
@@ -222,7 +222,7 @@
     {
       "symbol": "SarMmsi",
       "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
-      "sourceHash": "4d3c4f7ae3c4f761cdbb9ea456b0b196d8d9f828c90d42f39599e2cd99ddda51",
+      "sourceHash": "21584394df5bc3b4c9af18af25f8b81a557acb6833928f9b9269a5d6c610cf81",
       "coverage": {
         "hasDescription": true,
         "hasFormat": true,
@@ -232,7 +232,7 @@
     {
       "symbol": "Source",
       "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
-      "sourceHash": "4d3c4f7ae3c4f761cdbb9ea456b0b196d8d9f828c90d42f39599e2cd99ddda51",
+      "sourceHash": "21584394df5bc3b4c9af18af25f8b81a557acb6833928f9b9269a5d6c610cf81",
       "coverage": {
         "hasDescription": true,
         "hasFormat": true,
@@ -242,7 +242,7 @@
     {
       "symbol": "SourceRef",
       "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
-      "sourceHash": "4d3c4f7ae3c4f761cdbb9ea456b0b196d8d9f828c90d42f39599e2cd99ddda51",
+      "sourceHash": "21584394df5bc3b4c9af18af25f8b81a557acb6833928f9b9269a5d6c610cf81",
       "coverage": {
         "hasDescription": true,
         "hasFormat": true,
@@ -252,7 +252,7 @@
     {
       "symbol": "StringValue",
       "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
-      "sourceHash": "4d3c4f7ae3c4f761cdbb9ea456b0b196d8d9f828c90d42f39599e2cd99ddda51",
+      "sourceHash": "21584394df5bc3b4c9af18af25f8b81a557acb6833928f9b9269a5d6c610cf81",
       "coverage": {
         "hasDescription": true,
         "hasFormat": true,
@@ -262,7 +262,7 @@
     {
       "symbol": "Timestamp",
       "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
-      "sourceHash": "4d3c4f7ae3c4f761cdbb9ea456b0b196d8d9f828c90d42f39599e2cd99ddda51",
+      "sourceHash": "21584394df5bc3b4c9af18af25f8b81a557acb6833928f9b9269a5d6c610cf81",
       "coverage": {
         "hasDescription": true,
         "hasFormat": true,
@@ -272,7 +272,7 @@
     {
       "symbol": "Units",
       "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
-      "sourceHash": "4d3c4f7ae3c4f761cdbb9ea456b0b196d8d9f828c90d42f39599e2cd99ddda51",
+      "sourceHash": "21584394df5bc3b4c9af18af25f8b81a557acb6833928f9b9269a5d6c610cf81",
       "coverage": {
         "hasDescription": true,
         "hasFormat": true,
@@ -282,7 +282,7 @@
     {
       "symbol": "Url",
       "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
-      "sourceHash": "4d3c4f7ae3c4f761cdbb9ea456b0b196d8d9f828c90d42f39599e2cd99ddda51",
+      "sourceHash": "21584394df5bc3b4c9af18af25f8b81a557acb6833928f9b9269a5d6c610cf81",
       "coverage": {
         "hasDescription": true,
         "hasFormat": true,
@@ -292,7 +292,7 @@
     {
       "symbol": "Uuid",
       "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
-      "sourceHash": "4d3c4f7ae3c4f761cdbb9ea456b0b196d8d9f828c90d42f39599e2cd99ddda51",
+      "sourceHash": "21584394df5bc3b4c9af18af25f8b81a557acb6833928f9b9269a5d6c610cf81",
       "coverage": {
         "hasDescription": true,
         "hasFormat": true,
@@ -302,7 +302,7 @@
     {
       "symbol": "ValuesDatetimeValue",
       "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
-      "sourceHash": "4d3c4f7ae3c4f761cdbb9ea456b0b196d8d9f828c90d42f39599e2cd99ddda51",
+      "sourceHash": "21584394df5bc3b4c9af18af25f8b81a557acb6833928f9b9269a5d6c610cf81",
       "coverage": {
         "hasDescription": true,
         "hasFormat": true,
@@ -312,7 +312,7 @@
     {
       "symbol": "ValuesNumberValue",
       "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
-      "sourceHash": "4d3c4f7ae3c4f761cdbb9ea456b0b196d8d9f828c90d42f39599e2cd99ddda51",
+      "sourceHash": "21584394df5bc3b4c9af18af25f8b81a557acb6833928f9b9269a5d6c610cf81",
       "coverage": {
         "hasDescription": true,
         "hasFormat": true,
@@ -322,7 +322,7 @@
     {
       "symbol": "ValuesStringValue",
       "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
-      "sourceHash": "4d3c4f7ae3c4f761cdbb9ea456b0b196d8d9f828c90d42f39599e2cd99ddda51",
+      "sourceHash": "21584394df5bc3b4c9af18af25f8b81a557acb6833928f9b9269a5d6c610cf81",
       "coverage": {
         "hasDescription": true,
         "hasFormat": true,
@@ -332,7 +332,7 @@
     {
       "symbol": "Version",
       "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
-      "sourceHash": "4d3c4f7ae3c4f761cdbb9ea456b0b196d8d9f828c90d42f39599e2cd99ddda51",
+      "sourceHash": "21584394df5bc3b4c9af18af25f8b81a557acb6833928f9b9269a5d6c610cf81",
       "coverage": {
         "hasDescription": true,
         "hasFormat": true,
@@ -342,7 +342,7 @@
     {
       "symbol": "Waypoint",
       "sourceRelPath": "src/lib/schemas/foundation/foundation-definitions.ts",
-      "sourceHash": "4d3c4f7ae3c4f761cdbb9ea456b0b196d8d9f828c90d42f39599e2cd99ddda51",
+      "sourceHash": "21584394df5bc3b4c9af18af25f8b81a557acb6833928f9b9269a5d6c610cf81",
       "coverage": {
         "hasDescription": true,
         "hasFormat": true,

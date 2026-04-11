@@ -48,7 +48,7 @@ export type Delta = import('../schemas/messaging/delta.js').Delta
  * constraints: numeric bounds markers: min=1, max=1, exMin=0, exMax=0; size markers: minLength=0, maxLength=0, minItems=1, maxItems=0; required markers=0
  * enum: literal options detected: 14
  * default: default markers detected: 5
- * examples: example markers detected: 39
+ * examples: example markers detected: 41
  * format: formats: signalk-aircraft-mmsi, signalk-aton-mmsi, signalk-source-ref, date-time, signalk-geohash, signalk-vessel-mmsi, signalk-sar-mmsi, signalk-uuid-urn, signalk-version
  * pattern: patterns: ^1[0-9]{8}$, ^99[0-9]{7}$, ^[A-Za-z0-9-_.]*$, .*Z$, ^[0-9A-Za-z:]{1,}$, ^[2-7][0-9]{8}$, ^97[0-9]{7}$, ^urn:mrn:signalk:uuid:[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-4[0-9A-Fa-f]{3}-[89ABab][0-9A-Fa-f]{3}-[0-9A-Fa-f]{12}$, ^[0-9]{1,3}[.][0-9]{1,2}[.][0-9]{1,2}($|-[a-zA-Z0-9]+$)
  * provenance: source: src/lib/schemas/foundation/foundation-definitions.ts
@@ -62,7 +62,7 @@ export type Source = import('../schemas/foundation/foundation-definitions.js').S
  * constraints: numeric bounds markers: min=1, max=1, exMin=0, exMax=0; size markers: minLength=0, maxLength=0, minItems=1, maxItems=0; required markers=0
  * enum: literal options detected: 14
  * default: default markers detected: 5
- * examples: example markers detected: 39
+ * examples: example markers detected: 41
  * format: formats: signalk-aircraft-mmsi, signalk-aton-mmsi, signalk-source-ref, date-time, signalk-geohash, signalk-vessel-mmsi, signalk-sar-mmsi, signalk-uuid-urn, signalk-version
  * pattern: patterns: ^1[0-9]{8}$, ^99[0-9]{7}$, ^[A-Za-z0-9-_.]*$, .*Z$, ^[0-9A-Za-z:]{1,}$, ^[2-7][0-9]{8}$, ^97[0-9]{7}$, ^urn:mrn:signalk:uuid:[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-4[0-9A-Fa-f]{3}-[89ABab][0-9A-Fa-f]{3}-[0-9A-Fa-f]{12}$, ^[0-9]{1,3}[.][0-9]{1,2}[.][0-9]{1,2}($|-[a-zA-Z0-9]+$)
  * provenance: source: src/lib/schemas/foundation/foundation-definitions.ts
@@ -76,7 +76,7 @@ export type SourceRef = import('../schemas/foundation/foundation-definitions.js'
  * constraints: numeric bounds markers: min=1, max=1, exMin=0, exMax=0; size markers: minLength=0, maxLength=0, minItems=1, maxItems=0; required markers=0
  * enum: literal options detected: 14
  * default: default markers detected: 5
- * examples: example markers detected: 39
+ * examples: example markers detected: 41
  * format: formats: signalk-aircraft-mmsi, signalk-aton-mmsi, signalk-source-ref, date-time, signalk-geohash, signalk-vessel-mmsi, signalk-sar-mmsi, signalk-uuid-urn, signalk-version
  * pattern: patterns: ^1[0-9]{8}$, ^99[0-9]{7}$, ^[A-Za-z0-9-_.]*$, .*Z$, ^[0-9A-Za-z:]{1,}$, ^[2-7][0-9]{8}$, ^97[0-9]{7}$, ^urn:mrn:signalk:uuid:[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-4[0-9A-Fa-f]{3}-[89ABab][0-9A-Fa-f]{3}-[0-9A-Fa-f]{12}$, ^[0-9]{1,3}[.][0-9]{1,2}[.][0-9]{1,2}($|-[a-zA-Z0-9]+$)
  * provenance: source: src/lib/schemas/foundation/foundation-definitions.ts

@@ -1,10 +1,12 @@
 /**
  * Purpose: Registry of known Signal K schema types used by the parser.
- * Sources typed from auto-generated Signal K specification definitions,
- * but uses locally-compiled validation schemas to avoid Type.Ref() resolution issues.
- * Guidance: Do not edit manually. Keep in sync with generated definitions.
+ * Leaf enum schemas (AlarmState, AlarmMethodEnum, Timestamp) are imported directly
+ * from generated-foundation so they stay in sync with the spec automatically.
+ * Delta wrapper schemas use NormalizedBaseDelta (not CommonValueFields) because
+ * the parser normalises transport frames, not the data-model storage container.
  */
- import { Type, type TSchema } from 'typebox'
+import { Type, type TSchema } from 'typebox'
+import { AlarmStateSchema, AlarmMethodEnumSchema, TimestampSchema } from './schemas/foundation/foundation-definitions.js'
  
  // Construct basic TypeBox schema for normalized delta structure
  export const NormalizedBaseDeltaSchema = Type.Object({
@@ -63,22 +65,12 @@ const NotificationStatusSchema = Type.Object({
 })
 
 const NotificationValueSchema = Type.Object({
-    state: Type.Union([
-        Type.Literal('nominal'),
-        Type.Literal('normal'),
-        Type.Literal('alert'),
-        Type.Literal('warn'),
-        Type.Literal('alarm'),
-        Type.Literal('emergency')
-    ]),
-    method: Type.Array(Type.Union([
-        Type.Literal('visual'),
-        Type.Literal('sound')
-    ])),
+    state: AlarmStateSchema,
+    method: Type.Array(AlarmMethodEnumSchema),
     message: Type.String(),
     status: Type.Optional(NotificationStatusSchema),
     position: Type.Optional(PositionValueSchema),
-    createdAt: Type.Optional(Type.String({ format: 'date-time' })),
+    createdAt: Type.Optional(TimestampSchema),
     id: Type.Optional(Type.String())
 }, {
     additionalProperties: false

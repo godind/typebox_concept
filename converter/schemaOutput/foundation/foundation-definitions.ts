@@ -181,6 +181,13 @@ export const PositionSchema = Type.Intersect([
 ], { $id: "signalk://schemas/definitions#Position" })
 export type Position = Type.Static<typeof PositionSchema>
 
+export const PositionValueSchema = Type.Object({
+    "altitude": Type.Optional(Type.Number({"description":"Altitude"})),
+    "latitude": Type.Number({"description":"Latitude","examples":[52.0987654]}),
+    "longitude": Type.Number({"description":"Longitude","examples":[4.98765245]})
+  }, {"$id":"signalk://schemas/definitions#PositionValue"})
+export type PositionValue = Type.Static<typeof PositionValueSchema>
+
 export const SarMmsiSchema = Type.String({"$id":"signalk://schemas/definitions#SarMmsi","pattern":"^97[0-9]{7}$","format":"signalk-sar-mmsi","description":"Maritime Mobile Service Identity (MMSI) for . Has to be 9 digits. See http://en.wikipedia.org/wiki/Maritime_Mobile_Service_Identity for information.","examples":["973123456"]})
 export type SarMmsi = Type.Static<typeof SarMmsiSchema>
 
