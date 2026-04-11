@@ -57,11 +57,11 @@ Generation is embedded in the build and schema commands (no separate `pre*` npm 
 - `npm run test` runs test TypeScript check -> test execution
 - `npm run schemas:build` runs schema generation to `converter/schemaOutput` and refreshes schema diagnostics in `converter/schemaDiagnostic`
 - `npm run schemas:verify` runs schema build -> integrity -> determinism
-- `npm run schema:publish` runs strict publish orchestration (verify -> fail on warnings/exceptions -> promote schemas/formats -> generate facades -> generate sidecar IntelliSense helpers)
+- `npm run schemas:publish` runs strict publish orchestration (verify -> fail on warnings/exceptions -> promote schemas/formats -> generate facades -> generate sidecar IntelliSense helpers)
 
 This keeps schema-emitted format names and runtime `Format.Set(...)` validators in sync.
 
-After `npm run schema:publish`, run `npm run build` and `npm run test` manually.
+After `npm run schemas:publish`, run `npm run build` and `npm run test` manually.
 
 ### Recommended sequencing
 

@@ -1,19 +1,22 @@
 # Phase 6 Checklist
 
 Phase 6 title: Schema publish automation
-Status: draft
+Status: in-progress (implementation complete, strict warning debt pending)
 Owner: TBD
 Target gate: Gate G
 
 ## Confirmed Constraints
 
 1. Single publish command in scope: `npm run schema:publish`.
-2. No companion publish commands in this phase.
+2. Companion helper generation command is allowed: `npm run schemas:typehelpers`.
 3. Publish targets use current `src/lib` surfaces in place.
 4. Facades in scope: `transport`, `values`, `meta`, `spatial`, `identity`, and `protocol` re-export.
 5. Helper output format: generated sidecar TypeScript helpers only.
 6. Publish gate strictness: fail on both exceptions and warnings.
 7. Manual post-publish operator step: run `npm run build` and `npm run test`.
+8. Runtime format generator output path: `converter/formatOutput/formats.ts`.
+9. Type helper generator output path: `converter/intellisenseOutput`.
+10. Type helper diagnostics path: `converter/intellisenseDiagnostic`.
 
 ## Phase 1 - Publish Contract and Scope Lock
 
@@ -59,9 +62,9 @@ Manual validation and approval after Phase 3:
 - preflight verify via `npm run schemas:verify`
 - strict fail on warnings or exceptions
 - promote schema artifacts to approved `src/lib` targets
-- promote `converter/app/formatsOutput/formats.ts` to `src/lib/formats.ts`
+- promote `converter/formatOutput/formats.ts` to `src/lib/formats.ts`
 - generate/update facades
-- run metadata helper generation and attachment
+- run metadata helper generation (`npm run schemas:typehelpers`) and promote helper `.ts` files only
 - write publish manifest with hashes and coverage stats
 3. End with explicit operator instruction to run manual `build` + `test`.
 
@@ -86,12 +89,13 @@ Manual validation and approval after Phase 5:
 
 1. Keep canonical schema files generated-only and overwrite-safe.
 2. Keep enrichment in sidecar helper files only.
-3. Fail publish when helper attachment targets are missing/stale/hash-mismatched.
-4. Record helper coverage and unresolved metadata in publish manifest.
+3. Fail helper generation when required facade symbols are missing from promoted schemas.
+4. Keep helper manifest/report internal in diagnostics output (do not promote into `src/lib`).
+5. Record helper coverage and unresolved metadata in publish manifest.
 
 Manual validation and approval after Phase 6:
 1. Validate no metadata loss across reruns.
-2. Validate failure on stale/missing attachment targets.
+2. Validate failure on missing required helper target symbols.
 3. Approval required to proceed to Phase 7.
 
 ## Phase 7 - Verification and Gate Evidence

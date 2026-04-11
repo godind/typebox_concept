@@ -5,7 +5,7 @@
  */
 import { Compile } from 'typebox/schema'
 import { KnownSchemaRegistry, type SignalKSchemaName } from './schemas.js'
-import { registerRuntimeFormats } from './formats.js'
+import { registerRuntimeFormats } from './formats/formats.js'
 
 export type KnownSchemaValidators = Record<SignalKSchemaName, ReturnType<typeof Compile>>
 

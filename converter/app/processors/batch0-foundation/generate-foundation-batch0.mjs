@@ -22,6 +22,17 @@ const EXCEPTIONS = []
 const WARNINGS = []
 const FORMAT_TRACE = createFormatTrace()
 
+const ANSI = {
+  reset: '\x1b[0m',
+  green: '\x1b[32m',
+  yellow: '\x1b[33m',
+  red: '\x1b[31m'
+}
+
+function color(text, tone) {
+  return `${ANSI[tone]}${text}${ANSI.reset}`
+}
+
 function logException(kind, location, detail) {
   EXCEPTIONS.push({ kind, location, detail })
 }
@@ -419,10 +430,21 @@ async function main() {
   }
   writeManifest(OUT_DIR, manifest)
 
-  console.log(`Wrote ${outFile}`)
-  console.log(`Definitions: ${orderedKeys.length}`)
-  console.log(`Exceptions: ${EXCEPTIONS.length}, Warnings: ${WARNINGS.length}`)
-  console.log(`External refs: ${EXTERNAL_REF_ALLOWLIST.size}`)
+  console.log(color('Schema found: foundation', 'green'))
+  console.log(`Definition found: ${orderedKeys.length}`)
+  console.log(`Format rules found: ${FORMAT_TRACE.applied.length}`)
+  if (WARNINGS.length > 0) {
+    console.log(color(`Warnings: ${WARNINGS.length}`, 'yellow'))
+  }
+  if (FORMAT_TRACE.unmapped.length > 0) {
+    console.log(color(`Unmapped format candidates: ${FORMAT_TRACE.unmapped.length}`, 'yellow'))
+  }
+  if (EXCEPTIONS.length > 0) {
+    console.log(color(`Errors: ${EXCEPTIONS.length}`, 'red'))
+  }
+  if (EXTERNAL_REF_ALLOWLIST.size > 0) {
+    console.log(`External refs: ${EXTERNAL_REF_ALLOWLIST.size}`)
+  }
 }
 
 main().catch(error => {

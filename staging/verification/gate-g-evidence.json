@@ -1,0 +1,88 @@
+{
+  "gate": "Gate G",
+  "generatedAt": "1970-01-01T00:00:00.000Z",
+  "status": "in-progress",
+  "verify": {
+    "pass1Hash": "8347c4ce300aa8af1e5cd3513901604595a3285065d53c32c35ba8fa7355b5c4",
+    "pass2Hash": "8347c4ce300aa8af1e5cd3513901604595a3285065d53c32c35ba8fa7355b5c4",
+    "deterministic": "YES"
+  },
+  "publish": {
+    "strictGatePolicy": "fail-on-warnings-and-exceptions",
+    "publishManifestFile": "converter/schemaDiagnostic/schema-publish-manifest.json",
+    "publishManifestHash": "1c4ac12cd27d6b134a89104ea99c0928d45a90edc0fd9c0d1d64dc5aba559f2b"
+  },
+  "intellisense": {
+    "outputDir": "converter/intellisenseOutput",
+    "diagnosticDir": "converter/intellisenseDiagnostic",
+    "manifestFile": "converter/intellisenseDiagnostic/intellisense-manifest.json",
+    "manifestHash": "065ed92e4b842807736ba74db257719ab4596246733bd649063be7b05a3b0d87",
+    "symbolCount": 27,
+    "groupCount": 6,
+    "unresolvedMetadata": 0,
+    "typehelpersReportHash": "065ed92e4b842807736ba74db257719ab4596246733bd649063be7b05a3b0d87"
+  },
+  "facadeExports": {
+    "expectedFiles": [
+      "identity.ts",
+      "index.ts",
+      "meta.ts",
+      "protocol.ts",
+      "spatial.ts",
+      "transport.ts",
+      "values.ts"
+    ],
+    "actualFiles": [
+      "identity.ts",
+      "index.ts",
+      "meta.ts",
+      "protocol.ts",
+      "spatial.ts",
+      "transport.ts",
+      "values.ts"
+    ],
+    "missingFiles": [],
+    "unexpectedFiles": [],
+    "status": "PASS"
+  },
+  "strictWarningDebt": [
+    {
+      "scope": "foundation",
+      "count": 1,
+      "items": [
+        {
+          "location": "schemas/definitions.json#/definitions/waypoint.feature.id",
+          "detail": "no type field; emitting Type.Unknown for: {\"FIXME\":\"may be there, type not known (string? number?)\"}"
+        }
+      ]
+    },
+    {
+      "scope": "propulsion-steering",
+      "count": 1,
+      "items": [
+        {
+          "location": "schemas/groups/propulsion.json#.patternProperties.drive.propeller",
+          "detail": "no type field; emitting Type.Unknown for: {\"description\":\"Data about the drive's propeller (pitch and slip)\",\"pitch\":{\"des"
+        }
+      ]
+    },
+    {
+      "scope": "resources",
+      "count": 2,
+      "items": [
+        {
+          "location": "schemas/groups/resources.json#.regions.patternProperties.feature.id",
+          "detail": "no type field; emitting Type.Unknown for: {\"FIXME\":\"may be there, type not known (string? number?)\"}"
+        },
+        {
+          "location": "schemas/groups/resources.json#.routes.patternProperties.feature.id",
+          "detail": "no type field; emitting Type.Unknown for: {\"FIXME\":\"may be there, type not known (string? number?)\"}"
+        }
+      ]
+    }
+  ],
+  "notes": [
+    "schema:publish passes with --force; strict mode blocked by warning debt",
+    "build and test pass after tanks-design enum-object conversion fix"
+  ]
+}

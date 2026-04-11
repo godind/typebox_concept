@@ -11,6 +11,21 @@ import { deterministicGeneratedAt, writeManifest } from './generator-common.mjs'
 export const UPSTREAM_BASE = 'https://raw.githubusercontent.com/SignalK/specification/master'
 export const UPSTREAM_REF = 'master'
 
+const ANSI = {
+  reset: '\x1b[0m',
+  green: '\x1b[32m',
+  yellow: '\x1b[33m',
+  red: '\x1b[31m'
+}
+
+function color(text, tone) {
+  return `${ANSI[tone]}${text}${ANSI.reset}`
+}
+
+function normalizeSchemaLabel(label) {
+  return label.replace(/ schema module\(s\)$/i, '').replace(/ schema modules$/i, '')
+}
+
 function emitRootModule(schema, upstreamPath, toTypebox) {
   const schemaName = `${toPascalCase(schemaBaseName(upstreamPath))}Schema`
   const typeName = toPascalCase(schemaBaseName(upstreamPath))
@@ -98,8 +113,16 @@ export async function runGroupBatch({ outDir, scope, batch, label, upstreamPaths
   }
   writeManifest(targetOutDir, manifest)
 
-  console.log(`Wrote ${outputs.length} ${label} to ${targetOutDir}`)
-  console.log(`Exceptions: ${EXCEPTIONS.length}, Warnings: ${WARNINGS.length}`)
-  console.log(`Unmapped format candidates: ${FORMAT_TRACE.unmapped.length}`)
-  console.log(`Format mappings applied: ${FORMAT_TRACE.applied.length}`)
+  console.log(color(`Schema found: ${normalizeSchemaLabel(label)}`, 'green'))
+  console.log('Definition found: 0')
+  console.log(`Format rules found: ${FORMAT_TRACE.applied.length}`)
+  if (WARNINGS.length > 0) {
+    console.log(color(`Warnings: ${WARNINGS.length}`, 'yellow'))
+  }
+  if (FORMAT_TRACE.unmapped.length > 0) {
+    console.log(color(`Unmapped format candidates: ${FORMAT_TRACE.unmapped.length}`, 'yellow'))
+  }
+  if (EXCEPTIONS.length > 0) {
+    console.log(color(`Errors: ${EXCEPTIONS.length}`, 'red'))
+  }
 }

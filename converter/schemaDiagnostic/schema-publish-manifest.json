@@ -8,7 +8,7 @@
   },
   "targets": {
     "librarySchemasRoot": "src/lib/schemas",
-    "libraryFormatsFile": "src/lib/formats.ts",
+    "libraryFormatsFile": "src/lib/formats/formats.ts",
     "intellisenseRoot": "src/lib/intellisense"
   },
   "promotedGroups": [

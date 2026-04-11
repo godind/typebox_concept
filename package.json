@@ -52,7 +52,7 @@
     "schemas:compare": "node converter/app/cli/build-compare.mjs",
     "schemas:verify": "node converter/app/cli/verify.mjs",
     "schemas:typehelpers": "node converter/app/cli/typehelpers.mjs",
-    "schema:publish": "node converter/app/cli/publish.mjs"
+    "schemas:publish": "node converter/app/cli/publish.mjs"
   },
   "keywords": [],
   "author": "",
