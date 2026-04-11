@@ -3,10 +3,18 @@
  * schema-based validation, driven by meta.type path mappings.
  * Guidance: Preserve fail-open behavior for unknown schema names and keep path
  * as the canonical schema key across contexts unless product rules change.
+ *
+ * Rationale for fail-open parsing:
+ * - Upstream transport may deliver mixed quality data; dropping an entire delta
+ *   on one malformed entry causes avoidable data loss.
+ * - The runtime is designed to classify outcomes (`valid`, `invalid`,
+ *   `unknown-schema-type`, `no-schema-type`) so callers can observe and decide.
+ * - Strict schema enforcement occurs at the value-validation step via compiled
+ *   TypeBox validators, not at initial transport shape probing.
  */
 import { asSkMetaArray, asSkUpdateArray, asSkValueArray, isObject, type SkDelta } from './types.js'
 import { createSchemaValidators, type KnownSchemaValidators } from './validators.js'
-import { KnownSchemaRegistry, type SignalKSchemaName, type KnownSchemaTypeMap, type NormalizedBaseDelta } from './schemas.js'
+import { KnownSchemaRegistry, type SignalKSchemaName, type KnownSchemaTypeMap, type NormalizedBaseDelta } from './parser-registry.js'
 
 /** Indicates whether and how a path's Signal K schema type was resolved from the meta index. */
 export type SchemaTypeStatus = 'no-schema-type' | 'unknown-schema-type' | 'known-schema-type'

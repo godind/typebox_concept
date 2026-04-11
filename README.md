@@ -27,12 +27,14 @@ Signal K TypeBox validation library with an internal smoke-test client for manua
 npm install
 npm run clean
 npm run build
+npm run build:prod
 npm run test
 npm run schemas:snapshot
 npm run schemas:build
 npm run schemas:verify
 npm run schemas:compare
-npm run schema:publish
+npm run schemas:typehelpers
+npm run schemas:publish
 ```
 
 ## Runtime format generation (`formats.ts`)
@@ -41,11 +43,12 @@ The runtime format registration module is generated, not hand-written.
 
 - Source of truth: `converter/app/processors/format-mapping-registry.mjs`
 - Generator: `converter/app/processors/generate-runtime-format-module.mjs`
-- Canonical generated output: `converter/app/formatsOutput/formats.ts`
+- Canonical generated output: `converter/formatOutput/formats.ts`
+- Publish target: `src/lib/formats/formats.ts`
 
-This writes `converter/app/formatsOutput/formats.ts` from `FORMAT_RULES` in the shared registry.
-Phase 6 will cover packaging and promotion automation, including:
-- pack command automation for library sync into `src/lib/formats.ts`
+This writes `converter/formatOutput/formats.ts` from `FORMAT_RULES` in the shared registry.
+Phase 6 covers packaging and promotion automation, including:
+- pack command automation for library sync into `src/lib/formats/formats.ts`
 - compatibility-safe promotion flow from converter outputs to publishable library surfaces
 - docs and coverage refresh generated from manifests and verification artifacts
 
@@ -57,7 +60,9 @@ Generation is embedded in the build and schema commands (no separate `pre*` npm 
 - `npm run test` runs test TypeScript check -> test execution
 - `npm run schemas:build` runs schema generation to `converter/schemaOutput` and refreshes schema diagnostics in `converter/schemaDiagnostic`
 - `npm run schemas:verify` runs schema build -> integrity -> determinism
-- `npm run schemas:publish` runs strict publish orchestration (verify -> fail on warnings/exceptions -> promote schemas/formats -> generate facades -> generate sidecar IntelliSense helpers)
+- `npm run schemas:typehelpers` generates IntelliSense helper files in `converter/intellisenseOutput` and diagnostics in `converter/intellisenseDiagnostic`
+- `npm run schemas:publish` runs strict publish orchestration (verify -> fail on warnings/exceptions -> promote schemas/formats -> generate facades -> run `schemas:typehelpers` -> promote helper `.ts` files into `src/lib/intellisense`)
+- `npm run schemas:publish -- --force` bypasses strict warning/exception gate (use for testing only)
 
 This keeps schema-emitted format names and runtime `Format.Set(...)` validators in sync.
 

@@ -5,13 +5,14 @@
  * src/lib so the package remains library-first.
  */
 import WebSocket from 'ws'
-import { parseDelta } from './transport.js'
-import { createParserRuntime, type ParsedValue } from '../src/lib/index.js'
+import { parseTransportMessage } from './transport.js'
+import { createParserRuntime, type ParsedValue } from '@signalk/types/runtime'
 
 const ANSI = { reset: '\x1b[0m', green: '\x1b[32m', red: '\x1b[31m', yellow: '\x1b[33m', white: '\x1b[37m' } as const
 
 const WS_URL = 'ws://localhost:3000/signalk/v1/stream?subscribe=none&sendMeta=all'
-const TARGET_PATHS = ['*']//['navigation.position', 'environment.wind.speedTrue', 'environment.wind.speedOverGround'] as const
+//const TARGET_PATHS = ['*']
+const TARGET_PATHS = ['navigation.position', 'environment.wind.speedTrue', 'environment.wind.speedOverGround'] as const
 const UPDATE_INTERVAL = 1000
 
 function sendSubscriptions(ws: WebSocket): void {
@@ -44,6 +45,14 @@ function formatType(v: ParsedValue): string {
     return typeof v.valueType === 'string' ? v.valueType : '<missing>'
 }
 
+function logDiscoveryMessage(discovery: { server?: { id?: string; version?: string }; endpoints?: Record<string, unknown> }): void {
+    const serverId = discovery.server?.id ?? '<unknown-server>'
+    const serverVersion = discovery.server?.version ?? '<unknown-version>'
+    const endpointGroups = discovery.endpoints ? Object.keys(discovery.endpoints) : []
+    const endpointSummary = endpointGroups.length > 0 ? endpointGroups.join(', ') : '<none>'
+    console.log(`[discovery] server=${serverId} version=${serverVersion} endpoint-groups=${endpointSummary}`)
+}
+
 function logParsedValue(v: ParsedValue): void {
     if (v.validationStatus === 'valid') {
         console.log(colorize(ANSI.green, `[valid] type=${formatType(v)} path=${v.path}`))
@@ -56,12 +65,12 @@ function logParsedValue(v: ParsedValue): void {
         return
     }
 
-    if (v.valueType === 'unknown-value-type') {
-        console.log(colorize(ANSI.yellow, `[unknown-value-type] type=${formatType(v)} path=${v.path}`))
+    if (v.schemaTypeStatus === 'unknown-schema-type') {
+        console.log(colorize(ANSI.yellow, `[unknown-schema-type] type=${formatType(v)} path=${v.path}`))
         return
     }
 
-    console.log(colorize(ANSI.white, `[no-value-type] type=${formatType(v)} path=${v.path}`))
+    console.log(colorize(ANSI.white, `[no-schema-type] type=${formatType(v)} path=${v.path}`))
 }
 
 const ws = new WebSocket(WS_URL, {
@@ -73,11 +82,21 @@ ws.on('open', () => {
 })
 
 ws.on('message', (raw) => {
-    const delta = parseDelta(raw)
-    if (!delta) return
+    const parsed = parseTransportMessage(raw)
+    if (!parsed) return
 
-    const accepted = parser.processValues(delta)
-    accepted.forEach(logParsedValue)
+    if (parsed.kind === 'delta') {
+        const accepted = parser.processValues(parsed.message)
+        accepted.forEach(logParsedValue)
+        return
+    }
+
+    if (parsed.kind === 'hello') {
+        console.log(`[hello] version=${parsed.message.version}`)
+        return
+    }
+
+    logDiscoveryMessage(parsed.message)
 })
 
 ws.on('close', (code, reasonBuffer) => {

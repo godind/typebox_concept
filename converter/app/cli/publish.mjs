@@ -14,6 +14,7 @@ const TYPEHELPERS_REPORT_FILE = path.join(repoRoot, 'converter/intellisenseDiagn
 const LIB_FORMATS_FILE = path.join(LIB_ROOT, 'formats/formats.ts')
 const LEGACY_LIB_FORMATS_FILE = path.join(LIB_ROOT, 'formats.ts')
 const PUBLISH_MANIFEST_FILE = path.join(schemaDiagnosticsRoot, 'schema-publish-manifest.json')
+const PACKAGE_JSON_FILE = path.join(repoRoot, 'package.json')
 
 const ANSI = {
     reset: '\x1b[0m',
@@ -243,6 +244,26 @@ async function writePublishManifest({ promoted, intellisenseReport }) {
   }
 }
 
+async function ensurePackageExports() {
+  const packageJson = await readJson(PACKAGE_JSON_FILE)
+  packageJson.exports ??= {}
+
+  const facadeDomains = ['transport', 'values', 'meta', 'spatial', 'identity', 'protocol']
+  for (const domain of facadeDomains) {
+    packageJson.exports[`./${domain}`] = {
+      types: `./dist/lib/facades/${domain}.d.ts`,
+      import: `./dist/lib/facades/${domain}.js`
+    }
+
+    packageJson.exports[`./intellisense/${domain}`] = {
+      types: `./dist/lib/intellisense/${domain}.d.ts`,
+      import: `./dist/lib/intellisense/${domain}.js`
+    }
+  }
+
+  await writeFile(PACKAGE_JSON_FILE, `${JSON.stringify(packageJson, null, 2)}\n`, 'utf8')
+}
+
 async function main() {
   const args = process.argv.slice(2)
   const forceMode = args.includes('--force')
@@ -290,6 +311,9 @@ async function main() {
 
   console.log('Promoting IntelliSense helpers into src/lib/intellisense...')
   await promoteIntellisense()
+
+  console.log('Enforcing package export mappings...')
+  await ensurePackageExports()
 
   console.log('Writing publish manifest...')
   const publishManifest = await writePublishManifest({ promoted, intellisenseReport })

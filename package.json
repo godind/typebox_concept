@@ -15,26 +15,50 @@
       "import": "./dist/lib/index.js"
     },
     "./transport": {
+      "types": "./dist/lib/facades/transport.d.ts",
+      "import": "./dist/lib/facades/transport.js"
+    },
+    "./intellisense/transport": {
       "types": "./dist/lib/intellisense/transport.d.ts",
       "import": "./dist/lib/intellisense/transport.js"
     },
     "./values": {
+      "types": "./dist/lib/facades/values.d.ts",
+      "import": "./dist/lib/facades/values.js"
+    },
+    "./intellisense/values": {
       "types": "./dist/lib/intellisense/values.d.ts",
       "import": "./dist/lib/intellisense/values.js"
     },
     "./meta": {
+      "types": "./dist/lib/facades/meta.d.ts",
+      "import": "./dist/lib/facades/meta.js"
+    },
+    "./intellisense/meta": {
       "types": "./dist/lib/intellisense/meta.d.ts",
       "import": "./dist/lib/intellisense/meta.js"
     },
     "./spatial": {
+      "types": "./dist/lib/facades/spatial.d.ts",
+      "import": "./dist/lib/facades/spatial.js"
+    },
+    "./intellisense/spatial": {
       "types": "./dist/lib/intellisense/spatial.d.ts",
       "import": "./dist/lib/intellisense/spatial.js"
     },
     "./identity": {
+      "types": "./dist/lib/facades/identity.d.ts",
+      "import": "./dist/lib/facades/identity.js"
+    },
+    "./intellisense/identity": {
       "types": "./dist/lib/intellisense/identity.d.ts",
       "import": "./dist/lib/intellisense/identity.js"
     },
     "./protocol": {
+      "types": "./dist/lib/facades/protocol.d.ts",
+      "import": "./dist/lib/facades/protocol.js"
+    },
+    "./intellisense/protocol": {
       "types": "./dist/lib/intellisense/protocol.d.ts",
       "import": "./dist/lib/intellisense/protocol.js"
     }
@@ -46,6 +70,8 @@
   "scripts": {
     "clean": "rm -rf dist",
     "build": "npm run clean && node converter/app/processors/generate-runtime-format-module.mjs && tsc -p tsconfig.json",
+    "build:prod": "npm run clean && node converter/app/processors/generate-runtime-format-module.mjs && tsc -p tsconfig.prod.json",
+    "build:prod:check": "npm run build:prod && test -z \"$(find dist -name '*.map' -print -quit)\"",
     "test": "tsc -p tsconfig.test.json --noEmit && node --import tsx --test",
     "schemas:build": "node converter/app/cli/build.mjs",
     "schemas:snapshot": "node converter/app/cli/snapshot.mjs",

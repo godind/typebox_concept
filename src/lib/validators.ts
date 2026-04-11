@@ -4,7 +4,7 @@
  * compiled validators instead of recompiling in hot paths.
  */
 import { Compile } from 'typebox/schema'
-import { KnownSchemaRegistry, type SignalKSchemaName } from './schemas.js'
+import { KnownSchemaRegistry, type SignalKSchemaName } from './parser-registry.js'
 import { registerRuntimeFormats } from './formats/formats.js'
 
 export type KnownSchemaValidators = Record<SignalKSchemaName, ReturnType<typeof Compile>>
